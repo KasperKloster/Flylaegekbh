@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FlyveLægeKBH.Views
 {
     /// <summary>
-    /// Interaction logic for DoctorWindow.xaml
+    /// Interaction logic for LoginAirCrew.xaml
     /// </summary>
-    public partial class DoctorWindow : Window
+    public partial class LoginAirCrew : UserControl
     {
-        public DoctorWindow()
+        public LoginAirCrew()
         {
             InitializeComponent();
         }
