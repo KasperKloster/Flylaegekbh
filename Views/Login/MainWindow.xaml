@@ -67,7 +67,7 @@
                                  >
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PersonCircleCheck" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Hunde" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Flypersonale " Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     
