@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
-    internal class Titles
+    public enum Titles
     {
+        Pilot,
+        CabinCrew
     }
 }

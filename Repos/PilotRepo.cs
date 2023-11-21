@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Repos
 {
-    internal class PilotRepo
+    public class PilotRepo
     {
+
+
+        //--------------------Methods------------------------------------------------------------------
+
     }
 }

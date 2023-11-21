@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Repos
 {
-    internal class CabinCrewRepo
+    public class CabinCrewRepo
     {
+
+
+
+
+        //--------------------Methods------------------------------------------------------------------
+
     }
 }
