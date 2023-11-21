@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Commands\" />
-    <Folder Include="Repos\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
