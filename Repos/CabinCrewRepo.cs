@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace FlyveLægeKBH.Repos
         {
             try
             {
-                string connectionString = "Data Source=(localdb)\\localtest;Initial Catalog=flyvelægeKBH;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {

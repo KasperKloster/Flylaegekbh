@@ -66,14 +66,16 @@ namespace FlyveLægeKBH
             else this.WindowState = WindowState.Normal;
         }
 
+
+        //Heruder har jeg lavet et par eksempler til at teste de to methoder, hvor jeg har hard coded nogle værdier for at prøve det af.
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            string firstName = "x";
-            string SurName = "y";
-            string Email = "x@y";
-            string Phone = "123456";
+            string firstName = "xX";
+            string SurName = "yY";
+            string Email = "x@yy";
+            string Phone = "12345612";
             string Address = "home alone";
-            string SocialSecurityNumber = "121212-2121";
+            string SocialSecurityNumber = "121212-2032";
             Titles title = Titles.Pilot;
 
             string cetificateNumber = "123";
@@ -87,6 +89,23 @@ namespace FlyveLægeKBH
 
             MedicalLicense medicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
             PilotRepo.CreatePilot(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+        }
+
+        private void New_Cabin_Crew_test_btn_Checked(object sender, RoutedEventArgs e)
+        {
+            string firstName = "test1";
+            string SurName = "Cabin Crew";
+            string Email = "xxx@xx";
+            string Phone = "12345612";
+            string Address = "home alone";
+            string SocialSecurityNumber = "444444-4444";
+            Titles title = Titles.CabinCrew;
+
+            DateTime dateOfIssue = DateTime.Parse("02/02/2020");
+            DateTime cabinCrewDateOfExpiry = DateTime.Parse("02/02/2030");
+
+            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), dateOfIssue, cabinCrewDateOfExpiry));
+
         }
     }
 }
