@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlyveLægeKBH.Models;
+using FlyveLægeKBH.Repos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -64,5 +66,27 @@ namespace FlyveLægeKBH
             else this.WindowState = WindowState.Normal;
         }
 
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            string firstName = "x";
+            string SurName = "y";
+            string Email = "x@y";
+            string Phone = "123456";
+            string Address = "home alone";
+            string SocialSecurityNumber = "121212-2121";
+            Titles title = Titles.Pilot;
+
+            string cetificateNumber = "123";
+            DateTime dateOfIssue = DateTime.Parse("01/01/2020");
+            DateTime class1SinglePilotExpiryDate = DateTime.Parse("01/01/2021");
+            DateTime class1ExpiryDate = DateTime.Parse("01/01/2021");
+            DateTime class2ExpiryDate = DateTime.Parse("01/01/2025");
+            DateTime laplExpiryDate = DateTime.Parse("01/01/2025");
+            DateTime electroCardiogramRecentDate = DateTime.Parse("01/01/2019");
+            DateTime audiogramRecentDate = DateTime.Parse("01/01/2020");
+
+            MedicalLicense medicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+            PilotRepo.CreateAirCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+        }
     }
 }
