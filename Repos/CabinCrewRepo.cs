@@ -54,5 +54,40 @@ namespace FlyveLægeKBH.Repos
                 return $"Error: {ex.Message}";
             }
         }
+
+        public static string DeleteCabinCrew(string socialSecurityNumber)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+            string deleteQueryMedicalReport = "DELETE FROM [FL_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryCabinCrew = "DELETE FROM [FL_AirCrew] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+
+            using(SqlConnection connection = new SqlConnection( connectionString)) 
+            {
+                try
+                {
+                    connection.Open();
+
+                    using(SqlCommand cmd = new SqlCommand(deleteQueryMedicalReport, connection)) 
+                    {
+                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using(SqlCommand cmd = new SqlCommand(deleteQueryCabinCrew, connection))
+                    {
+                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return $"Cabin Crew with ssn: {socialSecurityNumber} has been deleted";
+
+                }
+                catch (Exception ex)
+                {
+
+                    return $"Error: {ex.Message}";
+                }
+            }
+        }
     }
 }

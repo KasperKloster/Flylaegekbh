@@ -73,7 +73,7 @@
                     
                     <!--Test-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color2}" Checked="RadioButton_Checked"
+                                 Tag="{StaticResource color2}" Checked="RadioButton_Checked"                               
                                  >
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Hammer" Style="{StaticResource menuButtonIcon}"/>
@@ -87,6 +87,15 @@
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Hammer" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="ny Cabin crew test " Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton x:Name="delete_Carbin_Crew_btn" Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}" Checked="delete_Cabin_Crew_btn_Checked"
+                                 >
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Hammer" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="delete Carbin crew test " Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
