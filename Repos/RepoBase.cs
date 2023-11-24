@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace FlyveLægeKBH.Repos
 {
     public abstract class RepoBase
-    {
+    { 
+    
         public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
         public virtual void Create() { }
         public virtual void Update() { }

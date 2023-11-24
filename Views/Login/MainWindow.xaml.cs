@@ -107,5 +107,12 @@ namespace FlyveLægeKBH
             MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), dateOfIssue, cabinCrewDateOfExpiry));
 
         }
+
+        private void GetAirCrewInformation_test_btn_Checked(object sender, RoutedEventArgs e)
+        {
+            string socialSecurityNumber = "444444-4444";
+            MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
+
+        }
     }
 }
