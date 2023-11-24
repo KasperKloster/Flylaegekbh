@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Repos
 {
-    public class CabinCrewRepo
+    public class CabinCrewRepo : RepoBase
     {
-
-
-
-
         //--------------------Methods------------------------------------------------------------------
-
         public static string CreateCabinCrew(string firstName, string surName, string email, string phone,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
         {
