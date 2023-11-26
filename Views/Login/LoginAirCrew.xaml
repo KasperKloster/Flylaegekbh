@@ -65,7 +65,7 @@
                                Margin="0,15,0,0"/>
 
             <TextBox x:Name="txtPassword"
-                     Text="Indtast Brugernavn"
+                     Text="Indtast Password"
                      FontSize="13"
                      FontWeight="Medium"
                      FontFamily="Montserrat"
