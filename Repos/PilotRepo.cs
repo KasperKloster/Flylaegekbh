@@ -67,6 +67,8 @@ namespace FlyveLægeKBH.Repos
 
         public static string GetAirCrewInformation(string socialSecurityNumber)
         {
+            CabinCrew cb = new CabinCrew();
+            Pilot p = new Pilot();
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
@@ -85,6 +87,7 @@ namespace FlyveLægeKBH.Repos
                         // Execute the stored procedure
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
+
                             if (reader.Read())
                             {
                                 // Retrieve data from the reader
@@ -113,6 +116,57 @@ namespace FlyveLægeKBH.Repos
             }
         }
 
+        //public static string GetAirCrewInformation(string socialSecurityNumber)
+        //{
+        //    CabinCrew cb = new CabinCrew();
+        //    try
+        //    {
+        //        string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
+
+        //            using (SqlCommand command = new SqlCommand("GetAirCrewInformation", connection))
+        //            {
+        //                command.CommandType = CommandType.StoredProcedure;
+
+        //                // Add parameter
+        //                command.Parameters.AddWithValue("@SocialSecurityNumber", socialSecurityNumber);
+
+        //                // Execute the stored procedure
+        //                using (SqlDataReader reader = command.ExecuteReader())
+        //                {
+
+        //                    if (reader.Read())
+        //                    {
+        //                        // Retrieve data from the reader
+        //                        string result = $"cpr nummer: {reader["SocialSecurityNumber"]}\nfulde navn: {reader["FirstNames"]} {reader["SurName"]}\n" +
+        //                                        $"email: {reader["Email"]}\ntelefon nummer: {reader["Phone"]}\nadresse: {reader["Address"]}\n" +
+        //                                        $"title: {reader["TitleName"]}\n" +
+        //                                        $"certificate nummer: {reader["CertificateNumber"]}\n udstedelsesdato. {reader["DateOfIssue"]} \n" +
+        //                                        $"klasse 1 single pilot udløbsdato: {reader["Class1SinglePilotExpiryDate"]} \nklasse 1 udløbsdato: {reader["Class1ExpiryDate"]} \n" +
+        //                                        $"klasse 1 udløbsdato: {reader["Class2ExpiryDate"]} \nLAPL 1 udløbsdato: {reader["LAPLExpiryDate"]} \n" +
+        //                                        $"Electro kardiogram: {reader["ElectroCardiogramRecentDate"]} \nAudiogram: {reader["AudiogramRecentDate"]} \n" +
+        //                                        $"MR nummer: {reader["MRID"]} \n MR ustedelsesdato: {reader["MedicalReportDateOfIssue"]} \n MR udløbsdato: {reader["CabinCrewExpiryDate"]}";
+
+        //                        return result;
+        //                    }
+        //                    else
+        //                    {
+        //                        return "AirCrew member not found";
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return $"Error: {ex.Message}";
+        //    }
+        //}
+
+
         private static CabinCrew MapreaderToCabinCrew(SqlDataReader reader)
         {
             DateTime dateOfIssue = (DateTime)(reader.IsDBNull(reader.GetOrdinal("DateOfIssue")) ? DateTime.MinValue :reader["DateOfIssue"]);
@@ -130,6 +184,7 @@ namespace FlyveLægeKBH.Repos
                 
             };            
         }
+
 
         private static string MapReaderToPilot(SqlDataReader reader)
         {

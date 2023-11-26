@@ -15,6 +15,10 @@ namespace FlyveLægeKBH.Models
         public MedicalLicense MedicalLicense { get; set; }
 
         //----------------------Constructor-----------------------------------------------------------
+        public Pilot()
+        {
+            
+        }
         public Pilot(string firstNames, string surName, string email, string phone, string ssn, DateTime dateOfIssue, 
             DateTime class1SinglePilotExpiryDate, DateTime class1ExpiryDate, DateTime class2ExpiryDate, 
             DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
