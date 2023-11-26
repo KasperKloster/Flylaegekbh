@@ -14,7 +14,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 namespace FlyveLægeKBH.Repos
 {
     public abstract class RepoBase
-    {
+    { 
+    
         public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
         public virtual void Create() { }
 
