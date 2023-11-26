@@ -88,7 +88,8 @@ namespace FlyveLægeKBH
             DateTime audiogramRecentDate = DateTime.Parse("01/01/2020");
 
             MedicalLicense medicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
-            PilotRepo.CreatePilot(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+            MessageBox.Show(PilotRepo.CreatePilot(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate));
+            
         }
 
         private void New_Cabin_Crew_test_btn_Checked(object sender, RoutedEventArgs e)
@@ -109,10 +110,17 @@ namespace FlyveLægeKBH
 
         }
 
+
         private void GetAirCrewInformation_test_btn_Checked(object sender, RoutedEventArgs e)
         {
             string socialSecurityNumber = "444444-4444";
             MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
+
+
+        private void delete_Cabin_Crew_btn_Checked(object obj, RoutedEventArgs e) 
+        {
+            string socialSecurityNumber = "444444-4444";
+            MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(socialSecurityNumber));
 
         }
     }

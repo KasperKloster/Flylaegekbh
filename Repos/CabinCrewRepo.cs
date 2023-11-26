@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Repos
 {
-    public class CabinCrewRepo: RepoBase
+
+    public class CabinCrewRepo : RepoBase
+
     {
-
-
-
-
         //--------------------Methods------------------------------------------------------------------
 
+
         // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
+
         public static string CreateCabinCrew(string firstName, string surName, string email, string phone,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
         {
@@ -53,6 +53,41 @@ namespace FlyveLægeKBH.Repos
             catch (Exception ex)
             {
                 return $"Error: {ex.Message}";
+            }
+        }
+
+        public static string DeleteCabinCrew(string socialSecurityNumber)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+            string deleteQueryMedicalReport = "DELETE FROM [FL_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryCabinCrew = "DELETE FROM [FL_AirCrew] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+
+            using(SqlConnection connection = new SqlConnection( connectionString)) 
+            {
+                try
+                {
+                    connection.Open();
+
+                    using(SqlCommand cmd = new SqlCommand(deleteQueryMedicalReport, connection)) 
+                    {
+                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    using(SqlCommand cmd = new SqlCommand(deleteQueryCabinCrew, connection))
+                    {
+                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return $"Cabin Crew with ssn: {socialSecurityNumber} has been deleted";
+
+                }
+                catch (Exception ex)
+                {
+
+                    return $"Error: {ex.Message}";
+                }
             }
         }
     }

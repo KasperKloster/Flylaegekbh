@@ -29,6 +29,16 @@ namespace FlyveLægeKBH.Models
             Medical_Report = new MedicalReport(dateOfIssue, cabinCrewExpiryDate); //instantiation and setting of MR
         }
 
+        public CabinCrew(string firstNames, string surName, string email, string phone, string address, string ssn)
+        {
+            FirstName = firstNames;
+            SurName = surName;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            SocialSecurityNumber = ssn;
+        }
+
         //--------------------Methods------------------------------------------------------------------
         public override string ToString()
         {
