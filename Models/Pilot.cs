@@ -27,8 +27,16 @@ namespace FlyveLægeKBH.Models
             SocialSecurityNumber = ssn;
             //Instantiation and setting of MR
             MedicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+        }
 
-
+        public Pilot(string firstNames, string surName, string email, string phone, string address, string ssn)
+        {
+            FirstName = firstNames;
+            SurName = surName;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            SocialSecurityNumber = ssn;
         }
 
         //--------------------Methods------------------------------------------------------------------
