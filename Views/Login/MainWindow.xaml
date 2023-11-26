@@ -11,7 +11,9 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="MainWindow" Height="450" Width="800">
+    
     <Border CornerRadius="10" BorderThickness="1">
+        
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0.2"/>
@@ -19,6 +21,7 @@
                 <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
+        
         <Grid>
             <Grid.ColumnDefinitions>
                 <!--Navigation menu-->
@@ -97,6 +100,8 @@
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Hammer" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="GetAirCrewInformation_test_btn" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
 
                     <RadioButton x:Name="delete_Carbin_Crew_btn" Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color2}" Checked="delete_Cabin_Crew_btn_Checked"
@@ -110,6 +115,7 @@
 
                 </StackPanel>
             </Border>
+
 
             <Border CornerRadius="0,10,10,0"
                     Grid.Column="1">
@@ -201,7 +207,6 @@
                                 <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color7}">
                                     <fa:IconImage Icon="AnglesDown" Style="{StaticResource iconButtonIcon}"/>
-
                                 </Button>
 
                                 <!--Add more user options here-->
@@ -216,15 +221,12 @@
                         <ContentControl Content="{Binding CurrentChildView}"
                                     Grid.Row="2"
                                     Margin="25"/>
-                        
 
-
-
-
-                    </Grid>
+                        </Grid>
+                    
                 </ScrollViewer>
+                
             </Border>
-
         </Grid>
 
     </Border>

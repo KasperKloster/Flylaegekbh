@@ -116,6 +116,7 @@ namespace FlyveLægeKBH
             string socialSecurityNumber = "444444-4444";
             MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
 
+        }
 
         private void delete_Cabin_Crew_btn_Checked(object obj, RoutedEventArgs e) 
         {
