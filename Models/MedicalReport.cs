@@ -11,7 +11,7 @@ namespace FlyveLægeKBH.Models
         public DateTime DateOfIssue { get; private set; }
         public DateTime CabinCrewExpiryDate { get; private set; }
 
-        public MedicalReport(DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
+        public MedicalReport(DateTime dateOfIssue = default, DateTime cabinCrewExpiryDate= default)
         {
             DateOfIssue = dateOfIssue;
             CabinCrewExpiryDate = cabinCrewExpiryDate;

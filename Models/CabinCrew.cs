@@ -11,9 +11,13 @@ namespace FlyveLægeKBH.Models
         //---------------------Fields--------------------------------------------------------------
         //Rest of the fields are inherited from from AirCrew Base class
         public Titles Title { get; private set; }
-        public MedicalReport MedicalReport { get; set; }
+        public MedicalReport Medical_Report { get; set; } = new MedicalReport();
 
         //----------------------Constructor-----------------------------------------------------------
+        public CabinCrew()
+        {
+            
+        }
         public CabinCrew(string firstNames, string surName, string email, string phone, string ssn, DateTime dateOfIssue, DateTime cabinCrewExpiryDate) 
         {
             Title = Titles.CabinCrew;
@@ -22,13 +26,23 @@ namespace FlyveLægeKBH.Models
             Email = email;
             Phone = phone;
             SocialSecurityNumber = ssn;
-            MedicalReport = new MedicalReport(dateOfIssue, cabinCrewExpiryDate); //instantiation and setting of MR
+            Medical_Report = new MedicalReport(dateOfIssue, cabinCrewExpiryDate); //instantiation and setting of MR
+        }
+
+        public CabinCrew(string firstNames, string surName, string email, string phone, string address, string ssn)
+        {
+            FirstName = firstNames;
+            SurName = surName;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            SocialSecurityNumber = ssn;
         }
 
         //--------------------Methods------------------------------------------------------------------
         public override string ToString()
         {
-            return $"{FirstName} {SurName} {Title} {Email} {Phone} {SocialSecurityNumber} MedicalReport Date of Issue: {MedicalReport.DateOfIssue}";
+            return $"{FirstName} {SurName} {Title} {Email} {Phone} {SocialSecurityNumber} Medical_Report Date of Issue: {Medical_Report.DateOfIssue}";
 
         }
 

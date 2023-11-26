@@ -99,6 +99,7 @@ namespace FlyveLægeKBH
             string Email = "xxx@xx";
             string Phone = "12345612";
             string Address = "home alone";
+
             string SocialSecurityNumber = "444444-4444";
             Titles title = Titles.CabinCrew;
 
@@ -109,10 +110,18 @@ namespace FlyveLægeKBH
 
         }
 
+
+        private void GetAirCrewInformation_test_btn_Checked(object sender, RoutedEventArgs e)
+        {
+            string socialSecurityNumber = "444444-4444";
+            MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
+
+
         private void delete_Cabin_Crew_btn_Checked(object obj, RoutedEventArgs e) 
         {
             string socialSecurityNumber = "444444-4444";
             MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(socialSecurityNumber));
+
         }
     }
 }

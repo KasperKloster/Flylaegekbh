@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Repos
 {
-    public class CabinCrewRepo
+
+    public class CabinCrewRepo : RepoBase
+
     {
-
-
-
-
         //--------------------Methods------------------------------------------------------------------
+
+
+        // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
 
         public static string CreateCabinCrew(string firstName, string surName, string email, string phone,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
