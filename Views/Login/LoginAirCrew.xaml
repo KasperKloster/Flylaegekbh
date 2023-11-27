@@ -87,7 +87,7 @@
                             Cursor="Hand"
                             Grid.Column="2"
                             Margin="0,30,0,0"
-                            >
+                            Click="test_test">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#80d128"/>

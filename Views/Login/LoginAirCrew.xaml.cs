@@ -24,5 +24,22 @@ namespace FlyveLægeKBH.Views
         {
             InitializeComponent();
         }
+
+
+        private void test_test(object sender, EventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+
+            if(parentWindow != null) 
+            {
+                parentWindow.Close();
+            }
+
+            AirCrewMainview ACM = new AirCrewMainview();
+            ACM.Show();
+            
+        }
+
+        
     }
 }

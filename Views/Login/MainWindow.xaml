@@ -54,7 +54,7 @@
                                    Margin="10,0,0,0"/>
                     </StackPanel>
 
-                    <!-- Doctor btn -->
+                    <!-- AME btn -->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  IsChecked="True"
@@ -64,7 +64,8 @@
                             <TextBlock Text="Lægeside" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <!-- Dogs btn -->
+                    
+                    <!-- AirCrew btn -->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  >

@@ -195,7 +195,9 @@ namespace FlyveLægeKBH.Repos
         public static string DeletePilot(string socialSecurityNumber)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+
             string deleteQueryMedicalLicense = "DELETE FROM [FL_MedicalLicense] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+
             string deleteQueryCabinCrew = "DELETE FROM [FL_AirCrew] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
