@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace FlyveLægeKBH.Commands
 {
-    public class CommandBase
+    public class CommandBase : ICommand
     {
         /*************************************************************/
         /*          Explanation of CommandBase Class                 */

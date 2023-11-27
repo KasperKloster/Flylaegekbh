@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyveLægeKBH.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,24 +21,43 @@ namespace FlyveLægeKBH.Views
     /// </summary>
     public partial class LoginAirCrew : UserControl
     {
+        /*************************************************************/
+        /*             Explanation of this UserControl               */
+        /*************************************************************/
+        /*  This UserControl represents a specific section of the
+        application. This is the section simulating what screen
+        a AirCrew will se when they whant to login to the
+        Flylægerne KBH's Booking system.                             */
+        /*************************************************************/
+
+
+
+        /*************************************************************/
+        /*  Explanation of instance creation LoginAirCrewViewModel   */
+        /*************************************************************/
+        /*  We create an instance of the LoginAirCrewViewModel class
+        within the 'LoginAirCrew' UserControl. Now we can appaly the
+        nessecary data, commands and behavior specifics to the the
+        login functionality for the AirCrew in the 
+        LoginAirCrewViewModel                                        */
+        /*************************************************************/
+
+        LoginAirCrewViewModel _loginAirCrewViewModel = new LoginAirCrewViewModel();
+
+
+        /*************************************************************/
+        /*                Explanation of DataContex                  */
+        /*************************************************************/
+        /*  By setting the 'DataContext' we are enabling a connection
+        between the XAML elements in 'LoginAirCrew' UserControl and the
+        properties/methods in the 'LoginAirCrewViewModel'. This allows
+        to use data binding expressions in the XAML to display and 
+        manipulate data                                              */
+        /*************************************************************/
         public LoginAirCrew()
         {
             InitializeComponent();
-        }
-
-
-        private void test_test(object sender, EventArgs e)
-        {
-            Window parentWindow = Window.GetWindow(this);
-
-            if(parentWindow != null) 
-            {
-                parentWindow.Close();
-            }
-
-            AirCrewMainview ACM = new AirCrewMainview();
-            ACM.Show();
-            
+            DataContext = _loginAirCrewViewModel;
         }
 
         
