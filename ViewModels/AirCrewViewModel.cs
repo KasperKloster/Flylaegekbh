@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using FlyveLægeKBH.Commands.AirCrew;
 using FlyveLægeKBH.Models;
@@ -131,8 +132,7 @@ class AirCrewViewModel : ViewModelBase
 
     public AirCrewViewModel()
     {
-        // FOR DEVELOPMENT: Simulates the logged in user               
-        
+        // FOR DEVELOPMENT: Simulates the logged in user                       
         Dictionary<string, string> firstUser = pilotRepo.GetFirstUser();
         this.FirstNames = firstUser["firstName"];
         this.SurName = firstUser["surName"];
@@ -149,17 +149,19 @@ class AirCrewViewModel : ViewModelBase
 
     public void UpdateAirCrew()
     {
+        string message = "";
         if(title == "Pilot")
         {
-            updatePilotUser();
+            message = updatePilotUser();
         }
         if (title == "CabinCrew")
         {
-            updateCabinCrewUser();
+            message = updateCabinCrewUser();
         }
+        MessageBox.Show(message);
     }
 
-    private void updatePilotUser()
+    private string updatePilotUser()
     {
         // Creates an pilot object to pass on
         Pilot pilot = new Pilot(
@@ -169,12 +171,11 @@ class AirCrewViewModel : ViewModelBase
             phone: this.phone,
             address: this.Address,
             ssn: this.socialSecurityNumber);
-
-        // Updates in DB
-        pilotRepo.Update(pilot);
+        // Updates in DB. Returns message
+        return pilotRepo.Update(pilot);
     }
 
-    private void updateCabinCrewUser()
+    private string updateCabinCrewUser()
     {
         CabinCrew cabinCrew = new CabinCrew(
             firstNames: this.firstNames,
@@ -184,6 +185,6 @@ class AirCrewViewModel : ViewModelBase
             address: this.Address,
             ssn: this.socialSecurityNumber);
 
-        cabinCrewRepo.Update(cabinCrew);
+        return cabinCrewRepo.Update(cabinCrew);
     }
 }
