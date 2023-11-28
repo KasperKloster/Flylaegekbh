@@ -113,16 +113,19 @@ namespace FlyveLægeKBH.ViewModels
 
         // Commands
         public ICommand ShowLoginAirCrewCommand { get; }
+        public ICommand ShowAirCrewMainviewCommand { get; }
 
         // Constructor
         public MainWindowViewModel() 
         {
             //Initialize commands
             ShowLoginAirCrewCommand = new CommandBase(ExecuteShowLoginAirCrewCommand);
-                      
+            
+
+
         }
 
-
+        
         // Methods
         private void ExecuteShowLoginAirCrewCommand(object obj)
         {
@@ -130,6 +133,8 @@ namespace FlyveLægeKBH.ViewModels
             Caption = "Air Crew Login";
             Icon = IconChar.PersonCircleCheck;
         }
+
+       
 
     }
 }

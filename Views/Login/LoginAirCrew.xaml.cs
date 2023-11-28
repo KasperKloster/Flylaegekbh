@@ -60,6 +60,30 @@ namespace FlyveLægeKBH.Views
             DataContext = _loginAirCrewViewModel;
         }
 
+
+        /*************************************************************/
+        /*            Explanation of OnLoginButtonClick              */
+        /*************************************************************/
+        /*  This methode opens the 'AirCrewMainview'-window and hide
+        the 'MainWindow'. In a real-life scenario we would need to 
+        add the use of Commands, Login Authentication and Data Handling
+
+        we could make use of an Service-class. we could call it 
+        NavigationService and then inject that in the LoginAirCrewViewModel
+        That would keep the codebehinde file clean and also keep the 
+        seperation of concerns clearner for the VieModel class
+        */
+        /*************************************************************/
+        private void OnLoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Hide the MainWindow
+            Application.Current.MainWindow.Hide();
+
+            // open the AirCrewMainView window
+            AirCrewMainview airCrewMainview = new AirCrewMainview();
+            airCrewMainview.Show();            
+        }
+
         
     }
 }
