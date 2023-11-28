@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FlyveLægeKBH"
 
-             StartupUri="/Views/AirCrewSubjects/Profile/UpdateAirCrewUserView.xaml">
+             StartupUri="/Views/AirCrewSubjects/AirCrewMainView.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
