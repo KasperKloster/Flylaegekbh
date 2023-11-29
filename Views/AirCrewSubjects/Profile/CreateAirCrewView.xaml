@@ -43,13 +43,7 @@
         <Label x:Name="TitleLBL" Content="Title" HorizontalAlignment="Left" Margin="20,350,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
         <TextBox x:Name="TitleTXB" HorizontalAlignment="Left" Margin="160,350,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" Width="120"/>
 
-        <Menu x:Name="TitleMENU" HorizontalAlignment="Left" Margin="160,315,0,120">
-            <MenuItem Header="Title" Height="25">
-                <MenuItem Header="Pilot"></MenuItem>
-                <MenuItem Header="Cabin Crew"></MenuItem>
 
-            </MenuItem>
-        </Menu>
 
         <Label x:Name="MLCertificateNumberLBL" Content="ML Certifikate nummer" HorizontalAlignment="Left" Margin="20,390,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
         <TextBox x:Name="MLCertificateNumberTXB" HorizontalAlignment="Left" Margin="160,390,0,0" TextWrapping="Wrap" Text="{Binding ML_CertificateNumber}" VerticalAlignment="Top" Width="120"/>
