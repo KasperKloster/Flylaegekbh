@@ -9,6 +9,7 @@ namespace FlyveLægeKBH.Models
     public class MedicalLicense
     {
         //-----------Fields----------------------------------
+        public string CertificateNumber { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime Class1SinglePilotExpiryDate { get; set; }
         public DateTime Class1ExpiryDate { get; set; }
@@ -28,7 +29,7 @@ namespace FlyveLægeKBH.Models
             LAPLExpiryDate = laplExpiryDate;
             ElectroCardiogramRecentDate = electroCardiogramRecentDate;
             AudiogramRecentDate = audiogramRecentDate;
-            
+            CertificateNumber = "C1234";
         }
     }
 }
