@@ -17,7 +17,7 @@ class UpdateAirCrewUserCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
-        return true;;
+        return true;
     }
 
     public void Execute(object? parameter)
