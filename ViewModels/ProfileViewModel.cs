@@ -27,13 +27,8 @@ namespace FlyveLægeKBH.ViewModels
 
         public ProfileViewModel()
         {
-            GetAllInfoCommand = new CommandBase(GetAllInfo);//, CanGetAllInfo);
+            GetAllInfoCommand = new CommandBase(GetAllInfo);
             
-        }
-
-        private bool CanGetAllInfo(object obj)
-        {
-            return true;
         }
 
         private void GetAllInfo(object obj)
