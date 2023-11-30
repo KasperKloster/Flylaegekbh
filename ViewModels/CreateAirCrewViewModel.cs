@@ -44,12 +44,7 @@ namespace FlyveLægeKBH.ViewModels
 
         public CreateAirCrewViewModel()
         {
-            CreateAirCrewCommand = new CommandBase(CreateAirCrew, CanCreateAirCrew);
-        }
-
-        private bool CanCreateAirCrew(object obj)
-        {
-            return true;
+            CreateAirCrewCommand = new CommandBase(CreateAirCrew);
         }
 
         private void CreateAirCrew(object obj)
