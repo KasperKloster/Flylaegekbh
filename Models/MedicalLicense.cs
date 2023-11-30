@@ -29,7 +29,7 @@ namespace FlyveLægeKBH.Models
             LAPLExpiryDate = laplExpiryDate;
             ElectroCardiogramRecentDate = electroCardiogramRecentDate;
             AudiogramRecentDate = audiogramRecentDate;
-            CertificateNumber = "C1234";
+            CertificateNumber = "C1234"; // Certificate number is hard coded for now, until we change the bd design
         }
     }
 }

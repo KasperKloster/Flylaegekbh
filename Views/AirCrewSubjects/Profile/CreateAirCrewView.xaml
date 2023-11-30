@@ -49,31 +49,48 @@
         <TextBox x:Name="MLCertificateNumberTXB" HorizontalAlignment="Left" Margin="160,390,0,0" TextWrapping="Wrap" Text="{Binding ML_CertificateNumber}" VerticalAlignment="Top" Width="120"/>
 
         <Label x:Name="MLDateOfIssueLBL" Content=" ML Udstedelsesdato" HorizontalAlignment="Left" Margin="340,70,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MLDateOfIssueTXB" HorizontalAlignment="Left" Margin="570,70,0,0" TextWrapping="Wrap" Text="{Binding ML_DateOfIssue}" VerticalAlignment="Top" Width="120"/>
+        <!-- s <TextBox x:Name="MLDateOfIssueTXB" HorizontalAlignment="Left" Margin="570,70,0,0" TextWrapping="Wrap" Text="{Binding ML_DateOfIssue}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MLDateOfIssueDP" HorizontalAlignment="Left" Margin="570,70,0,0" Text="{Binding ML_DateOfIssue}" SelectedDate="{Binding ML_DateOfIssue}" VerticalAlignment="top" Width="120"/>
 
         <Label x:Name="MLClass1SinglePilotExpiryDateLBL" Content="ML Class 1 Single Pilot Expiry Date" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Foreground="White" Margin="340,110,0,0"/>
-        <TextBox x:Name="MLClass1SinglePilotExpiryDateTXB" HorizontalAlignment="Left" Margin="570,110,0,0" TextWrapping="Wrap" Text="{Binding ML_Class1SinglePilotExpiryDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MLClass1SinglePilotExpiryDateTXB" HorizontalAlignment="Left" Margin="570,110,0,0" TextWrapping="Wrap" Text="{Binding ML_Class1SinglePilotExpiryDate}" VerticalAlignment="Top" Width="120"/> -->
+        <DatePicker x:Name="MLClass1SinglePilotExpiryDateDP" HorizontalAlignment="Left" Margin="570,110,0,0" Text="{Binding ML_Class1SinglePilotExpiryDate}" SelectedDate="{Binding ML_Class1SinglePilotExpiryDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="MLClass1ExpiryDateLBL" Content="ML Class 1 Expiry Date" HorizontalAlignment="Left" Margin="340,150,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MLClass1ExpiryDateTXB" HorizontalAlignment="Left" Margin="570,150,0,0" TextWrapping="Wrap" Text="{Binding ML_Class1ExpiryDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MLClass1ExpiryDateTXB" HorizontalAlignment="Left" Margin="570,150,0,0" TextWrapping="Wrap" Text="{Binding ML_Class1ExpiryDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MLClass1ExpiryDateDP" HorizontalAlignment="Left" Margin="570,150,0,0" Text="{Binding ML_Class1ExpiryDate}" SelectedDate="{Binding ML_Class1ExpiryDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="MLClass2ExpiryDateLBL" Content="ML Class 2 Expiry Date" HorizontalAlignment="Left" Margin="340,190,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MLClass2ExpiryDateTXB" HorizontalAlignment="Left" Margin="570,190,0,0" TextWrapping="Wrap" Text="{Binding ML_Class2ExpiryDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MLClass2ExpiryDateTXB" HorizontalAlignment="Left" Margin="570,190,0,0" TextWrapping="Wrap" Text="{Binding ML_Class2ExpiryDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MLClass2ExpiryDateDP" HorizontalAlignment="Left" Margin="570,190,0,0" Text="{Binding ML_Class2ExpiryDate}" SelectedDate="{Binding ML_Class2ExpiryDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="MLLaplExpiryDateLBL" Content="ML Lapl Expiry Date" HorizontalAlignment="Left" Margin="340,230,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MLLaplExpiryDateTXB" HorizontalAlignment="Left" Margin="570,230,0,0" TextWrapping="Wrap" Text="{Binding ML_LAPLExpiryDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MLLaplExpiryDateTXB" HorizontalAlignment="Left" Margin="570,230,0,0" TextWrapping="Wrap" Text="{Binding ML_LAPLExpiryDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MLLaplExpiryDateDP" HorizontalAlignment="Left" Margin="570,230,0,0" Text="{Binding ML_LAPLExpiryDate}" SelectedDate="{Binding ML_LAPLExpiryDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="ML_ElectroCardiogramLBL" Content="ML Electrokardiogram udløbsdato" HorizontalAlignment="Left" Margin="340,270,0,0" VerticalAlignment="Top" Width="209" Foreground="White"/>
-        <TextBox x:Name="ML_ElectroCardiogramTXB" HorizontalAlignment="Left" Margin="570,270,0,0" TextWrapping="Wrap" Text="{Binding ML_ElectroCardiogramRecentDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="ML_ElectroCardiogramTXB" HorizontalAlignment="Left" Margin="570,270,0,0" TextWrapping="Wrap" Text="{Binding ML_ElectroCardiogramRecentDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="ML_ElectroCardiogramDP" HorizontalAlignment="Left" Margin="570,270,0,0" Text="{Binding ML_ElectroCardiogramRecentDate}" SelectedDate="{Binding ML_ElectroCardiogramRecentDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="ML_AudiogramLBL" Content="ML Audioggram Date of expiry" HorizontalAlignment="Left" Margin="340,310,0,0" VerticalAlignment="Top" Width="177" Foreground="White"/>
-        <TextBox x:Name="ML_AudioGramTXB" HorizontalAlignment="Left" Margin="570,310,0,0" TextWrapping="Wrap" Text="{Binding ML_AudiogramRecentDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="ML_AudioGramTXB" HorizontalAlignment="Left" Margin="570,310,0,0" TextWrapping="Wrap" Text="{Binding ML_AudiogramRecentDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="ML_AudioGramDP" HorizontalAlignment="Left" Margin="570,310,0,0" Text="{Binding ML_AudiogramRecentDate}" SelectedDate="{Binding ML_AudiogramRecentDate}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="MR_DateOfIssue_LBL" Content="MR udstedelsesdato" HorizontalAlignment="Left" Margin="343,350,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MR_DateOfIssue_TXB" HorizontalAlignment="Left" Margin="570,350,0,0" TextWrapping="Wrap" Text="{Binding MR_DateOfIssue}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MR_DateOfIssue_TXB" HorizontalAlignment="Left" Margin="570,350,0,0" TextWrapping="Wrap" Text="{Binding MR_DateOfIssue}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MR_DateOfIssue_DP" HorizontalAlignment="Left" Margin="570,350,0,0" Text="{Binding MR_DateOfIssue}" SelectedDate="{Binding MR_DateOfIssue}" VerticalAlignment="top" Width="120"/>
+
 
         <Label x:Name="MR_DateOfExpiry_LBL" Content="MR udstedelsesdato" HorizontalAlignment="Left" Margin="340,390,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
-        <TextBox x:Name="MR_EpiryDate_TXB" HorizontalAlignment="Left" Margin="570,390,0,0" TextWrapping="Wrap" Text="{Binding MR_CabinCrewExpiryDate}" VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox x:Name="MR_EpiryDate_TXB" HorizontalAlignment="Left" Margin="570,390,0,0" TextWrapping="Wrap" Text="{Binding MR_CabinCrewExpiryDate}" VerticalAlignment="Top" Width="120"/>-->
+        <DatePicker x:Name="MR_EpiryDate_DP" HorizontalAlignment="Left" Margin="570,390,0,0" Text="{Binding MR_CabinCrewExpiryDate}" SelectedDate="{Binding MR_CabinCrewExpiryDate}" VerticalAlignment="top" Width="120"/>
+
 
         <StackPanel Orientation="Vertical" Margin="303,20,0,390" >
             <StackPanel Orientation="Horizontal">
