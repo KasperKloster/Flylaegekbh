@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             xmlns:local="clr-namespace:FlyveLægeKBH.Views"            
+             xmlns:local="clr-namespace:FlyveLægeKBH.Views"             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -87,7 +87,7 @@
                             Cursor="Hand"
                             Grid.Column="2"
                             Margin="0,30,0,0"
-                            >
+                            Click="OnLoginButtonClick">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#80d128"/>

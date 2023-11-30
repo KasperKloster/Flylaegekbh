@@ -56,10 +56,37 @@ public partial class AirCrewMainview : Window
         this.WindowState = WindowState.Minimized;
     }
 
-    private void btnMaximize_Click(object sender, RoutedEventArgs e)
-    {
-        if (this.WindowState == WindowState.Normal)
-            this.WindowState = WindowState.Maximized;
-        else this.WindowState = WindowState.Normal;
-    }
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else this.WindowState = WindowState.Normal;
+        }
+
+
+
+        // the User Options buttons
+
+        /*************************************************************/
+        /*      Explanation of OnBackToMainWindowButtonClick         */
+        /*************************************************************/
+        /*  This methode shows the 'MainWindow' and closes the 
+        'AirCrewMainView' 
+
+        in real-life scenario we could make use of an Service-class 
+        handling all the navigation logics like this an inject it where
+        it is neede 
+        
+        (for more explanation go to LoginAirCrew.xaml.cs and see the 
+        comment under  Explanation of OnLoginButtonClick )           */
+        /*************************************************************/
+        private void OnBackToMainWindowButtonClick (object sender, RoutedEventArgs e)
+        {
+            // Show the MainWindow
+            Application.Current.MainWindow.Show();
+
+            // Close the AirCrewMainView
+            this.Close();
+        }
+
 }

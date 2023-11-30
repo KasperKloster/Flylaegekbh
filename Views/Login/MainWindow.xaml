@@ -3,14 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FlyveLægeKBH"
+        xmlns:local="clr-namespace:FlyveLægeKBH.Views"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+        xmlns:viewModel="clr-namespace:FlyveLægeKBH.ViewModels"        
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
         Title="MainWindow" Height="450" Width="800">
+
+    <!--    DataContext: -->
+    <!--This is setting the the dataContext of the 'MainWindow'
+    to an instance of 'MainWindowViewModel'. This means that the
+    'MainWindow' will use properties and commands defind in 
+    'MainWindowViewModel' for its data binding-->
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <!--    Window.Resources and DataTemplate -->
+    <!--To show the child views we use the Window.Resources
+    insiede the Resources we can now list the childviews.
+    
+    We define a DataTemplate foreach childview so the WPF-
+    framwork can visualize the object it encounters.
+    
+    DataType="{x:Type viewModel:xxxx}" Specifices that this DataTemplate
+    applies to instances of the xxxx type.
+    
+    <local:xxxx/> indicates that when the framwork encounters an object of type xxxx
+    it should render it using an instance of the 'childview-xxxx' UserControl
+    
+    This is done because we are using dynamic content presentation where oure ContentControl
+    in oure 'MainWindow' is switching between childviews.
+    
+    that is why oure ContentControl of the 'MainWindow' is bound to the
+    'CurrentChildView' property of the 'MainWindowViewModel'-->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:LoginAirCrewViewModel}">
+            <local:LoginAirCrew/>
+        </DataTemplate>
+    </Window.Resources>
+    
     
     <Border CornerRadius="10" BorderThickness="1">
         
@@ -54,7 +89,7 @@
                                    Margin="10,0,0,0"/>
                     </StackPanel>
 
-                    <!-- Doctor btn -->
+                    <!-- AME btn -->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  IsChecked="True"
@@ -64,10 +99,14 @@
                             <TextBlock Text="Lægeside" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
-                    <!-- Dogs btn -->
+                    
+                    <!-- AirCrew btn -->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 >
+                                 Command="{Binding ShowLoginAirCrewCommand}">
+                        <!--The 'Command' property is bound to the 'ShowLoginAirCrewCommand'
+                        defined in 'MainWindowViewModel'-->
+                        
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PersonCircleCheck" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Flypersonale " Style="{StaticResource menuButtonText}"/>

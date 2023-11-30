@@ -48,8 +48,9 @@ namespace FlyveLægeKBH.Commands
 
 
 
-        //Constructors
+        //Constructors        
         public CommandBase(Action<object> executeAction)
+
         {
             _executeAction = executeAction;
             _canExecuteAction = null;
@@ -108,7 +109,7 @@ namespace FlyveLægeKBH.Commands
 
 
 
-        //Methods
+       //Method
         public bool CanExecute(object parameter)
         {
             return _canExecuteAction == null ? true : _canExecuteAction(parameter);
@@ -139,4 +140,6 @@ namespace FlyveLægeKBH.Commands
 
 
     }
+
 }
+

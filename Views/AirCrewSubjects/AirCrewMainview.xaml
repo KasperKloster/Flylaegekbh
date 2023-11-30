@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlyveLægeKBH.Views" 
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"        
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
-        AllowsTransparency="True"
+        AllowsTransparency="True"        
         Title="AirCrewMainview" Height="450" Width="800">
+
+
 
     <Border CornerRadius="10" BorderThickness="1">
         <Border.BorderBrush>
@@ -43,15 +45,22 @@
                     <StackPanel Orientation="Horizontal"
                             Height="35"
                             Margin="15,25,0,40">
-                        <fa:IconImage Icon="Plane"/>
-                        <TextBlock Text="FlyvelægeKBH"
-                                   Foreground="{StaticResource titleColor1}"
+
+                        <fa:IconImage Icon="users"/>
+                        <TextBlock Text="Air Crew Main"
+                                    Foreground="{StaticResource titleColor1}"
                                    FontSize="16"
                                    FontFamily="segoe ui"
                                    FontWeight="Medium"
                                    VerticalAlignment="Center"
                                    Margin="10,0,0,0"/>
+
                     </StackPanel>
+
+
+
+            <Border CornerRadius="0,10,10,0"
+                    Grid.Column="1">
 
                     <!-- Navigation btns -->
                     <RadioButton Style="{StaticResource menuButton}"
@@ -161,19 +170,40 @@
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
+                              
+                              
                                 <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color7}">
                                     <fa:IconImage Icon="AnglesDown" Style="{StaticResource iconButtonIcon}"/>
                                 </Button>
+
+
+                                <Button x:Name="btnBackToMainWindow"
+                                    Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color7}"
+                                    Click="OnBackToMainWindowButtonClick">
+                                    <fa:IconImage Icon="Forward" Style="{StaticResource iconButtonIcon}"/>
+                                </Button>
+
+                                <!--Add more user options here-->
+
                             </StackPanel>
+
+
+
                         </Grid>
 
                         <!--Content section / child views-->
-                        <ContentControl Content="{Binding CurrentChildView}" Grid.Row="2" Margin="25"/>
+                        <ContentControl Content="{Binding CurrentChildView}"
+                                    Grid.Row="2"
+                                    Margin="25"/>
+
                     </Grid>
+
                 </ScrollViewer>
+
             </Border>
         </Grid>
+
     </Border>
-    
-</Window>
+</Window>      

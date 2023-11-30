@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using FlyveLægeKBH.Commands;
 using FlyveLægeKBH.Commands.AirCrew;
 using FlyveLægeKBH.Models;
 using FlyveLægeKBH.Repos;
@@ -142,10 +144,15 @@ class AirCrewViewModel : ViewModelBase
         
         this.title = firstUser["title"];
         this.socialSecurityNumber = firstUser["socialSecurityNumber"];
+
+        // Initialize commands
+        DeleteAirCrewUserCommand = new CommandBase(ExecuteDeleteAirCrewUserCommand);
     }
+   
 
     // Commands
     public ICommand UpdateAirCrewUserCommand { get; } = new UpdateAirCrewUserCommand();
+    
 
     public void UpdateAirCrew()
     {
@@ -186,5 +193,47 @@ class AirCrewViewModel : ViewModelBase
             ssn: this.socialSecurityNumber);
 
         return cabinCrewRepo.Update(cabinCrew);
+    }
+
+
+
+
+
+
+
+    /*************************************************************/
+    /*        Explanation of DeleteAirCrewUserCommand            */
+    /*************************************************************/
+    /*                                                           */
+    /*************************************************************/
+
+
+
+    // Kristians udgave af brugen af commands med CommandBase Class
+    public ICommand DeleteAirCrewUserCommand { get; }
+
+    //Initialize commands in the ctor scroll up to see it.
+
+    // Methods
+    private void ExecuteDeleteAirCrewUserCommand(object obj)
+    {
+        if (title == "Pilot")
+        {
+            DeletePilotUser();
+        }
+        if (title == "CabinCrew")
+        {
+            DeleteCabinCrewUser();
+        }
+    }
+
+    private void DeleteCabinCrewUser()
+    {
+        PilotRepo.DeletePilot(this.socialSecurityNumber);
+    }
+
+    private void DeletePilotUser()
+    {
+        CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber);
     }
 }
