@@ -120,8 +120,6 @@ namespace FlyveLægeKBH.ViewModels
         {
             //Initialize commands
             ShowLoginAirCrewCommand = new CommandBase(ExecuteShowLoginAirCrewCommand);
-            
-
 
         }
 

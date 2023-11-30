@@ -69,10 +69,10 @@ namespace FlyveLægeKBH.Views
         add the use of Commands, Login Authentication and Data Handling
 
         we could make use of an Service-class. we could call it 
-        NavigationService and then inject that in the LoginAirCrewViewModel
-        That would keep the codebehinde file clean and also keep the 
-        seperation of concerns clearner for the VieModel class
-        */
+        NavigationService and then inject that in the 
+        'LoginAirCrewViewModel' That would keep the codebehinde file 
+        clean and also keep the seperation of concerns clearner for the
+        VieModel class                                               */
         /*************************************************************/
         private void OnLoginButtonClick(object sender, RoutedEventArgs e)
         {
