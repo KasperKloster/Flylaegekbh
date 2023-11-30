@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel>
             <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Margin="0,10"/>
-            <Button Style="{StaticResource ctaButton}" x:Name="Get_all_info_test_btn" Content="Get all info test" Click="Get_all_info_test_btn_Click"/>
+            <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info test" Click="Get_all_info_test_btn_Click"/>
             <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card"/>
         </StackPanel>
         

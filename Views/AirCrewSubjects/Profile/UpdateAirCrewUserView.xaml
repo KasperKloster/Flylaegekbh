@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:FlyveLægeKBH.Views.AirCrewSubjects.Profile"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

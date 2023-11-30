@@ -10,18 +10,7 @@
              
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <fa:IconImage Icon="{Binding Icon}"
-                                          Height="20"
-                                          Width="20"
-                                          Foreground="{StaticResource plainTextColor3}"
-                                          Margin="35,0,10,0"/>
 
-        <TextBlock Text="{Binding Caption}"
-                                       Foreground="{StaticResource plainTextColor3}"
-                                       FontSize="16"
-                                       FontFamily="segoe ui"
-                                       FontWeight="Medium"
-                                       VerticalAlignment="Center" Margin="8,0,-8,0"/>
         <Label x:Name="SocialSecuritynumberLBL" Content="CPR Nummer" HorizontalAlignment="Left" Margin="20,70,0,0" VerticalAlignment="Top" Width="130" Foreground="White"/>
         <TextBox x:Name="SocialSecuritynumberTXB" HorizontalAlignment="Left" Margin="160,70,0,0" TextWrapping="Wrap" Text="{Binding SocialSecurityNumber}" VerticalAlignment="Top" Width="120"/>
 
@@ -94,9 +83,9 @@
 
         <StackPanel Orientation="Vertical" Margin="303,20,0,390" >
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="Add_AirCrew_Btn" Style="{StaticResource ctaButton}" Margin="25,10" Content="Tilføj flypersonale" HorizontalAlignment="Left" Command="{Binding Path=CreateAirCrewCommand}" CommandParameter="{Binding}" />
-                <Button x:Name="Delete_AirCrew_Btn" Style="{StaticResource ctaButton}" Margin="25,10" Content="Slet flypersonale" HorizontalAlignment="Center" />
-                <Button x:Name="Update_AirCrew_Btn" Style="{StaticResource ctaButton}" Margin="25,10" Content="Opdatere Flypersonale" HorizontalAlignment="Right"/>
+                <Button x:Name="Add_AirCrew_Btn" Style="{StaticResource submitBtn}" Margin="25,10" Content="Tilføj flypersonale" HorizontalAlignment="Left" Command="{Binding Path=CreateAirCrewCommand}" CommandParameter="{Binding}" />
+                <Button x:Name="Delete_AirCrew_Btn" Style="{StaticResource deleteBtn}" Margin="25,10" Content="Slet flypersonale" HorizontalAlignment="Center" />
+                <Button x:Name="Update_AirCrew_Btn" Style="{StaticResource submitBtn}" Margin="25,10" Content="Opdatere Flypersonale" HorizontalAlignment="Right"/>
 
             </StackPanel>
         </StackPanel>

@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:FlyveLægeKBH"
 
 
-             StartupUri="/Views/Login/MainWindow.xaml">
+             StartupUri="Views/Login/MainWindow.xaml">
 
              
 
