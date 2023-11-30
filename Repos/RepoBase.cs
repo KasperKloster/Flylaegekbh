@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -19,15 +20,14 @@ namespace FlyveLægeKBH.Repos
         public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
         public virtual void Create() { }
 
-        public virtual void Update(AirCrew airCrew) {
-
+        public virtual string Update(AirCrew airCrew) {
+            string message;
             try
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-
                     using (SqlCommand command = new SqlCommand("UpdateAirCrewUser", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
@@ -44,20 +44,20 @@ namespace FlyveLægeKBH.Repos
                         if (rowsAffected > 0)
                         {
                             // Update successful
-                            Console.WriteLine("Row updated successfully.");
+                            message = "Brugeren blev opdateret";                            
                         }
                         else
                         {
-                            // No rows updated (SSNTEST not found, or no changes)
-                            Console.WriteLine("No matching rows found or no changes made.");
+                            message = "Brugeren blev ikke fundet. Intet er opdateret";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                message = $"Noget gik galt med forbindelsen: {ex}";
             }
+            return message;
         }
 
         public virtual void Delete() { }

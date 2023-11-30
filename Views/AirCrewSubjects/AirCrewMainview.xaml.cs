@@ -14,47 +14,47 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FlyveLægeKBH.Views
+namespace FlyveLægeKBH.Views;
+
+/// <summary>
+/// Interaction logic for AirCrewMainview.xaml
+/// </summary>
+public partial class AirCrewMainview : Window
 {
-    /// <summary>
-    /// Interaction logic for AirCrewMainview.xaml
-    /// </summary>
-    public partial class AirCrewMainview : Window
+    public AirCrewMainview()
     {
-        public AirCrewMainview()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        // to allow us to use the events of the operating system we need to import the 32 to libary
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+    // to allow us to use the events of the operating system we need to import the 32 to libary
+    [DllImport("user32.dll")]
+    public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-        //Control panel behavior methods
-        private void pnlControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //with the 32 libary importet, we can now define the handle of the window
-            WindowInteropHelper helper = new WindowInteropHelper(this);
-            SendMessage(helper.Handle, 161, 2, 0);
-        }
+    //Control panel behavior methods
+    private void pnlControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        //with the 32 libary importet, we can now define the handle of the window
+        WindowInteropHelper helper = new WindowInteropHelper(this);
+        SendMessage(helper.Handle, 161, 2, 0);
+    }
 
-        //for the maximized window function to work on evry monitor and if people use multiple screens with differend reselutions we need to update the maximum height of the window by the Mouse
-        private void pnlControlBar_MouseEnter(object sender, MouseEventArgs e)
-        {
-            // to presist the drag function when window is maximazied we need to specifie the height to match the primary screen the program is running at.
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-        }
+    //for the maximized window function to work on evry monitor and if people use multiple screens with differend reselutions we need to update the maximum height of the window by the Mouse
+    private void pnlControlBar_MouseEnter(object sender, MouseEventArgs e)
+    {
+        // to presist the drag function when window is maximazied we need to specifie the height to match the primary screen the program is running at.
+        this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+    }
 
-        // the three control buttons events
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+    // the three control buttons events
+    private void btnClose_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
+    }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+    private void btnMinimize_Click(object sender, RoutedEventArgs e)
+    {
+        this.WindowState = WindowState.Minimized;
+    }
 
         private void btnMaximize_Click(object sender, RoutedEventArgs e)
         {
@@ -88,5 +88,5 @@ namespace FlyveLægeKBH.Views
             // Close the AirCrewMainView
             this.Close();
         }
-    }
+
 }

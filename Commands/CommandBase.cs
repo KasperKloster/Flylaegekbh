@@ -48,8 +48,9 @@ namespace FlyveLægeKBH.Commands
 
 
 
-        //Constructors
-        public CommandBase(Action<object> executeAction) 
+        //Constructors        
+        public CommandBase(Action<object> executeAction)
+
         {
             _executeAction = executeAction;
             _canExecuteAction = null;
@@ -78,9 +79,9 @@ namespace FlyveLægeKBH.Commands
         /*************************************************************/
 
 
-        
+
         //Events
-        public event EventHandler CanExecuteChanged 
+        public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
@@ -108,13 +109,13 @@ namespace FlyveLægeKBH.Commands
 
 
 
-        //Methods
-        public bool CanExecute(object parameter) 
+       //Method
+        public bool CanExecute(object parameter)
         {
             return _canExecuteAction == null ? true : _canExecuteAction(parameter);
         }
 
-        public void Execute(object parameter) 
+        public void Execute(object parameter)
         {
             _executeAction(parameter);
         }
@@ -139,4 +140,6 @@ namespace FlyveLægeKBH.Commands
 
 
     }
+
 }
+
