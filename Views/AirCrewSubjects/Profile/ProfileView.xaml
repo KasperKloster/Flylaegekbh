@@ -13,7 +13,7 @@
         
         <StackPanel Margin="20,20,500,20">
             <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="261" Padding="10"/>
-            <Button Style="{StaticResource ctaButton}" x:Name="Get_all_info_test_btn" Content="Get all info"   Command="{Binding Path=GetAllInfoCommand}" CommandParameter="{Binding}"/>
+            <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info"   Command="{Binding Path=GetAllInfoCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
         
         <!-- this could also represent a childview that changes depending on what we click on the right side of the view-->

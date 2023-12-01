@@ -18,8 +18,8 @@ namespace FlyveLægeKBH.Repos
         //--------------------Methods------------------------------------------------------------------
 
 
-        public static string CreatePilot(string firstName,string surName, string email, string phone,
-        string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate, 
+        public static string CreatePilot(string firstName, string surName, string email, string phone,
+        string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
         DateTime class1ExpiryDate, DateTime class2ExpiryDate, DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
         {
             //string connectionString = "Data Source=(localdb)\\localtest;Initial Catalog=flyvelægeKBH;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";

@@ -68,29 +68,28 @@ namespace FlyveLægeKBH
 
 
         //Heruder har jeg lavet et par eksempler til at teste de to methoder, hvor jeg har hard coded nogle værdier for at prøve det af.
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            string firstName = "xX";
-            string SurName = "yY";
-            string Email = "x@yy";
-            string Phone = "12345612";
-            string Address = "home alone";
-            string SocialSecurityNumber = "121212-2032";
-            Titles title = Titles.Pilot;
+//        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+//        {
+//            string firstName = "xX";
+//            string SurName = "yY";
+//            string Email = "x@yy";
+//            string Phone = "12345612";
+//            string Address = "home alone";
+//            string SocialSecurityNumber = "121212-2032";
+//            string title = "Pilot";
 
-            string cetificateNumber = "123";
-            DateTime dateOfIssue = DateTime.Parse("01/01/2020");
-            DateTime class1SinglePilotExpiryDate = DateTime.Parse("01/01/2021");
-            DateTime class1ExpiryDate = DateTime.Parse("01/01/2021");
-            DateTime class2ExpiryDate = DateTime.Parse("01/01/2025");
-            DateTime laplExpiryDate = DateTime.Parse("01/01/2025");
-            DateTime electroCardiogramRecentDate = DateTime.Parse("01/01/2019");
-            DateTime audiogramRecentDate = DateTime.Parse("01/01/2020");
+//            string cetificateNumber = "123";
+//            DateTime dateOfIssue = DateTime.Parse("01/01/2020");
+//            DateTime class1SinglePilotExpiryDate = DateTime.Parse("01/01/2021");
+//            DateTime class1ExpiryDate = DateTime.Parse("01/01/2021");
+//            DateTime class2ExpiryDate = DateTime.Parse("01/01/2025");
+//            DateTime laplExpiryDate = DateTime.Parse("01/01/2025");
+//            DateTime electroCardiogramRecentDate = DateTime.Parse("01/01/2019");
+//            DateTime audiogramRecentDate = DateTime.Parse("01/01/2020");
 
-            MedicalLicense medicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
-            MessageBox.Show(PilotRepo.CreatePilot(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate));
-            
-        }
+//           MedicalLicense medicalLicense = new MedicalLicense(dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate);
+///          MessageBox.Show(PilotRepo.CreatePilot(firstName, SurName, Email, Phone, SocialSecurityNumber, title, cetificateNumber, dateOfIssue, class1SinglePilotExpiryDate, class1ExpiryDate, class2ExpiryDate, laplExpiryDate, electroCardiogramRecentDate, audiogramRecentDate));
+//        }
 
         private void New_Cabin_Crew_test_btn_Checked(object sender, RoutedEventArgs e)
         {
@@ -101,13 +100,12 @@ namespace FlyveLægeKBH
             string Address = "home alone";
 
             string SocialSecurityNumber = "444444-4444";
-            Titles title = Titles.CabinCrew;
+            string title = "CabinCrew";
 
             DateTime dateOfIssue = DateTime.Parse("02/02/2020");
             DateTime cabinCrewDateOfExpiry = DateTime.Parse("02/02/2030");
 
-            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title.ToString(), dateOfIssue, cabinCrewDateOfExpiry));
-
+            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title, dateOfIssue, cabinCrewDateOfExpiry));
         }
 
 

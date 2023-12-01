@@ -33,5 +33,17 @@ namespace FlyveLægeKBH.Views.Login
             Get_all_info_test_card.Text = PilotRepo.GetAirCrewInformation(socialSecurityNumber);
             //MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber));
         }
+
+        private void Create_booking_test_Click(object sender, RoutedEventArgs e)
+        {
+            string pilotCabinCrewSSN = "123456-7890";
+            string ameSSN = "121212-1212";
+            string examinationName = "Cabin Crew Fornyelse";
+            TimeSpan startTime = TimeSpan.Parse("12:00");
+            DateTime appointmentDate = DateTime.Now;
+
+            AppointmentRepo appointmentRepo = new AppointmentRepo();
+            MessageBox.Show(appointmentRepo.Create(pilotCabinCrewSSN, ameSSN, examinationName, startTime, appointmentDate));
+        }
     }
 }

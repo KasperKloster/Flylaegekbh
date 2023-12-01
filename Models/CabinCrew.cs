@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
-    public class CabinCrew: AirCrew
+    public class CabinCrew: User
     {
         //---------------------Fields--------------------------------------------------------------
         //Rest of the fields are inherited from from AirCrew Base class
-        public Titles Title { get; private set; }
+        //public Title Title { get; private set; }
+        public string UserTitle { get; private set; } = Title.Titles[2];
         public MedicalReport Medical_Report { get; set; } = new MedicalReport();
 
         //----------------------Constructor-----------------------------------------------------------
@@ -20,7 +21,7 @@ namespace FlyveLægeKBH.Models
         }
         public CabinCrew(string firstNames, string surName, string email, string phone, string ssn, DateTime dateOfIssue, DateTime cabinCrewExpiryDate) 
         {
-            Title = Titles.CabinCrew;
+            //Title = Title.CabinCrew;
             FirstName = firstNames;
             SurName = surName;
             Email = email;
@@ -42,8 +43,7 @@ namespace FlyveLægeKBH.Models
         //--------------------Methods------------------------------------------------------------------
         public override string ToString()
         {
-            return $"{FirstName} {SurName} {Title} {Email} {Phone} {SocialSecurityNumber} Medical_Report Date of Issue: {Medical_Report.DateOfIssue}";
-
+            return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical_Report Date of Issue: {Medical_Report.DateOfIssue}";
         }
 
     }

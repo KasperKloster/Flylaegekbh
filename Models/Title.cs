@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FlyveLægeKBH.Models
+{
+    public class Title
+    {
+        public static List<string> Titles { get; set; }
+        
+        public Title() {
+   
+            Titles.Add("AME");
+            Titles.Add("Pilot");
+            Titles.Add("CabinCrew");
+        }
+
+        public static void AddToTitles(string name)
+        {
+            Titles.Add(name);
+        }
+        
+    }
+}

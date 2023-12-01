@@ -20,7 +20,7 @@ namespace FlyveLægeKBH.Repos
         public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
         public virtual void Create() { }
 
-        public virtual string Update(AirCrew airCrew) {
+        public virtual string Update(User airCrew) {
             string message;
             try
             {

@@ -12,6 +12,11 @@
             <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info test" Click="Get_all_info_test_btn_Click"/>
             <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card"/>
         </StackPanel>
-        
+
+
+        <StackPanel Margin="0, 200">
+            <Button Style="{StaticResource submitBtn}" x:Name="Create_booking_test_btn" Content="Get all info test" Click="Create_booking_test_Click"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>

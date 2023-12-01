@@ -51,9 +51,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             if (Title == "CabinCrew")
             {
-                //MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstName = FirstName, SurName = SurName, Email = Email, Phone = Phone, SocialSecurityNumber = SocialSecurityNumber, Title = Title, MR_DateOfIssue = MR_DateOfIssue, MR_CabinCrewExpiryDate = MR_CabinCrewExpiryDate));
-                MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstName, SurName, Email, Phone, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
-
+                MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstName = FirstName, SurName = SurName, Email = Email, Phone = Phone, SocialSecurityNumber = SocialSecurityNumber, Title = Title, MR_DateOfIssue = MR_DateOfIssue, MR_CabinCrewExpiryDate = MR_CabinCrewExpiryDate));
             }
             else
             {
