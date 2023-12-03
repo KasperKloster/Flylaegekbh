@@ -126,7 +126,7 @@ namespace FlyveLægeKBH.Repos
 
             string deleteQueryMedicalLicense = "DELETE FROM [FL2_MedicalLicense] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
-            string deleteQueryCabinCrew = "DELETE FROM [FL2_AirCrew] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryCabinCrew = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
