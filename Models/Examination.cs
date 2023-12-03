@@ -8,6 +8,12 @@ namespace FlyveLægeKBH.Models
 {
     public class Examination
     {
+
+        //###################################################################################################//
+        /*This class is consist of a list of dictionary, and each dictionary contains information about each
+         examiniation. Later on, ther will be a method that will alow the AME to add new examinations in 
+         respons expansion of the practice  */
+        //##################################################################################################//
         public static List<Dictionary<string, string>> ExaminationNames = new List<Dictionary<string, string>>();
 
         public Examination()

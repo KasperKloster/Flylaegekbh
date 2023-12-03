@@ -105,7 +105,7 @@ namespace FlyveLægeKBH
             DateTime dateOfIssue = DateTime.Parse("02/02/2020");
             DateTime cabinCrewDateOfExpiry = DateTime.Parse("02/02/2030");
 
-            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, SocialSecurityNumber, title, dateOfIssue, cabinCrewDateOfExpiry));
+            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, Address, SocialSecurityNumber, title, dateOfIssue, cabinCrewDateOfExpiry));
         }
 
 

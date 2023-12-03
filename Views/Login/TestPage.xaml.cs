@@ -45,5 +45,10 @@ namespace FlyveLægeKBH.Views.Login
             AppointmentRepo appointmentRepo = new AppointmentRepo();
             MessageBox.Show(appointmentRepo.Create(pilotCabinCrewSSN, ameSSN, examinationName, startTime, appointmentDate));
         }
+
+        private void Delete_AirCrew_test_btn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(PilotRepo.DeletePilot(Delete_airCrew_test_tbx.Text));
+        }
     }
 }

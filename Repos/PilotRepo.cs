@@ -18,7 +18,7 @@ namespace FlyveLægeKBH.Repos
         //--------------------Methods------------------------------------------------------------------
 
 
-        public static string CreatePilot(string firstName, string surName, string email, string phone,
+        public static string CreatePilot(string firstName, string surName, string email, string phone, string address,
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
         DateTime class1ExpiryDate, DateTime class2ExpiryDate, DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
         {
@@ -32,7 +32,7 @@ namespace FlyveLægeKBH.Repos
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("InsertAirCrewAndMedicalLicense", connection))
+                    using (SqlCommand command = new SqlCommand("FL_2InsertAirCrewAndMedicalLicense", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -41,6 +41,7 @@ namespace FlyveLægeKBH.Repos
                         command.Parameters.AddWithValue("@SurName", surName);
                         command.Parameters.AddWithValue("@Email", email);
                         command.Parameters.AddWithValue("@Phone", phone);
+                        command.Parameters.AddWithValue("@Address", address);
                         command.Parameters.AddWithValue("@SocialSecurityNumber", socialSecurityNumber);
                         command.Parameters.AddWithValue("@Title", title);
                         command.Parameters.AddWithValue("@CertificateNumber", certificateNumber);

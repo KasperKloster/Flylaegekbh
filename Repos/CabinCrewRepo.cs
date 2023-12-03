@@ -16,7 +16,7 @@ namespace FlyveLægeKBH.Repos
         //--------------------Methods------------------------------------------------------------------
 
         // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
-        public static string CreateCabinCrew(string firstName, string surName, string email, string phone,
+        public static string CreateCabinCrew(string firstName, string surName, string email, string phone,string address,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
         {
             try
@@ -27,7 +27,7 @@ namespace FlyveLægeKBH.Repos
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("InsertAirCrewAndMedicalReport", connection))
+                    using (SqlCommand command = new SqlCommand("FL_2InsertAirCrewAndMedicalReport", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -36,6 +36,7 @@ namespace FlyveLægeKBH.Repos
                         command.Parameters.AddWithValue("@SurName", surName);
                         command.Parameters.AddWithValue("@Email", email);
                         command.Parameters.AddWithValue("@Phone", phone);
+                        command.Parameters.AddWithValue("@Address", address);
                         command.Parameters.AddWithValue("@SocialSecurityNumber", socialSecurityNumber);
                         command.Parameters.AddWithValue("@Title", title);
                         command.Parameters.AddWithValue("@DateOfIssue", dateOfIssue);
@@ -57,8 +58,8 @@ namespace FlyveLægeKBH.Repos
         public static string DeleteCabinCrew(string socialSecurityNumber)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
-            string deleteQueryMedicalReport = "DELETE FROM [FL_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
-            string deleteQueryCabinCrew = "DELETE FROM [FL_AirCrew] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryMedicalReport = "DELETE FROM [FL2_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryCabinCrew = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
             using(SqlConnection connection = new SqlConnection( connectionString)) 
             {

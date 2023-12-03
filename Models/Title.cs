@@ -8,7 +8,8 @@ namespace FlyveLægeKBH.Models
 {
     public class Title
     {
-        public static List<string> Titles { get; set; }
+        public static List<string> Titles { get; set; }=new List<string>();
+
         
         public Title() {
    

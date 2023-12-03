@@ -13,8 +13,13 @@ namespace FlyveLægeKBH.Models
         public string PilotCabinCrew_SSN { get; set; }
         public string AME_SSN { get; set; }
         public string ExaminationName { get; set; }
-        public TimeOnly StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
         public DateTime AppointmentDate { get; set; }
+
+        public Appointment()
+        {
+            
+        }
     }
     
 
