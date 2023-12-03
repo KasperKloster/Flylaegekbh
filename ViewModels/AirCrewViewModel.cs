@@ -97,7 +97,17 @@ class AirCrewViewModel : ViewModelBase
             }
         }
     }
-    
+
+    // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
+    private string userInfo;
+
+    //this field is used as source to display all info stored of a user/aircrew 
+    public string UserInfo
+    {
+        get { return userInfo; }
+        set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
+    }
+
     //public string RoadNumber
     //{
     //    get { return roadNumber; }
@@ -132,6 +142,7 @@ class AirCrewViewModel : ViewModelBase
     //    }
     //}
 
+
     public AirCrewViewModel()
     {
         // FOR DEVELOPMENT: Simulates the logged in user                       
@@ -147,12 +158,16 @@ class AirCrewViewModel : ViewModelBase
 
         // Initialize commands
         DeleteAirCrewUserCommand = new CommandBase(ExecuteDeleteAirCrewUserCommand);
+        GetAllInfoCommand = new CommandBase(GetAllInfo);
+
     }
-   
+
 
     // Commands
     public ICommand UpdateAirCrewUserCommand { get; } = new UpdateAirCrewUserCommand();
-    
+    public ICommand GetAllInfoCommand { get; set; }
+
+
 
     public void UpdateAirCrew()
     {
@@ -195,7 +210,10 @@ class AirCrewViewModel : ViewModelBase
         return cabinCrewRepo.Update(cabinCrew);
     }
 
-
+    private void GetAllInfo(object obj)
+    {
+        this.UserInfo = PilotRepo.GetAirCrewInformation(this.socialSecurityNumber);
+    }
 
 
 

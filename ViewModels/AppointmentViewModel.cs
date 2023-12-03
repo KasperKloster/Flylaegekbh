@@ -10,19 +10,10 @@ using System.Windows.Input;
 
 namespace FlyveLægeKBH.ViewModels
 {
-    public class ProfileViewModel: ViewModelBase
+    public class AppointmentViewModel: ViewModelBase
     {
         //----------Fields----------------------------
 
-        // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
-        private string userInfo;
-
-        //this field is used as source to display all info stored of a user/aircrew 
-        public string UserInfo
-        {
-            get { return userInfo; } 
-            set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
-        }
 
         //this field is used as the source to display all appointments belongin to specifik aircrew 
         private List<Appointment> appointments;
@@ -50,13 +41,11 @@ namespace FlyveLægeKBH.ViewModels
         public DateTime AppointmentDate { get; set; }
 
 
-        public ICommand GetAllInfoCommand { get; set; }
         public ICommand GetBookingsBySSNCommand { get; set; }
 
 
-        public ProfileViewModel()
+        public AppointmentViewModel()
         {
-            GetAllInfoCommand = new CommandBase(GetAllInfo);
             GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
         }
 
@@ -67,9 +56,5 @@ namespace FlyveLægeKBH.ViewModels
             Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNUmber);
         }
 
-        private void GetAllInfo(object obj)
-        {
-            UserInfo = PilotRepo.GetAirCrewInformation(SocialSecurityNUmber);
-        }
     }
 }

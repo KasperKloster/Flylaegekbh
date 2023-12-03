@@ -17,15 +17,15 @@ using System.Windows.Shapes;
 namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile
 {
     /// <summary>
-    /// Interaction logic for ProfileView.xaml
+    /// Interaction logic for AirCrewView.xaml
     /// </summary>
-    public partial class ProfileView : UserControl
+    public partial class AirCrewView : UserControl
     {
-        public ProfileView()
+        public AirCrewView()
         {
+            AirCrewViewModel airCrewViewModel = new AirCrewViewModel();
             InitializeComponent();
-            ProfileViewModel viewModel = new ProfileViewModel();
-            this.DataContext = viewModel;
+            DataContext = airCrewViewModel;
         }
     }
 }

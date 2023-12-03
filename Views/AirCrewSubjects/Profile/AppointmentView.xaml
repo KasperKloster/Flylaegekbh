@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FlyveLægeKBH.Views.AirCrewSubjects.Profile.ProfileView"
+﻿<UserControl x:Class="FlyveLægeKBH.Views.AirCrewSubjects.Profile.AppointmentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,7 +10,6 @@
              d:DesignHeight="450" d:DesignWidth="600">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -21,11 +20,10 @@
         <!--This is to view future appointments-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
             <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="262" Padding="10"/>
-            <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info" Margin="10" Height="30" Command="{Binding GetAllInfoCommand}" CommandParameter="{Binding}"/>
             <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
-            <ListView x:Name="Appointments_listView" ItemsSource="{Binding Appointments}" IsSynchronizedWithCurrentItem="True" Margin="5" Width="550">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left">
+            <ListView x:Name="Appointments_listView" ItemsSource="{Binding Appointments}" IsSynchronizedWithCurrentItem="True" Width="550" HorizontalContentAlignment="Left">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
@@ -43,11 +41,7 @@
         </StackPanel>
 
  
-        <!-- this could also represent a childview that changes depending on what we click on the right side of the view-->
-        <StackPanel Grid.Row="1">
-            <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card" Text="{Binding UserInfo}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Style="{StaticResource submitBtn}" x:Name="Edit_appointment_btn" Content="Ændre booking" Margin="10" Height="30" HorizontalAlignment="Right" />
             <Button Style="{StaticResource deleteBtn}" x:Name="Delete_Appointments_btn" Content=" Slet booking" Margin="10" Height="30" HorizontalAlignment="Right" />
             <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />

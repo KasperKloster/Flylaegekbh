@@ -14,15 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile;
-
-public partial class UpdateAirCrewUserView : UserControl
+namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile
 {
-    AirCrewViewModel airCrewViewModel = new AirCrewViewModel();
-
-    public UpdateAirCrewUserView()
+    /// <summary>
+    /// Interaction logic for AppointmentView.xaml
+    /// </summary>
+    public partial class AppointmentView : UserControl
     {
-        InitializeComponent();
-        DataContext = airCrewViewModel;
+        public AppointmentView()
+        {
+            AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
+            InitializeComponent();
+            DataContext = appointmentViewModel;
+        }
     }
 }

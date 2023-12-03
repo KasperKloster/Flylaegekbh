@@ -28,7 +28,7 @@ namespace FlyveLægeKBH.Repos
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("UpdateAirCrewUser", connection))
+                    using (SqlCommand command = new SqlCommand("FL2_UpdateAirCrewUser", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -72,7 +72,7 @@ namespace FlyveLægeKBH.Repos
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("SELECT TOP 1 * FROM FL_AirCrew", connection))
+                    using (SqlCommand command = new SqlCommand("SELECT TOP 1 * FROM FL2_User", connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
