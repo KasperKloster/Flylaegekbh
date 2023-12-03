@@ -7,18 +7,51 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="600">
     <Grid>
-       
-        
-        <StackPanel Margin="20,20,500,20">
-            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="261" Padding="10"/>
-            <Button Style="{StaticResource ctaButton}" x:Name="Get_all_info_test_btn" Content="Get all info"   Command="{Binding Path=GetAllInfoCommand}" CommandParameter="{Binding}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <!--This is to view future appointments-->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="262" Padding="10"/>
+            <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info" Margin="10" Height="30" Command="{Binding GetAllInfoCommand}" CommandParameter="{Binding}"/>
+            <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
-        
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
+            <ListView x:Name="Appointments_listView" ItemsSource="{Binding Appointments}" IsSynchronizedWithCurrentItem="True" Margin="5" Width="550">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding PilotCabinCrew_SSN}" Header="PilotCabinCrew_SSN"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding AME_SSN}" Header="AME_SSN"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ExaminationName}" Header="ExaminationName"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding StartTime}" Header="StartTime"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding AppointmentDate}" Header="AppointmentDate"/>
+
+                    </GridView>
+                </ListView.View>
+            </ListView> 
+
+
+        </StackPanel>
+
+ 
         <!-- this could also represent a childview that changes depending on what we click on the right side of the view-->
-        <StackPanel Margin="430,20,20,30">
+        <StackPanel Grid.Row="1">
             <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card" Text="{Binding UserInfo}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource submitBtn}" x:Name="Edit_appointment_btn" Content="Ændre booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+            <Button Style="{StaticResource deleteBtn}" x:Name="Delete_Appointments_btn" Content=" Slet booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+            <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+
         </StackPanel>
     </Grid>
 </UserControl>

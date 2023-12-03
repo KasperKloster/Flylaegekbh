@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
-    public class Pilot: AirCrew
+    public class Pilot: User
     {
 
         //---------------------Fields--------------------------------------------------------------
         //Rest of the fields are inherited from from AirCrew Base class
-        public Titles Title { get; private set; }
+        public string UserTitle { get; private set; } = Title.Titles[1];
         public MedicalLicense MedicalLicense { get; set; }
 
         //----------------------Constructor-----------------------------------------------------------
@@ -23,7 +23,7 @@ namespace FlyveLægeKBH.Models
             DateTime class1SinglePilotExpiryDate, DateTime class1ExpiryDate, DateTime class2ExpiryDate, 
             DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
         {
-            Title = Titles.Pilot;
+           // Title = Title.Pilot;
             FirstName = firstNames;
             SurName = surName;
             Email = email;
@@ -46,8 +46,7 @@ namespace FlyveLægeKBH.Models
         //--------------------Methods------------------------------------------------------------------
         public override string ToString() 
         {
-            return $"{FirstName} {SurName} {Title} {Email} {Phone} {SocialSecurityNumber} Medical Date of Issue: {MedicalLicense.DateOfIssue}";
-          
+            return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical Date of Issue: {MedicalLicense.DateOfIssue}";
         }
 
     }

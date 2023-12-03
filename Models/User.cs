@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
-    public abstract class AirCrew
+    public abstract class User
     {
         public string FirstName { get; set; }
         public string SurName { get; set; }
