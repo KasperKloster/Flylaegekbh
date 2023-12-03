@@ -20,14 +20,23 @@ namespace FlyveLægeKBH.ViewModels
         //this field is used as source to display all info stored of a user/aircrew 
         public string UserInfo
         {
-            get { return userInfo; } set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
+            get { return userInfo; } 
+            set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
         }
 
         //this field is used as the source to display all appointments belongin to specifik aircrew 
         private List<Appointment> appointments;
         public List<Appointment> Appointments
         {
-            get { return appointments; } set { appointments = value; OnPropertyChanged(nameof(Appointments)); }
+            get 
+            { 
+                return appointments; 
+            } 
+            set 
+            { 
+                appointments = value; 
+                OnPropertyChanged(nameof(Appointments)); 
+            }
         }
 
 
