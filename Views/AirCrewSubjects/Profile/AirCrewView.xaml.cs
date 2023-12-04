@@ -21,9 +21,10 @@ namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile
     /// </summary>
     public partial class AirCrewView : UserControl
     {
+        AirCrewViewModel airCrewViewModel = new AirCrewViewModel();
         public AirCrewView()
         {
-            AirCrewViewModel airCrewViewModel = new AirCrewViewModel();
+            
             InitializeComponent();
             DataContext = airCrewViewModel;
         }

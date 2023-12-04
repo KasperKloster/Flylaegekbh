@@ -21,9 +21,10 @@ namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile
     /// </summary>
     public partial class AppointmentView : UserControl
     {
+        AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
         public AppointmentView()
         {
-            AppointmentViewModel appointmentViewModel = new AppointmentViewModel();
+            
             InitializeComponent();
             DataContext = appointmentViewModel;
         }

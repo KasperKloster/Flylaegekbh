@@ -63,5 +63,14 @@ public partial class AMEMainView : Window
         else this.WindowState = WindowState.Normal;
     }
 
+    private void OnBackToMainWindowButtonClick(object sender, RoutedEventArgs e)
+    {
+        // Show the MainWindow
+        Application.Current.MainWindow.Show();
+
+        // Close the AirCrewMainView
+        this.Close();
+    }
+
 
 }

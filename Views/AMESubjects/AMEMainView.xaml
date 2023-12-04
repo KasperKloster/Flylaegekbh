@@ -171,9 +171,17 @@
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
+                                
                                 <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color7}">
                                     <fa:IconImage Icon="AnglesDown" Style="{StaticResource iconButtonIcon}"/>
+                                </Button>
+
+                                <Button x:Name="btnBackToMainWindow"
+                                    Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color7}"
+                                    Click="OnBackToMainWindowButtonClick">
+                                    <fa:IconImage Icon="Forward" Style="{StaticResource iconButtonIcon}"/>
                                 </Button>
                             </StackPanel>
                         </Grid>

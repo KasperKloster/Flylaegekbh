@@ -108,23 +108,43 @@ namespace FlyveLægeKBH.ViewModels
         (for more explanation on this go to MainWindow.Xaml
         and see the comments under Window.DataContext and 
         Window.Resources and DataTemplate)
-         */
+                                                                     */
         /*************************************************************/
+
 
         // Commands
         public ICommand ShowLoginAirCrewCommand { get; }
-        public ICommand ShowAirCrewMainviewCommand { get; }
+        
+        public ICommand ShowLoginAMECommand { get; }
+
+        public ICommand ShowCreateAirCrewViewCommand { get; }
 
         // Constructor
         public MainWindowViewModel() 
         {
             //Initialize commands
             ShowLoginAirCrewCommand = new CommandBase(ExecuteShowLoginAirCrewCommand);
+            ShowLoginAMECommand = new CommandBase(ExecuteShowLoginAMECommand);
+            ShowCreateAirCrewViewCommand = new CommandBase(ExecuteShowCreateAirCrewViewCommand);
 
         }
 
-        
+
         // Methods
+
+        private void ExecuteShowCreateAirCrewViewCommand(object obj)
+        {
+            CurrentChildView = new CreateAirCrewViewModel();
+            Caption = "Create new AirCrew User";
+            Icon = IconChar.UserPlus;
+        }
+        private void ExecuteShowLoginAMECommand(object obj)
+        {
+            CurrentChildView = new LoginAMEViewModel();
+            Caption = "AME Login";
+            Icon = IconChar.UserDoctor;
+        }
+
         private void ExecuteShowLoginAirCrewCommand(object obj)
         {
             CurrentChildView = new LoginAirCrewViewModel();
@@ -132,7 +152,14 @@ namespace FlyveLægeKBH.ViewModels
             Icon = IconChar.PersonCircleCheck;
         }
 
-       
+        
+
+        
+
+
+        
+
+
 
     }
 }
