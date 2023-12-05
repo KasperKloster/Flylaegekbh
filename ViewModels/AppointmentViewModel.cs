@@ -206,6 +206,33 @@ namespace FlyveLægeKBH.ViewModels
         /*************************************************************/
 
         public ICommand UpdateAppointmentCommand { get; }
+        /*************************************************************/
+        /*          Explanation of UpdateAppointmentCommand          */
+        /*************************************************************/
+        /*  This commands expects the SelectedItem from the 
+        "Appointments_ListView". So before pressing the 
+        "Edit_appointment_btn" the user needs to press an items in the 
+        listview above, wich gets pased as a parameter to this command.
+
+        We created a tow-way binding between the "Appointments_ListView"
+        and the textBox's underneath. This binding makes it posible for
+        the user to enter the new inputs for the underlying Appointment 
+        object wich then will be updated. The Binding 
+        looks like this
+
+         Text="
+            {
+                Binding SelectedItem.(name of the textbox),
+                ElementName=Appointments_listView
+            }"
+
+        So when the "Edit_appointment_btn" is pressed the 
+        "UpdateAppointmentCommand" calls the method
+        "ExecuteUpdateAppointmentCommand" wich first checks if
+        if the command parameter is an Appointment object. If it is
+        then it creates an instance of the AppointmentRepo class
+        and calls the UpdateAppointment method.                      */
+        /*************************************************************/
 
         // Constructor 
         public AppointmentViewModel()
@@ -220,9 +247,12 @@ namespace FlyveLægeKBH.ViewModels
 
         private void ExecuteUpdateAppointmentCommand(object obj)
         {
-            
-            AppointmentRepo appointmentRepo = new AppointmentRepo();
-            
+            // check if the command parameter is an Appointment object
+            if (obj is Appointment selectedAppointment)
+            {
+                AppointmentRepo appointmentRepo = new AppointmentRepo();
+                MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
+            }            
 
             
         }

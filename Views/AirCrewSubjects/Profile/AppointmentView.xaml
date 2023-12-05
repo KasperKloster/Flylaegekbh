@@ -54,7 +54,10 @@
                     Content="Ændre booking"
                     Margin="10"
                     Height="30"
-                    HorizontalAlignment="Right" />
+                    HorizontalAlignment="Right"
+                    Command="{Binding UpdateAppointmentCommand}"
+                    CommandParameter="{Binding ElementName=Appointments_listView,
+                                        Path=SelectedItem}"/>
             
             <Button Style="{StaticResource deleteBtn}" 
                     x:Name="Delete_Appointments_btn" 
@@ -70,11 +73,8 @@
 
         </StackPanel>
 
-        <!--The following is for updating/changing your appointment.
-            Assuming we can get the SocialSecurityNumber (for the AirCrew/Customer)
-            either from the search bar as it is now or if we change this to a combobox
-            with all the AirCrew/Customer - users we have in the DB -->
-
+        
+        <!--The following is for updating/changing your appointment-->
 
         <StackPanel Grid.Row="3"
                     Orientation="Horizontal"
@@ -152,6 +152,7 @@
         <StackPanel Grid.Row="5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
+            
             <!--just for development an first iteration
             remove these or do somthing with these when refactor the view-->
 
