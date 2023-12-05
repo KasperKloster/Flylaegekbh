@@ -143,6 +143,60 @@ namespace FlyveLægeKBH.Repos
         
         }
 
+        /*************************************************************/
+        /*            Explanation of Update Appointment              */
+        /*************************************************************/
+        /*  The method is designed to delete an appointment from the DB
+        on the provided "AppointmentID".
+        
+        The method executes a stored procedure named 
+        "FL2_DeleAppointmentByID" in the databse. This stored procedure
+        is handling the actual deletion logic.
+        
+        The "try-catch" block captures any exception that may occur 
+        during the execution of the stored procedure. If an error 
+        occurs, an error message is generated and returnd.
+
+            Result meddage - Depending on the succes or failure
+        of the deletion operation, the method reutrns a secriptive message
+        indicating the outcome. If successful, the message confirms the 
+        successful deletion. otherwise, it provides details of the 
+        encountered error.            
+                                                                     */
+        /*************************************************************/
+        public string UpdateAppointment(int appointmentID, string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
+        {
+            string message;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("UpdateAppointment", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    command.Parameters.AddWithValue("@AppointmentID", appointmentID);
+                    command.Parameters.AddWithValue("@PilotCabinCrew_SSN", pilotCabinCrewSSN);
+                    command.Parameters.AddWithValue("@AME_SSN", ameSSN);
+                    command.Parameters.AddWithValue("@ExaminationName", examinationName);
+                    command.Parameters.AddWithValue("@StartTime", startTime);
+                    command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        message = "Appointment updated successfully.";
+                    }
+                    catch (Exception ex)
+                    {
+                        message = "Error updating appointment: " + ex.Message;
+                    }
+                }
+            }
+            return message;
+        }
+
+
     }
 
 

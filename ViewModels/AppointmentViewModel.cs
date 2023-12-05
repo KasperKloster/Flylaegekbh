@@ -32,14 +32,124 @@ namespace FlyveLægeKBH.ViewModels
         }
 
 
-        public string SocialSecurityNumber { get; set; }
+        //public string SocialSecurityNumber { get; set; }
 
-        public int AppointmentID { get; set; }
-        public string PilotCabinCrew_SSN { get; set; }
-        public string AME_SSN { get; set; }
-        public string ExaminationName { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public DateTime AppointmentDate { get; set; }
+        //public int AppointmentID { get; set; }
+        //public string PilotCabinCrew_SSN { get; set; }
+        //public string AME_SSN { get; set; }
+        //public string ExaminationName { get; set; }
+        //public TimeSpan StartTime { get; set; }
+        //public DateTime AppointmentDate { get; set; }
+
+
+        // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
+        private string appointmentDate;
+        public string AppointmentDate
+        {
+            get
+            {
+                return appointmentDate;
+            }
+            set
+            {
+                appointmentDate = value;
+                OnPropertyChanged(nameof(AppointmentDate));
+            }
+
+        }
+
+        private string startTime;
+        public string StartTime
+        {
+            get
+            {
+                return startTime;
+            }
+            set
+            {
+                startTime = value;
+                OnPropertyChanged(nameof(StartTime));
+            }
+
+        }
+
+        private string examinationName;
+        public string ExaminationName
+        {
+            get
+            {
+                return examinationName;
+            }
+            set
+            {
+                examinationName = value;
+                OnPropertyChanged(nameof(ExaminationName));
+            }
+
+        }
+
+        private string ame_SNN;
+        public string AME_SSN
+        {
+            get
+            {
+                return ame_SNN;
+            }
+            set
+            {
+                ame_SNN = value;
+                OnPropertyChanged(nameof(AME_SSN));
+            }
+
+        }
+
+        private string socialSecurityNumber;
+        public string SocialSecurityNumber
+        {
+            get
+            {
+                return socialSecurityNumber;
+            }
+            set
+            {
+                socialSecurityNumber = value;
+                OnPropertyChanged(nameof(SocialSecurityNumber));
+            }
+
+        }
+
+
+        private string pilotCabinCrew_SNN;
+        public string PilotCabinCrew_SSN
+        {
+            get
+            {
+                return pilotCabinCrew_SNN;
+            }
+            set
+            {
+                pilotCabinCrew_SNN = value;
+                OnPropertyChanged(nameof(PilotCabinCrew_SSN));
+            }
+
+        }
+
+        private string appointmentID;
+        public string AppointmentID
+        {
+            get
+            {
+                return appointmentID;
+            }
+            set
+            {
+                appointmentID = value;
+                OnPropertyChanged(nameof(AppointmentID));
+            }
+
+        }
+
+
 
 
         // Commands
@@ -95,16 +205,27 @@ namespace FlyveLægeKBH.ViewModels
                                                                      */
         /*************************************************************/
 
+        public ICommand UpdateAppointmentCommand { get; }
 
         // Constructor 
         public AppointmentViewModel()
         {
             GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
+            UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
         }
 
 
         // Methods
+
+        private void ExecuteUpdateAppointmentCommand(object obj)
+        {
+            
+            AppointmentRepo appointmentRepo = new AppointmentRepo();
+            
+
+            
+        }
         private void ExecuteDeleteAppointmentByIDCommand(object obj)
         {
             // check if the command parameter is an integer (AppointmentID)

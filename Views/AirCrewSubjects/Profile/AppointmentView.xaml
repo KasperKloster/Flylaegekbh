@@ -49,7 +49,12 @@
 
  
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Style="{StaticResource submitBtn}" x:Name="Edit_appointment_btn" Content="Ændre booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+            <Button Style="{StaticResource submitBtn}"
+                    x:Name="Edit_appointment_btn"
+                    Content="Ændre booking"
+                    Margin="10"
+                    Height="30"
+                    HorizontalAlignment="Right" />
             
             <Button Style="{StaticResource deleteBtn}" 
                     x:Name="Delete_Appointments_btn" 
@@ -64,6 +69,12 @@
             <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />
 
         </StackPanel>
+
+        <!--The following is for updating/changing your appointment.
+            Assuming we can get the SocialSecurityNumber (for the AirCrew/Customer)
+            either from the search bar as it is now or if we change this to a combobox
+            with all the AirCrew/Customer - users we have in the DB -->
+
 
         <StackPanel Grid.Row="3"
                     Orientation="Horizontal"
@@ -80,7 +91,7 @@
                    Margin="0,0,10,0"/>
             <TextBox x:Name="ameSNNTB"
                      Foreground="Black"
-                     Text="{Binding AME_SNN}"
+                     Text="{Binding SelectedItem.AME_SSN, ElementName=Appointments_listView}"
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>
@@ -95,7 +106,7 @@
                    Margin="35,0,10,0"/>
             <TextBox x:Name="examinationNameTB"
                      Foreground="black"
-                     Text="{Binding ExaminationName}"
+                     Text="{Binding SelectedItem.ExaminationName, ElementName=Appointments_listView}"
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>           
@@ -116,7 +127,7 @@
                    Margin="0,0,10,0"/>
             <TextBox x:Name="startTimeTB"
                      Foreground="black"
-                     Text="{Binding StartTime}"
+                     Text="{Binding SelectedItem.StartTime, ElementName=Appointments_listView}"
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>
@@ -131,11 +142,48 @@
                    Margin="35,0,10,0"/>
             <TextBox x:Name="appointmentDateTB"
                      Foreground="black"
-                     Text="{Binding AppointmentDate}"
+                     Text="{Binding SelectedItem.AppointmentDate, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>           
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <!--just for development an first iteration
+            remove these or do somthing with these when refactor the view-->
+
+            <Label x:Name="appointmentIDLBL"
+                   Content="appointmentID"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="0,0,10,0"/>
+            <TextBox x:Name="appointmentIDTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.AppointmentID, ElementName=Appointments_listView}"
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>
-            
+
+            <Label x:Name="pilotCabinCrewSNNLBL"
+                   Content="pilotCabinCrew_SNN"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="35,0,10,0"/>
+            <TextBox x:Name="pilotCabinCrewSNNTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.PilotCabinCrew_SSN, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
         </StackPanel>
         
     </Grid>
