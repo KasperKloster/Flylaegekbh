@@ -62,7 +62,8 @@
                     Style="{StaticResource deleteBtn}" 
                     Width="100"
                     Margin="0,0, 600, 0"
-                    Content="Slet"/>
+                    Content="Slet"
+                    Command="{Binding DeleteAirCrewUserCommand}"/>
 
             <Button 
                 Style="{StaticResource submitBtn}"

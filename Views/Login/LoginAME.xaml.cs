@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyveLægeKBH.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,19 @@ namespace FlyveLægeKBH.Views
     /// </summary>
     public partial class LoginAME : UserControl
     {
+        LoginAMEViewModel _loginAMEViewModel = new LoginAMEViewModel();
         public LoginAME()
         {
             InitializeComponent();
+            DataContext = _loginAMEViewModel;
+        }
+
+        private void OnLoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Hide();
+            AMEMainView ameMainView = new AMEMainView();
+            ameMainView.Show();
+
         }
     }
 }
