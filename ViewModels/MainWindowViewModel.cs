@@ -75,6 +75,12 @@ namespace FlyveLægeKBH.ViewModels
 
 
 
+      
+
+
+        // Commands
+        public ICommand ShowLoginAirCrewCommand { get; }
+
         /*************************************************************/
         /*      Explanation of ShowLoginAirCrewCommand               */
         /*************************************************************/
@@ -111,10 +117,6 @@ namespace FlyveLægeKBH.ViewModels
                                                                      */
         /*************************************************************/
 
-
-        // Commands
-        public ICommand ShowLoginAirCrewCommand { get; }
-        
         public ICommand ShowLoginAMECommand { get; }
 
         public ICommand ShowCreateAirCrewViewCommand { get; }

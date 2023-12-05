@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlyveLægeKBH.Views.AirCrewSubjects.Profile"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
     <Grid>
@@ -19,11 +18,16 @@
         </Grid.RowDefinitions>
         <!--This is to view future appointments-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="262" Padding="10"/>
+            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNumber}" Width="262" Padding="10"/>
             <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-            <ListView x:Name="Appointments_listView" ItemsSource="{Binding Appointments}" IsSynchronizedWithCurrentItem="True" Width="550" HorizontalContentAlignment="Left">
+            <ListView x:Name="Appointments_listView" 
+                      ItemsSource="{Binding Appointments}" 
+                      IsSynchronizedWithCurrentItem="True" 
+                      Width="550" 
+                      HorizontalContentAlignment="Left"
+                      SelectionMode="Single">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
@@ -43,7 +47,17 @@
  
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Style="{StaticResource submitBtn}" x:Name="Edit_appointment_btn" Content="Ændre booking" Margin="10" Height="30" HorizontalAlignment="Right" />
-            <Button Style="{StaticResource deleteBtn}" x:Name="Delete_Appointments_btn" Content=" Slet booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+            
+            <Button Style="{StaticResource deleteBtn}" 
+                    x:Name="Delete_Appointments_btn" 
+                    Content=" Slet booking" 
+                    Margin="10" 
+                    Height="30" 
+                    HorizontalAlignment="Right"
+                    Command="{Binding DeleteAppointmentByIDCommand}"
+                    CommandParameter="{Binding ElementName=Appointments_listView, 
+                                        Path=SelectedItem.AppointmentID}"/>
+            
             <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />
 
         </StackPanel>

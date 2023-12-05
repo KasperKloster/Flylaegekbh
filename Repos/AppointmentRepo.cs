@@ -91,7 +91,59 @@ namespace FlyveLægeKBH.Repos
             return appointments;
         }
 
+        /*************************************************************/
+        /*          Explanation of Delete Appointment                */
+        /*************************************************************/
+        /*  The method is designed to delete an appointment from the DB
+        on the provided "AppointmentID".
+        
+        The method executes a stored procedure named 
+        "FL2_DeleAppointmentByID" in the databse. This stored procedure
+        is handling the actual deletion logic.
+        
+        The "try-catch" block captures any exception that may occur 
+        during the execution of the stored procedure. If an error 
+        occurs, an error message is generated and returnd.
+
+            Result meddage - Depending on the succes or failure
+        of the deletion operation, the method reutrns a secriptive message
+        indicating the outcome. If successful, the message confirms the 
+        successful deletion. otherwise, it provides details of the 
+        encountered error.            
+                                                                     */
+        /*************************************************************/
+
+        
+        public string DeleteAppointment(int appointmentID) 
+        {
+            string message;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("FL2_DeleteAppointmentByID", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@AppointmentID", appointmentID);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        message = "Appointment was deleted successfully.";
+                    }
+                    catch (Exception ex)
+                    {
+                        message = "Error creating appointment: " + ex.Message;
+                    }
+                }
+
+            }
+
+            return message;
+        
+        }
+
     }
 
-    
+
 }
