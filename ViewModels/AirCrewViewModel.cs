@@ -19,8 +19,8 @@ namespace FlyveLægeKBH.ViewModels;
 class AirCrewViewModel : ViewModelBase
 {
     // Fields    
-    PilotRepo pilotRepo = new PilotRepo();
-    CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
+    public PilotRepo pilotRepo = new PilotRepo();
+    public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
     private string firstNames;
     private string surName;
     private string email;
@@ -166,7 +166,7 @@ class AirCrewViewModel : ViewModelBase
     // Commands
     public ICommand UpdateAirCrewUserCommand { get; } = new UpdateAirCrewUserCommand();
     public ICommand GetAllInfoCommand { get; set; }
-
+    public ICommand DeleteAirCrewUserCommand { get; }
 
 
     public void UpdateAirCrew()
@@ -228,7 +228,6 @@ class AirCrewViewModel : ViewModelBase
 
 
     // Kristians udgave af brugen af commands med CommandBase Class
-    public ICommand DeleteAirCrewUserCommand { get; }
 
     //Initialize commands in the ctor scroll up to see it.
 

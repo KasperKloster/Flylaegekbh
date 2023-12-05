@@ -31,13 +31,13 @@ namespace FlyveLægeKBH.ViewModels
         }
 
 
-        public string SocialSecurityNUmber { get; set; }
+        public string SocialSecurityNumber { get; set; }
 
         public int AppointmentID { get; set; }
         public string PilotCabinCrew_SSN { get; set; }
         public string AME_SSN { get; set; }
         public string ExaminationName { get; set; }
-        public TimeOnly StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
         public DateTime AppointmentDate { get; set; }
 
 
@@ -53,7 +53,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             AppointmentRepo appointmentRepo = new AppointmentRepo();
 
-            Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNUmber);
+            Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNumber);
         }
 
     }
