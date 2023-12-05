@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using FlyveLægeKBH.Commands;
 using FlyveLægeKBH.Commands.AirCrew;
@@ -246,11 +247,11 @@ class AirCrewViewModel : ViewModelBase
 
     private void DeleteCabinCrewUser()
     {
-        MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber));
+        System.Windows.MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber));        
     }
 
     private void DeletePilotUser()
     {
-        MessageBox.Show(PilotRepo.DeletePilot(this.socialSecurityNumber));
+        System.Windows.MessageBox.Show(PilotRepo.DeletePilot(this.socialSecurityNumber));
     }
 }
