@@ -17,7 +17,7 @@ namespace FlyveLægeKBH.ViewModels
         //------------Fields--------------------------------------------------------
 
         
-        public string FirstName { get; set; }
+        public string FirstNames { get; set; }
         public string SurName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
@@ -51,11 +51,11 @@ namespace FlyveLægeKBH.ViewModels
         {
             if (Title == "CabinCrew")
             {
-                MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstName, SurName, Email, Phone, Address, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
+                MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
             }
             else
             {
-                MessageBox.Show(PilotRepo.CreatePilot(FirstName, SurName, Email, Phone,Address, SocialSecurityNumber, Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate,
+                MessageBox.Show(PilotRepo.CreatePilot(FirstNames, SurName, Email, Phone,Address, SocialSecurityNumber, Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate,
                     ML_Class1ExpiryDate, ML_Class2ExpiryDate, ML_LAPLExpiryDate, ML_ElectroCardiogramRecentDate, ML_AudiogramRecentDate));
             }
             //MessageBox.Show(ML_DateOfIssue.ToString());

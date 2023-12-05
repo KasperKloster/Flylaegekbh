@@ -37,7 +37,7 @@ namespace FlyveLægeKBH.Repos
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Add parameters
-                        command.Parameters.AddWithValue("@FirstName", firstName);
+                        command.Parameters.AddWithValue("@FirstNames", firstName);
                         command.Parameters.AddWithValue("@SurName", surName);
                         command.Parameters.AddWithValue("@Email", email);
                         command.Parameters.AddWithValue("@Phone", phone);
