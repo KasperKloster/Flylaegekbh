@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyveLægeKBH", "FlyveLægeKBH.csproj", "{96CD4D18-4D36-4192-B997-1378FFDA7C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoTest", "..\RepoTest\RepoTest.csproj", "{DF373FA5-B380-4C49-836D-B7263B548928}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{96CD4D18-4D36-4192-B997-1378FFDA7C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CD4D18-4D36-4192-B997-1378FFDA7C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CD4D18-4D36-4192-B997-1378FFDA7C3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF373FA5-B380-4C49-836D-B7263B548928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF373FA5-B380-4C49-836D-B7263B548928}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF373FA5-B380-4C49-836D-B7263B548928}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF373FA5-B380-4C49-836D-B7263B548928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

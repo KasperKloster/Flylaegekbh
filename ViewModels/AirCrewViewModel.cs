@@ -7,7 +7,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using FlyveLægeKBH.Commands;
 using FlyveLægeKBH.Commands.AirCrew;
@@ -160,17 +159,18 @@ class AirCrewViewModel : ViewModelBase
         // Initialize commands
         DeleteAirCrewUserCommand = new CommandBase(ExecuteDeleteAirCrewUserCommand);
         GetAllInfoCommand = new CommandBase(GetAllInfo);
+        UpdateAirCrewUserCommand = new CommandBase(UpdateAirCrew);
 
     }
 
 
     // Commands
-    public ICommand UpdateAirCrewUserCommand { get; } = new UpdateAirCrewUserCommand();
+    public ICommand UpdateAirCrewUserCommand { get; }
     public ICommand GetAllInfoCommand { get; set; }
     public ICommand DeleteAirCrewUserCommand { get; }
 
 
-    public void UpdateAirCrew()
+    public void UpdateAirCrew(object obj)
     {
         string message = "";
         if(title == "Pilot")

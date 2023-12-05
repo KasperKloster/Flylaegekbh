@@ -72,7 +72,7 @@
                 Style="{StaticResource submitBtn}"
                 Width="100" 
                 Content="Gem"
-                Command="{Binding Path=Address}"
+                Command="{Binding UpdateAirCrewUserCommand}"
                 CommandParameter="{Binding}"
                 />
         </StackPanel>

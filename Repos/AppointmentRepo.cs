@@ -50,7 +50,7 @@ namespace FlyveLægeKBH.Repos
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("GetBookingsBySSN", connection))
+                using (SqlCommand command = new SqlCommand("FL2_GetBookingsBySSN", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -83,7 +83,7 @@ namespace FlyveLægeKBH.Repos
                     catch (Exception ex)
                     {
                         // Handle the exception, e.g., log it
-                        Console.WriteLine($"Error: {ex.Message}");
+                        MessageBox.Show($"Error: {ex.Message}");
                     }
                 }
             }

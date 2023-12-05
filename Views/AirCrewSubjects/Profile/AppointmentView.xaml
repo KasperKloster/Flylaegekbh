@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <!--This is to view future appointments-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNUmber}" Width="262" Padding="10"/>
+            <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNumber}" Width="262" Padding="10"/>
             <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left">

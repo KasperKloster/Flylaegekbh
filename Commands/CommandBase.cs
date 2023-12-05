@@ -31,6 +31,7 @@ namespace FlyveLægeKBH.Commands
         //Fields
         private readonly Action<object> _executeAction;
         private readonly Predicate<object> _canExecuteAction;
+        private Action updateAirCrew;
 
         /*************************************************************/
         /*                   Explanation of Fields                   */
@@ -54,6 +55,11 @@ namespace FlyveLægeKBH.Commands
         {
             _executeAction = executeAction;
             _canExecuteAction = null;
+        }
+
+        public CommandBase(Action updateAirCrew)
+        {
+            this.updateAirCrew = updateAirCrew;
         }
 
         public CommandBase(Action<object> executeAction, Predicate<object> canExecuteAction)
