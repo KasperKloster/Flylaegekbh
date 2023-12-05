@@ -246,11 +246,11 @@ class AirCrewViewModel : ViewModelBase
 
     private void DeleteCabinCrewUser()
     {
-        PilotRepo.DeletePilot(this.socialSecurityNumber);
+        MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber));
     }
 
     private void DeletePilotUser()
     {
-        CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber);
+        MessageBox.Show(PilotRepo.DeletePilot(this.socialSecurityNumber));
     }
 }
