@@ -27,7 +27,7 @@ namespace FlyveLægeKBH.Repos
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("FL_2InsertAirCrewAndMedicalReport", connection))
+                    using (SqlCommand command = new SqlCommand("FL2_InsertAirCrewAndMedicalReport", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 

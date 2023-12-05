@@ -49,13 +49,14 @@ namespace FlyveLægeKBH.ViewModels
 
         private void CreateAirCrew(object obj)
         {
+            PilotRepo pilotRepo = new PilotRepo();
             if (Title == "CabinCrew")
             {
                 MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
             }
             else
             {
-                MessageBox.Show(PilotRepo.CreatePilot(FirstNames, SurName, Email, Phone,Address, SocialSecurityNumber, Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate,
+                MessageBox.Show(pilotRepo.CreatePilot(FirstNames, SurName, Email, Phone,Address, SocialSecurityNumber, Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate,
                     ML_Class1ExpiryDate, ML_Class2ExpiryDate, ML_LAPLExpiryDate, ML_ElectroCardiogramRecentDate, ML_AudiogramRecentDate));
             }
             //MessageBox.Show(ML_DateOfIssue.ToString());
