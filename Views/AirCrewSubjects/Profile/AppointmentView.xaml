@@ -5,17 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlyveLægeKBH.Views.AirCrewSubjects.Profile"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--This is to view future appointments-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
@@ -23,7 +25,12 @@
             <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-            <ListView x:Name="Appointments_listView" ItemsSource="{Binding Appointments}" IsSynchronizedWithCurrentItem="True" Width="550" HorizontalContentAlignment="Left">
+            <ListView x:Name="Appointments_listView" 
+                      ItemsSource="{Binding Appointments}" 
+                      IsSynchronizedWithCurrentItem="True" 
+                      Width="620" 
+                      HorizontalContentAlignment="Left"
+                      SelectionMode="Single">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
@@ -42,10 +49,143 @@
 
  
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Style="{StaticResource submitBtn}" x:Name="Edit_appointment_btn" Content="Ændre booking" Margin="10" Height="30" HorizontalAlignment="Right" />
-            <Button Style="{StaticResource deleteBtn}" x:Name="Delete_Appointments_btn" Content=" Slet booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+            <Button Style="{StaticResource submitBtn}"
+                    x:Name="Edit_appointment_btn"
+                    Content="Ændre booking"
+                    Margin="10"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding UpdateAppointmentCommand}"
+                    CommandParameter="{Binding ElementName=Appointments_listView,
+                                        Path=SelectedItem}"/>
+            
+            <Button Style="{StaticResource deleteBtn}" 
+                    x:Name="Delete_Appointments_btn" 
+                    Content=" Slet booking" 
+                    Margin="10" 
+                    Height="30" 
+                    HorizontalAlignment="Right"
+                    Command="{Binding DeleteAppointmentByIDCommand}"
+                    CommandParameter="{Binding ElementName=Appointments_listView, 
+                                        Path=SelectedItem.AppointmentID}"/>
+            
             <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />
 
         </StackPanel>
+
+        
+        <!--The following is for updating/changing your appointment-->
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    >
+            
+            <Label x:Name="ameSSNLBL"
+                   Content="Læge"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="0,0,10,0"/>
+            <TextBox x:Name="ameSNNTB"
+                     Foreground="Black"
+                     Text="{Binding SelectedItem.AME_SSN, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+
+            <Label x:Name="examinationNameLBL"
+                   Content="Undersøgelse"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="35,0,10,0"/>
+            <TextBox x:Name="examinationNameTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.ExaminationName, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>           
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="4"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            
+            <Label x:Name="startTimeLBL"
+                   Content="Tid"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="0,0,10,0"/>
+            <TextBox x:Name="startTimeTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.StartTime, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+            
+            <Label x:Name="appointmentDateLBL"
+                   Content="Tid"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="35,0,10,0"/>
+            <TextBox x:Name="appointmentDateTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.AppointmentDate, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>           
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            
+            <!--just for development an first iteration
+            remove these or do somthing with these when refactor the view-->
+
+            <Label x:Name="appointmentIDLBL"
+                   Content="appointmentID"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="0,0,10,0"/>
+            <TextBox x:Name="appointmentIDTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.AppointmentID, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+
+            <Label x:Name="pilotCabinCrewSNNLBL"
+                   Content="pilotCabinCrew_SNN"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="35,0,10,0"/>
+            <TextBox x:Name="pilotCabinCrewSNNTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.PilotCabinCrew_SSN, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

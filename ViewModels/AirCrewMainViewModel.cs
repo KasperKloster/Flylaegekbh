@@ -77,6 +77,8 @@ namespace FlyveLægeKBH.ViewModels
         // Commands
         public ICommand ShowAirCrewViewCommand { get; }
         public ICommand ShowAppointmentViewCommand { get; }
+
+        // Constructor
         public AirCrewMainViewModel()
         {
             ShowAirCrewViewCommand = new CommandBase(ExecuteShowAirCrewViewCommand);
