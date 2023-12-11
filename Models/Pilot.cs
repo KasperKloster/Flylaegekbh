@@ -44,10 +44,10 @@ namespace FlyveLægeKBH.Models
         }
 
         //--------------------Methods------------------------------------------------------------------
-        public override string ToString() 
-        {
-            return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical Date of Issue: {MedicalLicense.DateOfIssue}";
-        }
+        //public override string ToString() 
+        //{
+        //    return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical Date of Issue: {MedicalLicense.DateOfIssue}";
+        //}
 
     }
 }
