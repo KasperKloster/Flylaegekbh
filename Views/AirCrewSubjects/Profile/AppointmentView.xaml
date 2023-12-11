@@ -147,7 +147,8 @@
                     Height="35"
                     Margin="10,0,0,0"
                     ItemsSource="{Binding AuthorizedAMEs}"
-                    DisplayMemberPath="FirstName"/>
+                    DisplayMemberPath="FirstName"
+                        SelectedItem="{Binding SelectedAME}"/>
 
                 </StackPanel>              
 
@@ -174,9 +175,43 @@
                     <DatePicker
                     SelectedDate="{Binding AppointmentDate}"/>
                 </StackPanel>
+
+                <Button Style="{StaticResource submitBtn}"
+                    x:Name="ShowAvailableStartTimes_btn"
+                    Content="Find Ledig Tid"
+                    Margin="10,0,0,0"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding GetAvailableStartTimesCommand}"
+                    CommandParameter="{Binding AME_SSN}"/>
+
+                <StackPanel Orientation="Vertical"
+                            Width="150">
+                    
+                    <Label x:Name="chooseTime"
+                       Content="Vælg Tidspunkt"
+                       Foreground="Black"
+                   HorizontalAlignment="Left"
+                   HorizontalContentAlignment="Center"
+                   Width="150"
+                   Height="35"
+                   Margin="10,0,0,0"/>
+
+                    <ComboBox
+                    x:Name="AvailableStartTimesMenu"                    
+                    Width="120"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    ItemsSource="{Binding StartTime}"
+                    SelectedItem="{Binding StartTime}"
+                    />
+                </StackPanel>
                 
                 
                 
+
+
+
 
             </StackPanel>
             

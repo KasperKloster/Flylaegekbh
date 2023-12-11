@@ -364,15 +364,17 @@ namespace FlyveLægeKBH.Repos
             return examinations;
         }
 
-        public List<TimeOnly> GetAvailableTimesForAME ()
+        public List<string> GetAvailableTimesForAME (string ame_ssn, DateOnly appointmentDate)
         {
-            List<TimeOnly> times = new List<TimeOnly>();
+            List<string> times = new List<string>();
 
             using(SqlConnection connection = new SqlConnection( connectionString)) 
             {
-                using(SqlCommand command = new SqlCommand("FL2_GetAvailableTimesForAME")) 
+                using(SqlCommand command = new SqlCommand("FL2_GetAvailableTimesForAME", connection)) 
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@AME_SSN", ame_ssn);
+                    command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
 
                     try
                     {
@@ -380,19 +382,19 @@ namespace FlyveLægeKBH.Repos
 
                         using(SqlDataReader reader = command.ExecuteReader())
                         {
-                            TimeOnly startsTimes = (TimeOnly)reader["StartTime"];
-
                             while(reader.Read()) 
-                            {
-                                times.Add(startsTimes);
+                            {                                
+                                string startTimeValue = reader["StartTime"].ToString();
+                                times.Add(startTimeValue);  
                             }
                         }
+
+                        MessageBox.Show($"Ledige tider indlæst. Du kan nu vælge en tid i menuen");
 
                     }
                     catch (Exception ex)
                     {
-
-                        throw;
+                        MessageBox.Show($"Der skete en fejl under indlæsningen af ledige tider. Error: {ex.Message}");
                     }
                 }
             }

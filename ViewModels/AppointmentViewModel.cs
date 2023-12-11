@@ -3,6 +3,7 @@ using FlyveLægeKBH.Models;
 using FlyveLægeKBH.Repos;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -111,6 +112,26 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
+        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
+        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        private AME selectedAME;
+
+        public AME SelectedAME
+        {
+            get
+            {
+                return selectedAME;
+            }
+            set
+            {
+                selectedAME = value;
+                OnPropertyChanged(nameof(SelectedAME));
+
+                AME_SSN = selectedAME?.SocialSecurityNumber;
+            }
+        }
+
+
 
         //public string SocialSecurityNumber { get; set; }
 
@@ -123,8 +144,8 @@ namespace FlyveLægeKBH.ViewModels
 
 
         // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
-        private string appointmentDate;
-        public string AppointmentDate
+        private DateTime appointmentDate;
+        public DateTime AppointmentDate
         {
             get
             {
@@ -138,8 +159,11 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        private List<TimeOnly> startTime;
-        public List<TimeOnly> StartTime
+        //this field is used to bind the selectedAppointmentDate from the datepicker to the AppointmentDate property.
+        //This ensures that we cand parss the selectedDate to other Actions throug the property AppointmentDate.
+        //This is kept as a string value for now and then convertede in the create action to SQL.dataType time to be insert  in the DB.
+        private List<string> startTime;
+        public List<string> StartTime
         {
             get
             {
@@ -337,7 +361,8 @@ namespace FlyveLægeKBH.ViewModels
         private void ExecuteGetAvailableStartTimesCommand(object obj)
         {
 
-            StartTime = appointmentRepo.GetAvailableTimesForAME();
+            StartTime = appointmentRepo.GetAvailableTimesForAME(AME_SSN, DateOnly.FromDateTime(AppointmentDate));
+            
 
         }
 
