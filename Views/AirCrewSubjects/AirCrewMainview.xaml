@@ -181,14 +181,7 @@
                                     Orientation="Horizontal"
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
-                                    Margin="0,0,10,0">
-                              
-                              
-                                <Button Style="{StaticResource iconButton}"
-                                    Tag="{StaticResource color7}">
-                                    <fa:IconImage Icon="AnglesDown" Style="{StaticResource iconButtonIcon}"/>
-                                </Button>
-
+                                    Margin="0,0,10,0">                             
 
                                 <Button x:Name="btnBackToMainWindow"
                                     Style="{StaticResource iconButton}"

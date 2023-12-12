@@ -3,7 +3,9 @@ using FlyveLægeKBH.Models;
 using FlyveLægeKBH.Repos;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,7 +16,7 @@ namespace FlyveLægeKBH.ViewModels
     public class AppointmentViewModel: ViewModelBase
     {
         //----------Fields----------------------------
-
+        
 
         //this field is used as the source to display all appointments belongin to specifik aircrew 
         private List<Appointment> appointments;
@@ -31,6 +33,105 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
+        //this field is used as the source to display all authorizedAMEs by ExaminationName 
+        private List<AME> authorizedAMEs;
+        public List<AME> AuthorizedAMEs
+        {
+            get
+            {
+                return authorizedAMEs;
+            }
+            set
+            {
+                authorizedAMEs = value;
+                OnPropertyChanged(nameof(AuthorizedAMEs));
+            }
+        }
+
+        //this field is used as the source to display all Pilots in the DB to simulate wich user is login and are performing actions 
+        private List<Pilot> allPilots;
+        public List<Pilot> AllPilots
+        {
+            get
+            {
+                return allPilots;
+            }
+            set
+            {
+                allPilots = value;
+                OnPropertyChanged(nameof(AllPilots));
+            }
+        }
+
+        //this field is used as the source to display all Cabin Crews in the DB to simulate wich user is login and are performing actions 
+        private List<CabinCrew> allCabinCrews;
+        public List<CabinCrew> AllCabinCrews
+        {
+            get
+            {
+                return allCabinCrews;
+            }
+            set
+            {
+                allCabinCrews = value;
+                OnPropertyChanged(nameof(AllCabinCrews));
+            }
+        }
+
+        //this field is used as the source to display all Examinations in the DB to populate the Examinations menu the user can choose from 
+        private List<Examination> allExaminations;
+        public List<Examination> AllExaminations
+        {
+            get
+            {
+                return allExaminations;
+            }
+            set
+            {
+                allExaminations = value;
+                OnPropertyChanged(nameof(AllExaminations));
+            }
+        }
+
+        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
+        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        private Examination selectedExamination;
+
+        public Examination SelectedExamination
+        {
+            get 
+            { 
+                return selectedExamination; 
+            }
+            set 
+            { 
+                selectedExamination = value;
+                OnPropertyChanged(nameof(SelectedExamination));
+
+                ExaminationName = selectedExamination?.ExaminationName;
+            }
+        }
+
+        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
+        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        private AME selectedAME;
+
+        public AME SelectedAME
+        {
+            get
+            {
+                return selectedAME;
+            }
+            set
+            {
+                selectedAME = value;
+                OnPropertyChanged(nameof(SelectedAME));
+
+                AME_SSN = selectedAME?.SocialSecurityNumber;
+            }
+        }
+
+
 
         //public string SocialSecurityNumber { get; set; }
 
@@ -43,8 +144,8 @@ namespace FlyveLægeKBH.ViewModels
 
 
         // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
-        private string appointmentDate;
-        public string AppointmentDate
+        private DateTime appointmentDate;
+        public DateTime AppointmentDate
         {
             get
             {
@@ -58,8 +159,11 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        private string startTime;
-        public string StartTime
+        //this field is used to bind the selectedAppointmentDate from the datepicker to the AppointmentDate property.
+        //This ensures that we cand parss the selectedDate to other Actions throug the property AppointmentDate.
+        //This is kept as a string value for now and then convertede in the create action to SQL.dataType time to be insert  in the DB.
+        private List<string> startTime;
+        public List<string> StartTime
         {
             get
             {
@@ -149,6 +253,8 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
+        private AppointmentRepo appointmentRepo = new AppointmentRepo();
+
 
 
 
@@ -234,12 +340,61 @@ namespace FlyveLægeKBH.ViewModels
         and calls the UpdateAppointment method.                      */
         /*************************************************************/
 
+        public ICommand GetAuthoriazedAMEByExaminationCommand { get; }
+        public ICommand GetALLPilotsAndCabinCrewCommand { get; }
+        public ICommand GetALLExaminationsCommand { get; }
+
+        public ICommand GetAvailableStartTimesCommand { get; }
+
         // Constructor 
         public AppointmentViewModel()
         {
             GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
             UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
+            GetAuthoriazedAMEByExaminationCommand = new CommandBase(ExecuteGetAuthoriazedAMEByExaminationCommand);
+            GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
+            GetALLExaminationsCommand = new CommandBase(ExecuteGetALLExaminationsCommand);
+            GetAvailableStartTimesCommand = new CommandBase(ExecuteGetAvailableStartTimesCommand);
+        }
+
+        private void ExecuteGetAvailableStartTimesCommand(object obj)
+        {
+
+            StartTime = appointmentRepo.GetAvailableTimesForAME(AME_SSN, DateOnly.FromDateTime(AppointmentDate));
+            
+
+        }
+
+        private void ExecuteGetALLExaminationsCommand(object obj)
+        {
+            AppointmentRepo appointmentRepo = new AppointmentRepo();
+            AllExaminations = appointmentRepo.GetAllExaminations();
+        }
+
+        private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
+        {
+            try
+            {
+                AppointmentRepo appointmentRepo = new AppointmentRepo();
+                var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+
+                AllPilots = pilots;
+                AllCabinCrews = cabinCrews;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
+            }
+            
+        }
+
+        private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
+        {
+                       
+                AppointmentRepo appointmentRepo = new AppointmentRepo();
+                AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);                
+               
         }
 
 
@@ -252,6 +407,7 @@ namespace FlyveLægeKBH.ViewModels
             {
                 AppointmentRepo appointmentRepo = new AppointmentRepo();
                 MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
+
             }            
 
             

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using System.Net;
 using System.Net.Mail;
 
@@ -380,8 +381,198 @@ namespace FlyveLægeKBH.Repos
             return message;
         }
 
+        public List<AME> GetAuthorizedAMEsByExamination (string examinationName)
+        {
+            List<AME> authorizedAMEs = new List<AME>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString ))
+            {
+                using ( SqlCommand command = new SqlCommand("FL2_GetAuthoriazedAMEByExamination", connection) ) 
+                {
+                    command.CommandType= CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@ExaminationName", examinationName);
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader()) 
+                        {
+                            while (reader.Read())                                
+                            {
+                                AME ame = new AME();
+                                {
+                                    ame.FirstName = reader["FirstNames"].ToString();
+                                    ame.SurName = reader["Surname"].ToString();
+                                    ame.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
+                                }
+                                
+                                authorizedAMEs.Add(ame);
+
+                            }
+                        }
+
+                        if (authorizedAMEs.Count == 0)
+                        {
+                            MessageBox.Show("Der er ingen godkendte AME'er for den valgte undersøgelse. Prøv en anden undersøgelse");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Godkendte AME'er blev succesfuldt indlæst for den angivne undersøgelse. Vælg en AME i Dropdown menuen");
+                        }
+                    }
+                    catch 
+                    (Exception ex) 
+                    {
+                        MessageBox.Show($"Der skete en fejl under indhentningen af authorizedAMEs. Error: {ex.Message}");
+                    }
+                }
+            }
+
+            return authorizedAMEs;
+        }
+
+        public (List<Pilot> pilots, List<CabinCrew> cabinCrews) GetAllPilotsAndCabinCrews()
+        {
+            List<Pilot> pilots = new List<Pilot>();
+            List<CabinCrew> cabinCrews = new List<CabinCrew>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                using(SqlCommand command = new SqlCommand("FL2_GetALLPilotsAndCabinCrew", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    try 
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string titleName = reader["TitleName"].ToString();
+
+                                if (titleName.Equals("Pilot", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Pilot pilot = new Pilot();
+                                    {
+                                        pilot.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
+                                        pilot.FirstName = reader["FirstNames"].ToString();
+                                    };
+                                    pilots.Add(pilot);
+                                }
+                                else if (titleName.Equals("CabinCrew", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    CabinCrew cabinCrew = new CabinCrew();
+                                    {
+                                        cabinCrew.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
+                                        cabinCrew.FirstName = reader["FirstNames"].ToString();
+                                    };
+                                    cabinCrews.Add(cabinCrew);
+                                }
+                            }
+
+                            MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
+                        }                    
+                    }
+                    catch(Exception ex) 
+                    {
+                        MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
+                    }
+                   
+                }
+            
+            }
+            return (pilots, cabinCrews);
+        }
+
+        public List<Examination> GetAllExaminations() 
+        {
+            List<Examination> examinations = new List<Examination>();
+
+            using(SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("FL2_GetAllExaminations", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    try
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Examination examination = new Examination();
+                                {
+                                    examination.ExaminationName = (string)reader["ExaminationName"];
+                                    examination.Price = (decimal)reader["Price"];
+                                    examination.DurationInMin = (int)reader["DurationInMin"];
+                                }
+
+                                examinations.Add(examination);
+
+                            }
+                        }
+
+                        MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
+
+                        
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show($"Doprdown menu med ExaminationNames kunne ikke indlæses. Error: {ex.Message}");
+                    }
+                }
+            }
+            return examinations;
+        }
+
+        public List<string> GetAvailableTimesForAME (string ame_ssn, DateOnly appointmentDate)
+        {
+            List<string> times = new List<string>();
+
+            using(SqlConnection connection = new SqlConnection( connectionString)) 
+            {
+                using(SqlCommand command = new SqlCommand("FL2_GetAvailableTimesForAME", connection)) 
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@AME_SSN", ame_ssn);
+                    command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+
+                    try
+                    {
+                        connection.Open();
+
+                        using(SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while(reader.Read()) 
+                            {                                
+                                string startTimeValue = reader["StartTime"].ToString();
+                                times.Add(startTimeValue);  
+                            }
+                        }
+
+                        MessageBox.Show($"Ledige tider indlæst. Du kan nu vælge en tid i menuen");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Der skete en fejl under indlæsningen af ledige tider. Error: {ex.Message}");
+                    }
+                }
+            }
+            return times;
+        }
+        
 
     }
-
-
 }
+
+
+ 
+
+
+
+

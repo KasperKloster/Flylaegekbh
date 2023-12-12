@@ -8,6 +8,11 @@ namespace FlyveLægeKBH.Models
 {
     public class Examination
     {
+        // Fields
+        public string ExaminationName { get; set; }
+        public decimal Price { get; set; }
+        public int DurationInMin { get; set; }
+
 
         //###################################################################################################//
         /*This class is consist of a list of dictionary, and each dictionary contains information about each
