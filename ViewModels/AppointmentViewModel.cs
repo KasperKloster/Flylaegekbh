@@ -131,6 +131,25 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
+        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
+        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        private Pilot selectedPilot;
+
+        public Pilot SelectedPilot
+        {
+            get
+            {
+                return selectedPilot;
+            }
+            set
+            {
+                selectedPilot = value;
+                OnPropertyChanged(nameof(SelectedPilot));
+
+                PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
+            }
+        }
+
         // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
         private DateTime appointmentDate;
         public DateTime AppointmentDate
@@ -178,12 +197,9 @@ namespace FlyveLægeKBH.ViewModels
                 selectedStartTime = value;
                 OnPropertyChanged(nameof(SelectedStartTime));
 
+
             }
         }
-
-
-
-
 
         private string examinationName;
         public string ExaminationName
@@ -226,6 +242,7 @@ namespace FlyveLægeKBH.ViewModels
             {
                 socialSecurityNumber = value;
                 OnPropertyChanged(nameof(SocialSecurityNumber));
+                
             }
 
         }
@@ -262,6 +279,8 @@ namespace FlyveLægeKBH.ViewModels
         }
 
 
+        // Husk at rydde op her !!
+
         private AppointmentRepo appointmentRepo = new AppointmentRepo();
 
 
@@ -269,6 +288,7 @@ namespace FlyveLægeKBH.ViewModels
 
         // Commands
         public ICommand GetBookingsBySSNCommand { get; set; }
+        public ICommand GetFutureAppointmentsCommand { get; }
         public ICommand DeleteAppointmentByIDCommand { get; }
 
         /*************************************************************/
@@ -355,6 +375,8 @@ namespace FlyveLægeKBH.ViewModels
 
         public ICommand GetAvailableStartTimesCommand { get; }
 
+        public ICommand CreateNewAppointmentCommand { get; }
+
         // Constructor 
         public AppointmentViewModel()
         {
@@ -368,6 +390,18 @@ namespace FlyveLægeKBH.ViewModels
             GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
             GetALLExaminationsCommand = new CommandBase(ExecuteGetALLExaminationsCommand);
             GetAvailableStartTimesCommand = new CommandBase(ExecuteGetAvailableStartTimesCommand);
+            CreateNewAppointmentCommand = new CommandBase(ExecuteCreateNewAppointmentCommand);
+            GetFutureAppointmentsCommand = new CommandBase(ExecuteGetFutureAppointmentsCommand);
+        }
+
+        private void ExecuteGetFutureAppointmentsCommand(object obj)
+        {
+            Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+        }
+
+        private void ExecuteCreateNewAppointmentCommand(object obj)
+        {
+            MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));
         }
 
         private void ExecuteGetAvailableStartTimesCommand(object obj)
@@ -419,6 +453,8 @@ namespace FlyveLægeKBH.ViewModels
             {
                 AppointmentRepo appointmentRepo = new AppointmentRepo();
                 MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
+
+                Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
 
             }            
 

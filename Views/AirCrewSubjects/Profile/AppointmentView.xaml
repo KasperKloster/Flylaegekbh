@@ -61,7 +61,8 @@
                     Height="35"
                     Margin="0,10,0,0"
                     ItemsSource="{Binding AllPilots}"
-                    DisplayMemberPath="FirstName"/>
+                    DisplayMemberPath="FirstName"
+                    SelectedItem="{Binding SelectedPilot}"/>
 
                 </StackPanel>
 
@@ -207,9 +208,18 @@
                     SelectedItem="{Binding SelectedStartTime}"
                     />
                 </StackPanel>
-                
-                
-                
+
+                <Button Style="{StaticResource submitBtn}"
+                    x:Name="CreateNewAppointment_btn"
+                    Content="Opret booking"
+                    Margin="10,0,0,0"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding CreateNewAppointmentCommand}"
+                    />
+
+
+
 
 
 
@@ -219,10 +229,25 @@
             
             
             <!--This is to view future appointments-->
-            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                <TextBox Style="{StaticResource searchBar}" x:Name="Get_all_info_test_tbx" Text="{Binding SocialSecurityNumber}" Width="262" Padding="10"/>
-                <Button Style="{StaticResource submitBtn}" x:Name="Get_All_Appointments_btn" Content=" Hent mine bookinger" Margin="10" Height="30" Width="150" Command="{Binding GetBookingsBySSNCommand}" CommandParameter="{Binding}"/>
-            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                
+                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
+                    <TextBlock Text="For se dine kommende bookinger:" FontWeight="Bold" FontSize="14"/>
+                    <TextBlock Text="Tryk på vis mine bookinger." />
+                    <TextBlock Text="Dernæst kan du ændre eller slette i en booking hvis du ønsker det." />
+                    <TextBlock Text="Dette gøres ved at vælge en Booking fra listen." />
+                    <TextBlock Text="Hvorefter du kan rette informationerne i de nedenstående felter." />
+                </StackPanel>
+                
+                <Button Style="{StaticResource submitBtn}"
+                    x:Name="ShowFutureAppointments_btn"
+                    Content="Vis mine booking"
+                    Margin="10,0,0,0"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Command="{Binding GetFutureAppointmentsCommand}"
+                    CommandParameter="{Binding PilotCabinCrew_SSN}"/>
+            </StackPanel>            
             
             <StackPanel Grid.Row="4" HorizontalAlignment="Left">
                 <ListView x:Name="Appointments_listView" 
@@ -234,8 +259,8 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding PilotCabinCrew_SSN}" Header="PilotCabinCrew_SSN"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding AME_SSN}" Header="AME_SSN"/>
+                            <!--<GridViewColumn DisplayMemberBinding="{Binding PilotCabinCrew_SSN}" Header="PilotCabinCrew_SSN"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding AME_SSN}" Header="AME_SSN"/>-->
                             <GridViewColumn DisplayMemberBinding="{Binding ExaminationName}" Header="ExaminationName"/>
                             <GridViewColumn DisplayMemberBinding="{Binding StartTime}" Header="StartTime"/>
                             <GridViewColumn DisplayMemberBinding="{Binding AppointmentDate}" Header="AppointmentDate"/>
@@ -243,8 +268,6 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-
-
             </StackPanel>
 
 
@@ -267,14 +290,12 @@
                     HorizontalAlignment="Right"
                     Command="{Binding DeleteAppointmentByIDCommand}"
                     CommandParameter="{Binding ElementName=Appointments_listView, 
-                                        Path=SelectedItem.AppointmentID}"/>
-
-                <Button Style="{StaticResource submitBtn}" x:Name="new_appointment_btn" Content="Ny booking" Margin="10" Height="30" HorizontalAlignment="Right" />
+                                        Path=SelectedItem.AppointmentID}"/>               
 
             </StackPanel>
 
 
-            <!--The following is for updating/changing your appointment-->
+            <!--The following is for updating/changing your appointment inputs-->
 
             <StackPanel Grid.Row="6"
                     Orientation="Horizontal"
