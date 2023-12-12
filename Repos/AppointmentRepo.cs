@@ -7,18 +7,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Net;
+using System.Net.Mail;
 
 namespace FlyveLægeKBH.Repos
 {
     public class AppointmentRepo : RepoBase
     {
 
+        //public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
+        //{
+        //    string message;
+        //    string pilotCabinCrewFullName;
+        //    string ameFullName;
+        //    string pilotCabinCrewEmail;
+
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand("FL2_CreateAppointment", connection))
+        //        {
+        //            command.CommandType = CommandType.StoredProcedure;
+
+        //            // Add parameters
+        //            command.Parameters.AddWithValue("@PilotCabinCrew_SSN", pilotCabinCrewSSN);
+        //            command.Parameters.AddWithValue("@AME_SSN", ameSSN);
+        //            command.Parameters.AddWithValue("@ExaminationName", examinationName);
+        //            command.Parameters.AddWithValue("@StartTime", startTime);
+        //            command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
+
+        //            try
+        //            {
+        //                connection.Open();
+        //                command.ExecuteNonQuery();
+        //                message = "Appointment created successfully.";
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                message = "Error creating appointment: " + ex.Message;
+        //            }
+        //        }
+        //    }
+        //    // trying to incorporate emailing..
+        //    try
+        //    {
+        //        // Send an email notification
+        //        SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
+
+        //        message = "Appointment created successfully.";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        message = "Error creating appointment: " + ex.Message;
+        //    }
+        //    return message;
+
+
+        //}
+
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
             string message;
+            string pilotCabinCrewFullName = "";
+            string ameFullName = "";
+            string pilotCabinCrewEmail = "";
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand("CreateAppointment", connection))
+                using (SqlCommand command = new SqlCommand("FL2_CreateAppointment", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -29,10 +84,21 @@ namespace FlyveLægeKBH.Repos
                     command.Parameters.AddWithValue("@StartTime", startTime);
                     command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
 
+                    // Add OUTPUT parameters
+                    command.Parameters.Add("@PilotCabinCrewFullName", SqlDbType.NVarChar, 255).Direction = ParameterDirection.Output;
+                    command.Parameters.Add("@AME_FullName", SqlDbType.NVarChar, 255).Direction = ParameterDirection.Output;
+                    command.Parameters.Add("@PilotCabinCrewEmail", SqlDbType.NVarChar, 255).Direction = ParameterDirection.Output;
+
                     try
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
+
+                        // Retrieve OUTPUT parameter values
+                        pilotCabinCrewFullName = command.Parameters["@PilotCabinCrewFullName"].Value.ToString();
+                        ameFullName = command.Parameters["@AME_FullName"].Value.ToString();
+                        pilotCabinCrewEmail = command.Parameters["@PilotCabinCrewEmail"].Value.ToString();
+
                         message = "Appointment created successfully.";
                     }
                     catch (Exception ex)
@@ -41,8 +107,66 @@ namespace FlyveLægeKBH.Repos
                     }
                 }
             }
+
+            // trying to incorporate emailing..
+            try
+            {
+                // Send an email notification
+                SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
+
+                message = "Appointment created successfully.";
+            }
+            catch (Exception ex)
+            {
+                message = "Error creating appointment: " + ex.Message;
+            }
+
             return message;
         }
+
+        private void SendEmail(string pilotCabinCrewFillName, string ameFullName, string pilotCabinCrewEmail, string examinationName, TimeSpan startTime, DateTime appointmentDate)
+        {
+            string smtpServer = "smtp.gmail.com";
+            int smtpPort = 587; 
+            string smtpUsername = "team2ucl2023@gmail.com";
+            string smtpPassword = "bldvmvidttapjhlo";
+
+            using (SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort))
+            {
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+                smtpClient.EnableSsl = true;
+
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("team2ucl2023@gmail.com");
+                mailMessage.To.Add("bsch54167@edu.ucl.dk");
+                mailMessage.Subject = "New Appointment Created";
+                mailMessage.Body = $"Hello {pilotCabinCrewFillName}\n"+
+                                   $"Vi skriver til dig for at bekræfte din aftale til flyvemedicinsk undersøgelse der er fortaget {DateTime.Now}.\n\n" +
+                                   $"Navn på kunde: {pilotCabinCrewFillName}\n" +
+                                   $"Navn på AME: {ameFullName}\n" +
+                                   $"Undersøgelsen der skal foretages: {examinationName}\n" +
+                                   $"Starttidspunkt: {startTime}\n" +
+                                   $"Dato for undersøgelsen: {appointmentDate.Date}\n\n"+
+                                   $"Praktisk information: \r\n\r\n\r\n\r\n" +
+                                   $"Medbring dette når du møder til din aftale:\r\n\r\n\r\n\r\n" +
+                                   $"  * Ved førstegangs udstedelse medbring alle journal notater  fra sundhed.dk, dit opdateret  medicinkort,  " +
+                                   $"journal notater fra din egen læge og andre sundhedskontakter bla privat hospital/ speciallæger. " +
+                                   $"\r\n  * Hvis det er en forlængelse og du har haft kontakt til sunhedsvæsenet, egen læge  eller privat hospital/ speciallæger., " +
+                                   $"så medbring journal oplysninger fra Sundhed.dk, journal notater fra egen læge  og et opdateret medicinkort siden sidste udstedelse. " +
+                                   $"\r\n  * Pas eller kørekort." +
+                                   $"\r\n  * Tidligere medical." +
+                                   $"\r\n  * Evt  logbog." +
+                                   $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
+                                   $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
+                                   $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
+                Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
+                mailMessage.Attachments.Add(attachment1);
+
+                smtpClient.Send(mailMessage);
+            }
+        }
+
 
         public List<Appointment> GetBySocialSecurityNumber(string ssn)
         {
@@ -91,6 +215,47 @@ namespace FlyveLægeKBH.Repos
             return appointments;
         }
 
+        public string GetAppointmentsHistoryBySSN(string ssn)
+        {
+            string toReturn = "";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("FL2_GetAppointmentsHistoryBySSN", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameter
+                    command.Parameters.AddWithValue("@InputSSN", ssn);
+
+                    try
+                    {
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Concatenate appointment history information
+                                string addString = $"AuditID: {reader["AuditID"]} AppointmentID: {reader["AppointmentID"]} " +
+                                    $"Action: {reader["Action"]} ActionDate: {reader["ActionDate"]} " +
+                                    $"FirstNames: {reader["FirstNames"]} SurName: {reader["SurName"]} " +
+                                    $"SocialSecurityNumber: {reader["SocialSecurityNumber"]} \n";
+                                toReturn += addString;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle the exception, e.g., log it
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+            }
+
+            return toReturn;
+        }
+
         /*************************************************************/
         /*          Explanation of Delete Appointment                */
         /*************************************************************/
@@ -113,7 +278,7 @@ namespace FlyveLægeKBH.Repos
                                                                      */
         /*************************************************************/
 
-        
+
         public string DeleteAppointment(int appointmentID) 
         {
             string message;

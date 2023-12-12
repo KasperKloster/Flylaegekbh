@@ -22,33 +22,40 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0, 25, 0, 40 ">
-            <TextBox Width="350" Text="{Binding Path=FirstNames}"/>
-            <TextBox Margin="100, 0, 0, 0"
-                     Width="350"
+            <TextBlock Text="Fornavne" Style="{StaticResource headline2_alt}"/>
+            <TextBox Width="300" Text="{Binding Path=FirstNames}" Margin="10,0"/>
+            <TextBlock Text="Efternavn" Style="{StaticResource headline2_alt}"/>
+
+            <TextBox Margin="10, 0"
+                     Width="360"
                      Text="{Binding Path=SurName}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="0,0,0,30">
-            <TextBox Text="{Binding Path=Email}"/>
-        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,0,0,30" Orientation="Horizontal">
+            <TextBlock Text="Email" Style="{StaticResource headline2_alt}"/>
+            <TextBox Text="{Binding Path=Email}" Margin="10,0" Width="500"/>
+            
+            <TextBlock Text="Telefon" Style="{StaticResource headline2_alt}"/>
 
-        <StackPanel Grid.Row="2"  Margin="0,0,0,30">
-            <TextBox 
+            <TextBox Width="200" Margin="10,0"
                 Text="{Binding Path=Phone}"/>
         </StackPanel>
 
+
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
-            <TextBox
-                     Width="500"
+            <TextBlock Text="Address" Style="{StaticResource headline2_alt}"/>
+
+            <TextBox Margin="10,0"
+                     Width="750"
                      Text="{Binding Path=Address}"/>
 
-            <TextBox  
+            <!--<TextBox  
                      Margin="100, 0, 0, 0"
                      Width="200"
-                     Text="Nummer"/>
+                     Text="Nummer"/>-->
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
+        <!--<StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
             <TextBox  
                     Width="200"
                     Text="Postnummer"/>
@@ -57,23 +64,23 @@
                     Margin="100, 0, 0, 0"
                      Width="500"
                      Text="By"/>
-        </StackPanel>
+        </StackPanel>-->
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Button 
                     Style="{StaticResource deleteBtn}" 
                     Width="100"
-                    Margin="0,0, 600, 0"
+                    Margin="10,0, 500, 0"
                     Content="Slet"
                     Command="{Binding DeleteAirCrewUserCommand}"
                     CommandParameter="{Binding}"/>
-
             <Button 
                 Style="{StaticResource submitBtn}"
                 Width="100" 
-                Content="Gem"
+                Content="Gem/opdater"
                 Command="{Binding UpdateAirCrewUserCommand}"
                 CommandParameter="{Binding}"
+                Margin ="80,0,100,0"
                 />
         </StackPanel>
 
@@ -81,8 +88,29 @@
             <Button Style="{StaticResource submitBtn}" x:Name="Get_all_info_test_btn" Content="Get all info" Margin="10" Height="30" Command="{Binding GetAllInfoCommand}" CommandParameter="{Binding}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="7">
+        <StackPanel Grid.Row="7" Orientation="Horizontal">
             <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card" Text="{Binding UserInfo}"/>
+            <TextBlock Style="{StaticResource headline2}" x:Name="Get_Booking_history_card" Text="{Binding BookingHistory}"/>
+
+            <ListView x:Name="Appointments_listView" 
+                      ItemsSource="{Binding Appointments}" 
+                      IsSynchronizedWithCurrentItem="True" 
+                      Width="620" 
+                      HorizontalContentAlignment="Left"
+                      SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding AppointmentID}" Header="AppointmentID"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding PilotCabinCrew_SSN}" Header="PilotCabinCrew_SSN"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding AME_SSN}" Header="AME_SSN"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ExaminationName}" Header="ExaminationName"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding StartTime}" Header="StartTime"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding AppointmentDate}" Header="AppointmentDate"/>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
         </StackPanel>
 
     </Grid>
