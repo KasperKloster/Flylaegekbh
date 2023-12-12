@@ -115,7 +115,7 @@ namespace FlyveLægeKBH.Repos
             try
             {
                 // Send an email notification
-                //SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
+                SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
 
                 message = "Appointment created successfully.";
             }
