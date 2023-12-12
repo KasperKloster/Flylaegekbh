@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Navigation;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 
 namespace FlyveLægeKBH.Repos
 {
@@ -114,7 +115,7 @@ namespace FlyveLægeKBH.Repos
             try
             {
                 // Send an email notification
-                SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
+                //SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
 
                 message = "Appointment created successfully.";
             }
@@ -162,7 +163,11 @@ namespace FlyveLægeKBH.Repos
                                    $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
-                //Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
+
+                //string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                //string relativePath = Path.Combine(baseDirectory, "..", "Attachments", "Application form for a medical certificate CL 3.pdf");
+
+                //Attachment attachment1 = new Attachment(relativePath, "PDF");
                 //mailMessage.Attachments.Add(attachment1);
 
                 smtpClient.Send(mailMessage);

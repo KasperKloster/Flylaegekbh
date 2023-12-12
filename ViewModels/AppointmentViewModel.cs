@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,8 +16,15 @@ namespace FlyveLægeKBH.ViewModels
 {
     public class AppointmentViewModel: ViewModelBase
     {
-        //----------Fields----------------------------
-        
+        // Fields
+
+        /*************************************************************/
+        /*               Explanation of List fields                  */
+        /*************************************************************/
+        /*  all these list fields serve the purpse of displaying 
+        data collected from the DB in som kind of menu, where the user 
+        should be abel to select a item from                         */
+        /*************************************************************/
 
         //this field is used as the source to display all appointments belongin to specifik aircrew 
         private List<Appointment> appointments;
@@ -48,7 +56,10 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used as the source to display all Pilots in the DB to simulate wich user is login and are performing actions 
+        //this field is used as the source to display all Pilots in the DB.
+        //This allows us to get the Pilots PrimaryKey (SocialSecurityNumber) and all other information
+        //about the pilot based on the name from the menuto this list is bound to.
+        //furthere more this simulate wich user is loged in, and are performing actions in the IT-system. 
         private List<Pilot> allPilots;
         public List<Pilot> AllPilots
         {
@@ -63,7 +74,8 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used as the source to display all Cabin Crews in the DB to simulate wich user is login and are performing actions 
+        //this field is used as the source to display all Cabin Crews in the DB.
+        //this serves and allow exatly the same as the Pilot-list, but it is only Cabin Crew objects.        
         private List<CabinCrew> allCabinCrews;
         public List<CabinCrew> AllCabinCrews
         {
@@ -78,7 +90,9 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used as the source to display all Examinations in the DB to populate the Examinations menu the user can choose from 
+        //this field is used as the source to display all Examinations in the DB.
+        //this allows us to populate the Examinations menu the user can choose from.
+        //and get all the information like Pric and DurationInMin of the Examination based on the selected object.
         private List<Examination> allExaminations;
         public List<Examination> AllExaminations
         {
@@ -92,6 +106,21 @@ namespace FlyveLægeKBH.ViewModels
                 OnPropertyChanged(nameof(AllExaminations));
             }
         }
+
+
+
+        /*************************************************************/
+        /*               Explanation of selected fields              */
+        /*************************************************************/
+        /*  all these these fields named selected serves the purpose
+        of changing/setting the right value to the desired property
+        based on the selected item/object from the menus wich was 
+        populated with oure list-fields.     
+        
+        This is done so we can parse the right values to Commands in 
+        the ViewModel, again based on the selection in the 
+        menus/dropdowns.                                             */
+        /*************************************************************/
 
         //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
         //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
@@ -112,8 +141,8 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
-        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        //this field is used to bind the selectedAME objects SocialSecurityNumber to the AME_SSN property.
+        //This ensures that we cand parss the selectedAME SocialSecurityNumber to other Actions throug the property AME_SSN.
         private AME selectedAME;
 
         public AME SelectedAME
@@ -131,8 +160,8 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used to bind the selectedExamination objects ExaminationName to the ExaminationName property.
-        //This ensures that we cand parss the selectedExamination ExaminationName to other Actions throug the property ExaminationName.
+        //this field is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
+        //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
         private Pilot selectedPilot;
 
         public Pilot SelectedPilot
@@ -150,7 +179,38 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
+        //this field is used for the selectedStartTime in the manue/combobox with the name chooseTime.
+        //and is the value the create new appointment is using.
+        private string selectedStartTime;
+
+        public string SelectedStartTime
+        {
+            get
+            {
+                return selectedStartTime;
+            }
+            set
+            {
+                selectedStartTime = value;
+                OnPropertyChanged(nameof(SelectedStartTime));
+
+
+            }
+        }
+
+
+
+        /*************************************************************/
+        /*          Explanation of the following fields              */
+        /*************************************************************/
+        /*  These fields are the "Main" fields, corosponding to the 
+         Appointment model class.
+        
+         The above listede fields/propery (List and selected) we can
+        define as helper properys for these Main fields              */
+        /*************************************************************/
+
+
         private DateTime appointmentDate;
         public DateTime AppointmentDate
         {
@@ -183,24 +243,6 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        //this field is used for the selectedStartTime in the combobox and is the value the create new appointment should use.
-        private string selectedStartTime;
-
-        public string SelectedStartTime
-        {
-            get
-            {
-                return selectedStartTime;
-            }
-            set
-            {
-                selectedStartTime = value;
-                OnPropertyChanged(nameof(SelectedStartTime));
-
-
-            }
-        }
-
         private string examinationName;
         public string ExaminationName
         {
@@ -231,21 +273,24 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        private string socialSecurityNumber;
-        public string SocialSecurityNumber
-        {
-            get
-            {
-                return socialSecurityNumber;
-            }
-            set
-            {
-                socialSecurityNumber = value;
-                OnPropertyChanged(nameof(SocialSecurityNumber));
-                
-            }
+        //The field SocialSecurityNumber are not used in this iteration
+        //for more explanation see comments under the GetBookingsBySSN commandmethod for more explanation
 
-        }
+        //private string socialSecurityNumber;
+        //public string SocialSecurityNumber
+        //{
+        //    get
+        //    {
+        //        return socialSecurityNumber;
+        //    }
+        //    set
+        //    {
+        //        socialSecurityNumber = value;
+        //        OnPropertyChanged(nameof(SocialSecurityNumber));
+
+        //    }
+
+        //}
 
 
         private string pilotCabinCrew_SNN;
@@ -279,8 +324,14 @@ namespace FlyveLægeKBH.ViewModels
         }
 
 
-        // Husk at rydde op her !!
 
+        /*************************************************************/
+        /*          Explanation of AppointmentRepo                   */
+        /*************************************************************/
+        /*  Creating a property appointmentRepo of type AppointmentRepo
+         reduses duplicated code, and makes it easyer to refer to the
+         AppointmentRepo class further down in the code              */
+        /*************************************************************/
         private AppointmentRepo appointmentRepo = new AppointmentRepo();
 
 
@@ -383,7 +434,8 @@ namespace FlyveLægeKBH.ViewModels
             // This is just to set the default value to the current date for the datepicker
             AppointmentDate = DateTime.Now;
 
-            GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
+            // The GetBookingsBySSNCommand are not used in this iteration see comments further down under the commandmethod for more explanation.
+            //GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
             UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
             GetAuthoriazedAMEByExaminationCommand = new CommandBase(ExecuteGetAuthoriazedAMEByExaminationCommand);
@@ -414,7 +466,7 @@ namespace FlyveLægeKBH.ViewModels
 
         private void ExecuteGetALLExaminationsCommand(object obj)
         {
-            AppointmentRepo appointmentRepo = new AppointmentRepo();
+
             AllExaminations = appointmentRepo.GetAllExaminations();
         }
 
@@ -422,7 +474,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             try
             {
-                AppointmentRepo appointmentRepo = new AppointmentRepo();
+
                 var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
 
                 AllPilots = pilots;
@@ -436,11 +488,8 @@ namespace FlyveLægeKBH.ViewModels
         }
 
         private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
-        {
-                       
-                AppointmentRepo appointmentRepo = new AppointmentRepo();
-                AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);                
-               
+        {                      
+                AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);                    
         }
 
 
@@ -451,7 +500,7 @@ namespace FlyveLægeKBH.ViewModels
             // check if the command parameter is an Appointment object
             if (obj is Appointment selectedAppointment)
             {
-                AppointmentRepo appointmentRepo = new AppointmentRepo();
+                
                 MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
 
                 Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
@@ -465,21 +514,25 @@ namespace FlyveLægeKBH.ViewModels
             // check if the command parameter is an integer (AppointmentID)
             if(obj is int appointmentID)
             {
-                AppointmentRepo appointmentRepo = new AppointmentRepo();
                 MessageBox.Show(appointmentRepo.DeleteAppointment(appointmentID));
 
                 // To refrehs the list after the selectede item was deleted
-                Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNumber);
+                Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
             }
            
         }
 
-        private void GetBookingsBySSN(object obj)
-        {
-            AppointmentRepo appointmentRepo = new AppointmentRepo();
 
-            Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNumber);
-        }
+        // this method GetBookingsBySSN is a method from a earlyer iteration and are not longer used.
+        // It is changed to the ExecuteGetFutureAppointmentsCommand method
+        // For readability concider deleting this
+
+        //private void GetBookingsBySSN(object obj)
+        //{
+        //    AppointmentRepo appointmentRepo = new AppointmentRepo();
+
+        //    Appointments = appointmentRepo.GetBySocialSecurityNumber(SocialSecurityNumber);
+        //}
 
     }
 }

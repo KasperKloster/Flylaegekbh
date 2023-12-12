@@ -234,14 +234,14 @@
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
                     <TextBlock Text="For se dine kommende bookinger:" FontWeight="Bold" FontSize="14"/>
                     <TextBlock Text="Tryk på vis mine bookinger." />
-                    <TextBlock Text="Dernæst kan du ændre eller slette i en booking hvis du ønsker det." />
+                    <TextBlock Text="Dernæst kan du ændre eller slette en booking hvis du ønsker det." />
                     <TextBlock Text="Dette gøres ved at vælge en Booking fra listen." />
                     <TextBlock Text="Hvorefter du kan rette informationerne i de nedenstående felter." />
                 </StackPanel>
                 
                 <Button Style="{StaticResource submitBtn}"
                     x:Name="ShowFutureAppointments_btn"
-                    Content="Vis mine booking"
+                    Content="Vis mine bookinger"
                     Margin="10,0,0,0"
                     Height="30"
                     HorizontalAlignment="Right"
@@ -300,9 +300,9 @@
             <StackPanel Grid.Row="6"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    >
+                    Margin="0,20,0,0">
 
-                <Label x:Name="ameSSNLBL"
+                <!--<Label x:Name="ameSSNLBL"
                    Content="Læge"
                    Foreground="Black"
                    HorizontalAlignment="Left"
@@ -315,7 +315,7 @@
                      Text="{Binding SelectedItem.AME_SSN, ElementName=Appointments_listView}"
                      Width="120"
                      Height="35"
-                     VerticalAlignment="Top"/>
+                     VerticalAlignment="Top"/>-->
 
                 <Label x:Name="examinationNameLBL"
                    Content="Undersøgelse"
@@ -331,15 +331,9 @@
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>
-
-            </StackPanel>
-
-            <StackPanel Grid.Row="7"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-
+                
                 <Label x:Name="startTimeLBL"
-                   Content="Tid"
+                   Content="Tidspunkt"
                    Foreground="Black"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
@@ -354,7 +348,44 @@
                      VerticalAlignment="Top"/>
 
                 <Label x:Name="appointmentDateLBL"
-                   Content="Tid"
+                   Content="Dato"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="35,0,10,0"/>
+                <TextBox x:Name="appointmentDateTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.AppointmentDate, ElementName=Appointments_listView, StringFormat={}{0:yyyy-MM-dd}}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+
+
+            </StackPanel>
+
+            <!--<StackPanel Grid.Row="7"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+                <Label x:Name="startTimeLBL"
+                   Content="Tidspunkt"
+                   Foreground="Black"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Width="100"
+                   Height="35"
+                   Margin="0,0,10,0"/>
+                <TextBox x:Name="startTimeTB"
+                     Foreground="black"
+                     Text="{Binding SelectedItem.StartTime, ElementName=Appointments_listView}"
+                     Width="120"
+                     Height="35"
+                     VerticalAlignment="Top"/>
+
+                <Label x:Name="appointmentDateLBL"
+                   Content="Dato"
                    Foreground="Black"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
@@ -374,8 +405,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-                <!--just for development an first iteration
-            remove these or do somthing with these when refactor the view-->
+                --><!--just for development an first iteration
+            remove these or do somthing with these when refactor the view--><!--
 
                 <Label x:Name="appointmentIDLBL"
                    Content="appointmentID"
@@ -406,7 +437,7 @@
                      Width="120"
                      Height="35"
                      VerticalAlignment="Top"/>
-            </StackPanel>
+            </StackPanel>-->
 
         </Grid>
     </ScrollViewer>

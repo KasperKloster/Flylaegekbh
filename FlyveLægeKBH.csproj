@@ -16,4 +16,10 @@
     <Folder Include="Attachements\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Attachements\Application form for a medical certificate CL 3.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
