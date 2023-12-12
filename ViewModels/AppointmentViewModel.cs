@@ -131,18 +131,6 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-
-
-        //public string SocialSecurityNumber { get; set; }
-
-        //public int AppointmentID { get; set; }
-        //public string PilotCabinCrew_SSN { get; set; }
-        //public string AME_SSN { get; set; }
-        //public string ExaminationName { get; set; }
-        //public TimeSpan StartTime { get; set; }
-        //public DateTime AppointmentDate { get; set; }
-
-
         // fields/properties changes for the Update function --> now we can binde to the properties so when edit btn is click we get the selected object.
         private DateTime appointmentDate;
         public DateTime AppointmentDate
@@ -159,8 +147,7 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        //this field is used to bind the selectedAppointmentDate from the datepicker to the AppointmentDate property.
-        //This ensures that we cand parss the selectedDate to other Actions throug the property AppointmentDate.
+        //this field is used to display the list of availabelStartTimes based on the selected date from the datepicker.
         //This is kept as a string value for now and then convertede in the create action to SQL.dataType time to be insert  in the DB.
         private List<string> startTime;
         public List<string> StartTime
@@ -176,6 +163,27 @@ namespace FlyveLægeKBH.ViewModels
             }
 
         }
+
+        //this field is used for the selectedStartTime in the combobox and is the value the create new appointment should use.
+        private string selectedStartTime;
+
+        public string SelectedStartTime
+        {
+            get
+            {
+                return selectedStartTime;
+            }
+            set
+            {
+                selectedStartTime = value;
+                OnPropertyChanged(nameof(SelectedStartTime));
+
+            }
+        }
+
+
+
+
 
         private string examinationName;
         public string ExaminationName
@@ -252,6 +260,7 @@ namespace FlyveLægeKBH.ViewModels
             }
 
         }
+
 
         private AppointmentRepo appointmentRepo = new AppointmentRepo();
 
@@ -349,6 +358,9 @@ namespace FlyveLægeKBH.ViewModels
         // Constructor 
         public AppointmentViewModel()
         {
+            // This is just to set the default value to the current date for the datepicker
+            AppointmentDate = DateTime.Now;
+
             GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
             UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
