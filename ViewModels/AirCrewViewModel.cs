@@ -108,6 +108,27 @@ class AirCrewViewModel : ViewModelBase
         set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
     }
 
+    private string bookingHistory;
+
+    public string BookingHistory
+    {
+        get { return bookingHistory; }
+        set { bookingHistory = value; OnPropertyChanged(nameof(BookingHistory)); }
+    }
+    //this field is used as the source to display all appointments belongin to specifik aircrew 
+    private List<Appointment> appointments;
+    public List<Appointment> Appointments
+    {
+        get
+        {
+            return appointments;
+        }
+        set
+        {
+            appointments = value;
+            OnPropertyChanged(nameof(Appointments));
+        }
+    }
     //public string RoadNumber
     //{
     //    get { return roadNumber; }
@@ -160,14 +181,17 @@ class AirCrewViewModel : ViewModelBase
         DeleteAirCrewUserCommand = new CommandBase(ExecuteDeleteAirCrewUserCommand);
         GetAllInfoCommand = new CommandBase(GetAllInfo);
         UpdateAirCrewUserCommand = new CommandBase(UpdateAirCrew);
-
+        GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
     }
+
+
 
 
     // Commands
     public ICommand UpdateAirCrewUserCommand { get; }
     public ICommand GetAllInfoCommand { get; set; }
     public ICommand DeleteAirCrewUserCommand { get; }
+    public ICommand GetBookingsBySSNCommand { get; set; }
 
 
     public void UpdateAirCrew(object obj)
@@ -214,10 +238,23 @@ class AirCrewViewModel : ViewModelBase
     private void GetAllInfo(object obj)
     {
         this.UserInfo = PilotRepo.GetAirCrewInformation(this.socialSecurityNumber);
+        GetBookingsBySSN(this.socialSecurityNumber);
+        GetAppointmentsHistoryBySSN(this.socialSecurityNumber);
     }
 
+    private void GetBookingsBySSN(object obj)
+    {
+        AppointmentRepo appointmentRepo = new AppointmentRepo();
 
+        Appointments = appointmentRepo.GetBySocialSecurityNumber(socialSecurityNumber);
+    }
 
+    private void GetAppointmentsHistoryBySSN(object obj)
+    {
+        AppointmentRepo appointmentRepo = new AppointmentRepo();
+
+        BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(socialSecurityNumber);
+    }
 
 
     /*************************************************************/
