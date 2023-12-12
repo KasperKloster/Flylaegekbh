@@ -117,6 +117,7 @@
                         ItemsSource="{Binding AllExaminations}"
                         DisplayMemberPath="ExaminationName"
                         SelectedItem="{Binding SelectedExamination}"/>
+                    
                 </StackPanel>
                
 
@@ -172,8 +173,8 @@
                    Height="35"
                    Margin="10,0,0,0"/>
 
-                    <DatePicker
-                    SelectedDate="{Binding AppointmentDate}"/>
+                    <DatePicker                        
+                        SelectedDate="{Binding AppointmentDate}"/>
                 </StackPanel>
 
                 <Button Style="{StaticResource submitBtn}"
@@ -203,7 +204,7 @@
                     Height="35"
                     Margin="10,0,0,0"
                     ItemsSource="{Binding StartTime}"
-                    SelectedItem="{Binding StartTime}"
+                    SelectedItem="{Binding SelectedStartTime}"
                     />
                 </StackPanel>
                 
