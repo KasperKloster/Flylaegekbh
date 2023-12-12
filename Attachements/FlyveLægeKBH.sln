@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyveLægeKBH", "FlyveLægeKBH.csproj", "{96CD4D18-4D36-4192-B997-1378FFDA7C3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoTest1", "..\RepoTest1\RepoTest1.csproj", "{BA6B9B9D-A7F2-4B4C-968C-CCC4FB9F722D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoTest1", "..\RepoTest1\RepoTest1.csproj", "{BA6B9B9D-A7F2-4B4C-968C-CCC4FB9F722D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
