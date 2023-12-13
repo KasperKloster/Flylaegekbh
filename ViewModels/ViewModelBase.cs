@@ -1,9 +1,12 @@
-﻿using System;
+﻿using FlyveLægeKBH.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FlyveLægeKBH.ViewModels;
 
@@ -42,4 +45,32 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+
+
+    //########## her prøver jeg at se om jeg kan undgå noget dublicated code##############
+    /* så jeg har tilføjet felter og commands som jeg tror kan bruges i flere ViewModels */
+
+
+    private Pilot selectedPilot;
+
+    public Pilot SelectedPilot
+    {
+        get
+        {
+            return selectedPilot;
+        }
+        set
+        {
+            selectedPilot = value;
+            OnPropertyChanged(nameof(SelectedPilot));
+
+            //PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
+        }
+    }
+
+
+
+    public ICommand GetALLPilotsAndCabinCrewCommand { get; set; }
+    public ICommand GetALLExaminationsCommand { get; }
 }

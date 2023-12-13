@@ -24,9 +24,9 @@ namespace FlyveLægeKBH.Views.AirCrewSubjects.Profile
         AirCrewViewModel airCrewViewModel = new AirCrewViewModel();
         public AirCrewView()
         {
-            
-            InitializeComponent();
             DataContext = airCrewViewModel;
+            InitializeComponent();
+            
         }
     }
 }

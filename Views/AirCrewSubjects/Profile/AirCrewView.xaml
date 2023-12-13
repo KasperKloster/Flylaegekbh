@@ -20,25 +20,56 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Style="{StaticResource submitBtn}"
+            x:Name="Load_AllPilotsAndCabinCrews_btn"
+            Content="indlæs alle Piloter og Cabin Crew"
+            Margin="10"
+            Height="30"
+            Width="200"
+            HorizontalAlignment="Right"
+            Command="{Binding GetALLPilotsAndCabinCrewCommand}" />
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0, 25, 0, 40 ">
+            <!--In this ComboBox, a DataTemplate is defined within the ComboBox.ItemTemplate 
+            to display both FirstName and SurName in a horizontal StackPanel.-->
+            <ComboBox x:Name="ShowAllPilotsAndCabinCrews_cmb"
+              Width="120"
+              Height="35"
+              Margin="10"
+              ItemsSource="{Binding Users}"
+              SelectedItem="{Binding SelectedPilot}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding FirstName}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding SurName}" Margin="0,0,5,0"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 25, 0, 40 ">
             <TextBlock Text="Fornavne" Style="{StaticResource headline2_alt}"/>
-            <TextBox Width="300" Text="{Binding Path=FirstNames}" Margin="10,0"/>
+            <TextBox Width="300" Text="{Binding SelectedPilot.FirstName}" Margin="10,0"/>
             <TextBlock Text="Efternavn" Style="{StaticResource headline2_alt}"/>
 
             <TextBox Margin="10, 0"
                      Width="360"
-                     Text="{Binding Path=SurName}"/>
+                     Text="{Binding SelectedPilot.SurName}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="0,0,0,30" Orientation="Horizontal">
+        <StackPanel Grid.Row="2" Margin="0,0,0,30" Orientation="Horizontal">
             <TextBlock Text="Email" Style="{StaticResource headline2_alt}"/>
-            <TextBox Text="{Binding Path=Email}" Margin="10,0" Width="500"/>
+            <TextBox Text="{Binding SelectedPilot.Email}" Margin="10,0" Width="500"/>
             
             <TextBlock Text="Telefon" Style="{StaticResource headline2_alt}"/>
 
             <TextBox Width="200" Margin="10,0"
-                Text="{Binding Path=Phone}"/>
+                Text="{Binding SelectedPilot.Phone}"/>
         </StackPanel>
 
 
@@ -47,7 +78,7 @@
 
             <TextBox Margin="10,0"
                      Width="750"
-                     Text="{Binding Path=Address}"/>
+                     Text="{Binding SelectedPilot.Address}"/>
 
             <!--<TextBox  
                      Margin="100, 0, 0, 0"
@@ -55,16 +86,18 @@
                      Text="Nummer"/>-->
         </StackPanel>
 
-        <!--<StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
-            <TextBox  
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
+            <TextBlock Text="Title" Style="{StaticResource headline2_alt}" Margin="290,15,10,15"/>
+            <TextBox Width="100" Text="{Binding SelectedPilot.UserTitle}" Margin="10"/>            
+            <!--<TextBox  
                     Width="200"
                     Text="Postnummer"/>
 
             <TextBox 
                     Margin="100, 0, 0, 0"
                      Width="500"
-                     Text="By"/>
-        </StackPanel>-->
+                     Text="By"/>-->
+        </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Button 
@@ -89,8 +122,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="7" Orientation="Horizontal">
-            <TextBlock Style="{StaticResource headline2}" x:Name="Get_all_info_test_card" Text="{Binding UserInfo}"/>
-            <TextBlock Style="{StaticResource headline2}" x:Name="Get_Booking_history_card" Text="{Binding BookingHistory}"/>
+            <TextBlock Style="{StaticResource headline2_alt}" x:Name="Get_all_info_test_card" Text="{Binding UserInfo}"/>
+            <TextBlock Style="{StaticResource headline2_alt}" x:Name="Get_Booking_history_card" Text="{Binding BookingHistory}"/>
 
             <ListView x:Name="Appointments_listView" 
                       ItemsSource="{Binding Appointments}" 

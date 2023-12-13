@@ -15,47 +15,57 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 namespace FlyveLægeKBH.Repos
 {
     public abstract class RepoBase
-    { 
-    
-        public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+    {
+
+        //public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+        public string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
         public virtual void Create() { }
 
-        public virtual string Update(User airCrew) {
-            string message;
-            try
+        public virtual string Update(IUser airCrew)
+        {
+            string message = "";
+            if (airCrew is Pilot || airCrew is CabinCrew)
             {
-                //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                Pilot pilot = (Pilot)airCrew;
+
+
+                try
                 {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand("FL2_UpdateAirCrewUser", connection))
+
+                    //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-
-                        command.Parameters.AddWithValue("@FirstNames", airCrew.FirstName); 
-                        command.Parameters.AddWithValue("@SurName", airCrew.SurName); 
-                        command.Parameters.AddWithValue("@Email", airCrew.Email); 
-                        command.Parameters.AddWithValue("@Phone", airCrew.Phone); 
-                        command.Parameters.AddWithValue("@Address", airCrew.Address); 
-                        command.Parameters.AddWithValue("@SSN", airCrew.SocialSecurityNumber);
-
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
+                        connection.Open();
+                        using (SqlCommand command = new SqlCommand("FL2_UpdateAirCrewUser", connection))
                         {
-                            // Update successful
-                            message = "Brugeren blev opdateret";                            
-                        }
-                        else
-                        {
-                            message = "Brugeren blev ikke fundet. Intet er opdateret";
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            command.Parameters.AddWithValue("@FirstNames", pilot.FirstName);
+                            command.Parameters.AddWithValue("@SurName", pilot.SurName);
+                            command.Parameters.AddWithValue("@Email", pilot.Email);
+                            command.Parameters.AddWithValue("@Phone", pilot.Phone);
+                            command.Parameters.AddWithValue("@Address", pilot.Address);
+                            command.Parameters.AddWithValue("@SSN", pilot.SocialSecurityNumber);
+
+                            int rowsAffected = command.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                // Update successful
+                                message = "Brugeren blev opdateret";
+                            }
+                            else
+                            {
+                                message = "Brugeren blev ikke fundet. Intet er opdateret";
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                message = $"Noget gik galt med forbindelsen: {ex}";
+                catch (Exception ex)
+                {
+                    message = $"Noget gik galt med forbindelsen: {ex}";
+                }
+                return message;
             }
             return message;
         }

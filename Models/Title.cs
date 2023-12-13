@@ -10,7 +10,7 @@ namespace FlyveLægeKBH.Models
     {
         public static string[] Titles { get; set; } = new string[]
         {
-            "AME", "PIlot", "CabinCrew"
+            "AME", "Pilot", "CabinCrew"
         };
 
         //public static List<string> Titles { get; set; }=new List<string>();

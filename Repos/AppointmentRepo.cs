@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Navigation;
 using System.Net;
 using System.Net.Mail;
+using System.Collections.ObjectModel;
 
 namespace FlyveLægeKBH.Repos
 {
@@ -71,6 +72,7 @@ namespace FlyveLægeKBH.Repos
             string pilotCabinCrewFullName = "";
             string ameFullName = "";
             string pilotCabinCrewEmail = "";
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -161,8 +163,8 @@ namespace FlyveLægeKBH.Repos
                                    $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
-                Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
-                mailMessage.Attachments.Add(attachment1);
+                //Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
+                //mailMessage.Attachments.Add(attachment1);
 
                 smtpClient.Send(mailMessage);
             }
@@ -432,10 +434,10 @@ namespace FlyveLægeKBH.Repos
             return authorizedAMEs;
         }
 
-        public (List<Pilot> pilots, List<CabinCrew> cabinCrews) GetAllPilotsAndCabinCrews()
+        public (List<IUser> pilots, List<IUser> cabinCrews) GetAllPilotsAndCabinCrews()
         {
-            List<Pilot> pilots = new List<Pilot>();
-            List<CabinCrew> cabinCrews = new List<CabinCrew>();
+            List<IUser> pilots = new List<IUser>();
+            List<IUser> cabinCrews = new List<IUser>();
 
             using (SqlConnection connection = new SqlConnection(connectionString)) 
             {
@@ -458,6 +460,10 @@ namespace FlyveLægeKBH.Repos
                                     {
                                         pilot.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
                                         pilot.FirstName = reader["FirstNames"].ToString();
+                                        pilot.SurName = reader["surName"].ToString();
+                                        pilot.Email = reader["Email"].ToString();
+                                        pilot.Phone = reader["Phone"].ToString();
+                                        pilot.Address = reader["Address"].ToString();
                                     };
                                     pilots.Add(pilot);
                                 }
@@ -467,6 +473,10 @@ namespace FlyveLægeKBH.Repos
                                     {
                                         cabinCrew.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
                                         cabinCrew.FirstName = reader["FirstNames"].ToString();
+                                        cabinCrew.SurName = reader["surName"].ToString();
+                                        cabinCrew.Email = reader["Email"].ToString();
+                                        cabinCrew.Phone = reader["Phone"].ToString();
+                                        cabinCrew.Address = reader["Address"].ToString();
                                     };
                                     cabinCrews.Add(cabinCrew);
                                 }

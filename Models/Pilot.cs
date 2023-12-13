@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
-    public class Pilot: User
+    public class Pilot: User, IUser
     {
 
         //---------------------Fields--------------------------------------------------------------
         //Rest of the fields are inherited from from AirCrew Base class
-        public string UserTitle { get; private set; } = Title.Titles[1];
+        public string UserTitle { get; set; } = Title.Titles[1];
         public MedicalLicense MedicalLicense { get; set; }
 
         //----------------------Constructor-----------------------------------------------------------

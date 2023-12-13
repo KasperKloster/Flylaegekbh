@@ -365,7 +365,7 @@ namespace FlyveLægeKBH.ViewModels
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
             UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
             GetAuthoriazedAMEByExaminationCommand = new CommandBase(ExecuteGetAuthoriazedAMEByExaminationCommand);
-            GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
+            //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
             GetALLExaminationsCommand = new CommandBase(ExecuteGetALLExaminationsCommand);
             GetAvailableStartTimesCommand = new CommandBase(ExecuteGetAvailableStartTimesCommand);
         }
@@ -384,22 +384,22 @@ namespace FlyveLægeKBH.ViewModels
             AllExaminations = appointmentRepo.GetAllExaminations();
         }
 
-        private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
-        {
-            try
-            {
-                AppointmentRepo appointmentRepo = new AppointmentRepo();
-                var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+        //private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
+        //{
+        //    try
+        //    {
+        //        AppointmentRepo appointmentRepo = new AppointmentRepo();
+        //        var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
 
-                AllPilots = pilots;
-                AllCabinCrews = cabinCrews;
-            }
-            catch (Exception ex) 
-            {
-                MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
-            }
+        //        AllPilots = pilots;
+        //        AllCabinCrews = cabinCrews;
+        //    }
+        //    catch (Exception ex) 
+        //    {
+        //        MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
+        //    }
             
-        }
+        //}
 
         private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
         {
