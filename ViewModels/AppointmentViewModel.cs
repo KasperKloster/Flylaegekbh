@@ -488,8 +488,8 @@ namespace FlyveLægeKBH.ViewModels
 
                 var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
 
-                AllPilots = pilots;
-                AllCabinCrews = cabinCrews;
+                AllPilots = pilots.OfType<Pilot>().ToList();
+                AllCabinCrews = cabinCrews.OfType<CabinCrew>().ToList();
             }
             catch (Exception ex)
             {
