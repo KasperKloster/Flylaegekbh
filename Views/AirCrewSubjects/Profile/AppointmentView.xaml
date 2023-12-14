@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
@@ -31,9 +31,8 @@
                         Grid.Row="0" 
                         >
                 <TextBlock Text="For at oprette en ny Booking:" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="Tryk på Indlæs knappen." />
+                <TextBlock Text="Vælg en Pilot fra comboboxen ." />
                 <TextBlock Text="Dette er blot for at simulere et login system." />
-                <TextBlock Text="Vælg dernæst én Pilot eller én Cabin Crew fra én af dropdown menuerne." />
                 <TextBlock Text="Resten af funktionaliteterne på denne side vil nu anvende den valgte personens data"/>
 
             </StackPanel>
@@ -42,18 +41,18 @@
                         HorizontalAlignment="Right"
                         Grid.Row="0">
                 
-                <Button Style="{StaticResource submitBtn}"
+                <!--<Button Style="{StaticResource submitBtn}"
                     x:Name="Load_AllPilotsAndCabinCrews_btn"
                     Content="indlæs alle Piloter og Cabin Crew"
                     Margin="0,10,0,0"
                     Height="30"
                     Width="200"
                     HorizontalAlignment="Right"                   
-                    Command="{Binding GetALLPilotsAndCabinCrewCommand}"/>
+                    Command="{Binding GetALLPilotsAndCabinCrewCommand}"/>-->
                 
                 <StackPanel Orientation="Horizontal"
                             >
-                    <Label Content="Vælg pilot"
+                    <Label Content="1. Vælg pilot"
                            Margin="0,10,44,0"/>
                     <ComboBox
                     x:Name="ShowAllPilots"                    
@@ -66,7 +65,7 @@
 
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal"
+                <!--<StackPanel Orientation="Horizontal"
                             >
                     <Label Content="Vælg Cabin Crew"
                            Margin="0,10,10,0"/>
@@ -79,7 +78,7 @@
                     ItemsSource="{Binding AllCabinCrews}"
                     DisplayMemberPath="FirstName"/>
 
-                </StackPanel>               
+                </StackPanel>-->               
 
             </StackPanel>
             
@@ -90,20 +89,20 @@
                         Grid.Column="1"
                         Height="100">
 
-                <Button Style="{StaticResource submitBtn}"
+                <!--<Button Style="{StaticResource submitBtn}"
                     x:Name="Load_AllExaminations_btn"
                     Content="Vælg Undersøgelse"
                     Margin="10,0,0,0"
                     Height="30"
                     HorizontalAlignment="Right"                        
                     Command="{Binding GetALLExaminationsCommand}"
-                    />
+                    />-->
 
                 <StackPanel Orientation="Vertical"
                             Width="150">
                     
                     <Label x:Name="create_ExaminationName"
-                        Content="Undersøgelse Menu"
+                        Content="2. Vælg Undersøgelse"
                         Foreground="Black"
                         HorizontalAlignment="Right"
                         HorizontalContentAlignment="Center"
@@ -125,7 +124,7 @@
 
                 <Button Style="{StaticResource submitBtn}"
                     x:Name="Find_Authoriazed_AME_btn"
-                    Content="Find AME"
+                    Content="3. Find AME"
                     Margin="10,0,0,0"
                     Height="30"
                     HorizontalAlignment="Right"
@@ -135,7 +134,7 @@
                 <StackPanel Orientation="Vertical"
                             Width="150">
                     <Label x:Name="choose_AME_LB"
-                   Content="AME Menu"
+                   Content="4. Vælg AME"
                    Foreground="Black"
                    HorizontalAlignment="Left"
                    HorizontalContentAlignment="Center"
@@ -166,7 +165,7 @@
                 <StackPanel Orientation="Vertical"
                             Width="150">
                     <Label x:Name="chooseDate"
-                       Content="Vælg Dato"
+                       Content="5. Vælg Dato"
                        Foreground="Black"
                    HorizontalAlignment="Left"
                    HorizontalContentAlignment="Center"
@@ -180,7 +179,7 @@
 
                 <Button Style="{StaticResource submitBtn}"
                     x:Name="ShowAvailableStartTimes_btn"
-                    Content="Find Ledig Tid"
+                    Content="6. Find Ledig Tid"
                     Margin="10,0,0,0"
                     Height="30"
                     HorizontalAlignment="Right"
@@ -191,7 +190,7 @@
                             Width="150">
                     
                     <Label x:Name="chooseTime"
-                       Content="Vælg Tidspunkt"
+                       Content="7. Vælg Tidspunkt"
                        Foreground="Black"
                    HorizontalAlignment="Left"
                    HorizontalContentAlignment="Center"
@@ -211,18 +210,12 @@
 
                 <Button Style="{StaticResource submitBtn}"
                     x:Name="CreateNewAppointment_btn"
-                    Content="Opret booking"
+                    Content="8. Opret booking"
                     Margin="10,0,0,0"
                     Height="30"
                     HorizontalAlignment="Right"
                     Command="{Binding CreateNewAppointmentCommand}"
                     />
-
-
-
-
-
-
 
             </StackPanel>
             

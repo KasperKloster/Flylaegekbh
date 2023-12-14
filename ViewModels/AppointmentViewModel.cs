@@ -431,19 +431,27 @@ namespace FlyveLægeKBH.ViewModels
         // Constructor 
         public AppointmentViewModel()
         {
-            // This is just to set the default value to the current date for the datepicker
+            // Initialize default values
             AppointmentDate = DateTime.Now;
 
-            // The GetBookingsBySSNCommand are not used in this iteration see comments further down under the commandmethod for more explanation.
-            //GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
+            LoadAllePilotsAndCabinCrews();
+
+            LoadAllExaminations();
+
+
+
+            //Initialize commands                      
             DeleteAppointmentByIDCommand = new CommandBase(ExecuteDeleteAppointmentByIDCommand);
             UpdateAppointmentCommand = new CommandBase(ExecuteUpdateAppointmentCommand);
-            GetAuthoriazedAMEByExaminationCommand = new CommandBase(ExecuteGetAuthoriazedAMEByExaminationCommand);
-            GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
-            GetALLExaminationsCommand = new CommandBase(ExecuteGetALLExaminationsCommand);
+            GetAuthoriazedAMEByExaminationCommand = new CommandBase(ExecuteGetAuthoriazedAMEByExaminationCommand);                       
             GetAvailableStartTimesCommand = new CommandBase(ExecuteGetAvailableStartTimesCommand);
             CreateNewAppointmentCommand = new CommandBase(ExecuteCreateNewAppointmentCommand);
             GetFutureAppointmentsCommand = new CommandBase(ExecuteGetFutureAppointmentsCommand);
+
+            // this is outcommentet because they are from a nother iteration.
+            //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
+            //GetALLExaminationsCommand = new CommandBase(ExecuteGetALLExaminationsCommand);
+            //GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
         }
 
         private void ExecuteGetFutureAppointmentsCommand(object obj)
@@ -464,13 +472,19 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        private void ExecuteGetALLExaminationsCommand(object obj)
+        private void LoadAllExaminations()
         {
 
             AllExaminations = appointmentRepo.GetAllExaminations();
         }
 
-        private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
+        //private void ExecuteGetALLExaminationsCommand(object obj)
+        //{
+
+        //    AllExaminations = appointmentRepo.GetAllExaminations();
+        //}
+
+        private void LoadAllePilotsAndCabinCrews()
         {
             try
             {
@@ -480,12 +494,31 @@ namespace FlyveLægeKBH.ViewModels
                 AllPilots = pilots;
                 AllCabinCrews = cabinCrews;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
             }
-            
+
         }
+
+
+
+        //private void ExecuteGetALLPilotsAndCabinCrewCommand()
+        //{
+        //    try
+        //    {
+
+        //        var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+
+        //        AllPilots = pilots;
+        //        AllCabinCrews = cabinCrews;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
+        //    }
+
+        //}
 
         private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
         {                      

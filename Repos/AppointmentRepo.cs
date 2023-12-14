@@ -524,7 +524,7 @@ namespace FlyveLægeKBH.Repos
                                 }
                             }
 
-                            MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
+                            //MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
                         }                    
                     }
                     catch(Exception ex) 
@@ -567,7 +567,7 @@ namespace FlyveLægeKBH.Repos
                             }
                         }
 
-                        MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
+                        //MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
 
                         
                     }
