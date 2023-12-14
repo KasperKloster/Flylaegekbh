@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
+    /// <summary>
+    /// Represents a pilot with additional information related to aviation.
+    /// </summary>
     public class Pilot: User, IUser
     {
 

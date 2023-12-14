@@ -21,21 +21,32 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Style="{StaticResource submitBtn}"
+            <!--<Button Style="{StaticResource submitBtn}"
             x:Name="Load_AllPilotsAndCabinCrews_btn"
             Content="indlæs alle Piloter og Cabin Crew"
             Margin="10"
             Height="30"
             Width="200"
             HorizontalAlignment="Right"
-            Command="{Binding GetALLPilotsAndCabinCrewCommand}" />
+            Command="{Binding GetALLPilotsAndCabinCrewCommand}" />-->
 
             <!--In this ComboBox, a DataTemplate is defined within the ComboBox.ItemTemplate 
             to display both FirstName and SurName in a horizontal StackPanel.-->
+            <StackPanel>
+                <TextBlock Text="Til venstre ser du en dropdown Menu."
+                       Style="{StaticResource headline2_alt}" 
+                       VerticalAlignment="Center"/>
+                <TextBlock Text="Vælge en bruger/kunde for at simulere den valgte er logget ind" Style="{StaticResource headline2_alt}"/>
+                <TextBlock Text="OBS! på nuværende tidspunkt kan vi kun vælge piloter, da vi simulere, at det er en pilot der er logget ind" Style="{StaticResource headline2_alt}"/>
+
+            </StackPanel>
+            
+
             <ComboBox x:Name="ShowAllPilotsAndCabinCrews_cmb"
               Width="120"
-              Height="35"
-              Margin="10"
+              Height="25"
+              Margin="20"
+              HorizontalAlignment="Left"
               ItemsSource="{Binding Users}"
               SelectedItem="{Binding SelectedPilot}">
                 <ComboBox.ItemTemplate>

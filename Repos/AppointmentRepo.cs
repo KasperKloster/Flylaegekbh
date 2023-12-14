@@ -17,55 +17,6 @@ namespace FlyveLægeKBH.Repos
     public class AppointmentRepo : RepoBase
     {
 
-        //public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
-        //{
-        //    string message;
-        //    string pilotCabinCrewFullName;
-        //    string ameFullName;
-        //    string pilotCabinCrewEmail;
-
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand("FL2_CreateAppointment", connection))
-        //        {
-        //            command.CommandType = CommandType.StoredProcedure;
-
-        //            // Add parameters
-        //            command.Parameters.AddWithValue("@PilotCabinCrew_SSN", pilotCabinCrewSSN);
-        //            command.Parameters.AddWithValue("@AME_SSN", ameSSN);
-        //            command.Parameters.AddWithValue("@ExaminationName", examinationName);
-        //            command.Parameters.AddWithValue("@StartTime", startTime);
-        //            command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
-
-        //            try
-        //            {
-        //                connection.Open();
-        //                command.ExecuteNonQuery();
-        //                message = "Appointment created successfully.";
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                message = "Error creating appointment: " + ex.Message;
-        //            }
-        //        }
-        //    }
-        //    // trying to incorporate emailing..
-        //    try
-        //    {
-        //        // Send an email notification
-        //        SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
-
-        //        message = "Appointment created successfully.";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        message = "Error creating appointment: " + ex.Message;
-        //    }
-        //    return message;
-
-
-        //}
-
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
             string message;
@@ -482,12 +433,12 @@ namespace FlyveLægeKBH.Repos
                                 }
                             }
 
-                            MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
+                            //MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
                         }                    
                     }
                     catch(Exception ex) 
                     {
-                        MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
+                        //MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
                     }
                    
                 }

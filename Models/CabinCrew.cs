@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
+    /// <summary>
+    /// Represents a cabin crew member with additional medical report information.
+    /// </summary>
     public class CabinCrew: User
     {
         //---------------------Fields--------------------------------------------------------------
@@ -37,10 +40,14 @@ namespace FlyveLægeKBH.Models
             Email = email;
             Phone = phone;
             Address = address;
-            SocialSecurityNumber = ssn;
+            SetSSN(ssn);
         }
 
         //--------------------Methods------------------------------------------------------------------
+        public void SetSSN(string ssn)
+        {
+            SocialSecurityNumber = ssn;
+        }
         public override string ToString()
         {
             return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical_Report Date of Issue: {Medical_Report.DateOfIssue}";

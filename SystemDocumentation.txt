@@ -1,0 +1,123 @@
+﻿/// <summary>
+/// Represents a user with basic information.
+/// </summary>
+public abstract class User : IUser
+{
+    /// <summary>
+    /// Gets or sets the first name of the user.
+    /// </summary>
+    public string FirstName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the surname of the user.
+    /// </summary>
+    public string SurName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the email address of the user.
+    /// </summary>
+    public string Email { get; set; }
+
+    /// <summary>
+    /// Gets or sets the phone number of the user.
+    /// </summary>
+    public string Phone { get; set; }
+
+    /// <summary>
+    /// Gets or sets the address of the user.
+    /// </summary>
+    public string Address { get; set; }
+
+    /// <summary>
+    /// Gets or sets the social security number of the user.
+    /// </summary>
+    public string SocialSecurityNumber { get; set; }
+
+    /// <summary>
+    /// Returns a string representation of the user.
+    /// </summary>
+    /// <returns>A string representing the user.</returns>
+    public string Tostring2()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Represents a title with predefined values.
+/// </summary>
+public class Title
+{
+    /// <summary>
+    /// Gets or sets an array of predefined titles.
+    /// </summary>
+    public static string[] Titles { get; set; } = new string[]
+    {
+        "AME", "Pilot", "CabinCrew"
+    };
+
+    /// <summary>
+    /// Adds a new title to the predefined titles.
+    /// </summary>
+    /// <param name="name">The name of the title to add.</param>
+    public static void AddToTitles(string name)
+    {
+        Titles.Append(name);
+    }
+}
+
+/// <summary>
+/// Represents a pilot with additional information related to aviation.
+/// </summary>
+public class Pilot : User, IUser
+{
+    // ... (Rest of the class remains unchanged)
+}
+
+/// <summary>
+/// Represents a cabin crew member with additional medical report information.
+/// </summary>
+public class CabinCrew : User
+{
+    // ... (Rest of the class remains unchanged)
+}
+
+/// <summary>
+/// Represents a medical report with relevant dates.
+/// </summary>
+public class MedicalReport
+{
+    // ... (Rest of the class remains unchanged)
+}
+
+/// <summary>
+/// Represents a medical license with various expiration dates.
+/// </summary>
+public class MedicalLicense
+{
+    // ... (Rest of the class remains unchanged)
+}
+
+/// <summary>
+/// An enumeration representing different authorization levels.
+/// </summary>
+public enum AuthorizationLevelEnum
+{
+    ClassOneInitial = 1,
+    ClassOneRecurrent = 2,
+    ClassTwoInitial = 3,
+    ClassTwoRecurrent = 4,
+    MedicalReport = 5
+}
+
+/// <summary>
+/// Represents a user interface for classes that implement it.
+/// </summary>
+public interface IUser
+{
+    /// <summary>
+    /// Returns a string representation of the user.
+    /// </summary>
+    /// <returns>A string representing the user.</returns>
+    public string Tostring2();
+}

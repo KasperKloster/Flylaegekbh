@@ -71,6 +71,6 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
 
 
-    public ICommand GetALLPilotsAndCabinCrewCommand { get; set; }
-    public ICommand GetALLExaminationsCommand { get; }
+    //public ICommand GetALLPilotsAndCabinCrewCommand { get; set; }
+//    public ICommand GetALLExaminationsCommand { get; }
 }

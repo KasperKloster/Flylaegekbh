@@ -21,13 +21,14 @@ class AirCrewViewModel : ViewModelBase
     // Fields    
     public PilotRepo pilotRepo = new PilotRepo();
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
-    
+    AppointmentRepo appointmentRepo = new AppointmentRepo();
+
 
     // FOR DEVELOPMENT: Simulates the logged in user  
-    private string title;
-    private string socialSecurityNumber;
+    //private string title;
+    //private string socialSecurityNumber;
 
-    
+
 
     private List<IUser> users;
 
@@ -84,9 +85,11 @@ class AirCrewViewModel : ViewModelBase
         GetAllInfoCommand = new CommandBase(GetAllInfo);
         UpdateAirCrewUserCommand = new CommandBase(UpdateAirCrew);
         GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
-        GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
+        //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
 
-
+        // Load pilots and cabin crew when the view model is created
+        //LoadPilotsAndCabinCrews();
+        ExecuteGetALLPilotsAndCabinCrewCommand();
     }
 
     //----------------------------- Commands------------------------------------------------//
@@ -101,7 +104,7 @@ class AirCrewViewModel : ViewModelBase
 
     //----------------------------- Methods------------------------------------------------//
 
-    private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
+    private void ExecuteGetALLPilotsAndCabinCrewCommand()
     {
         try
         {
@@ -110,6 +113,25 @@ class AirCrewViewModel : ViewModelBase
 
             //Users = pilots;
             //Users.AddRange(cabinCrews);
+            Users = pilots.Concat(cabinCrews).ToList();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
+        }
+    }
+
+    //********************************************************************************************************//
+    /*By adding the LoadPilotsAndCabinCrews method to the constructor, we ensure that when an instance of 
+     * AirCrewViewModel is created, it automatically loads the pilots and cabin crew into the Users property.*/
+    //********************************************************************************************************//
+
+    private void LoadPilotsAndCabinCrews()
+    {
+        try
+        {
+            var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+
             Users = pilots.Concat(cabinCrews).ToList();
         }
         catch (Exception ex)
@@ -133,6 +155,8 @@ class AirCrewViewModel : ViewModelBase
             message = updateCabinCrewUser();
         }
         MessageBox.Show(message);
+
+        LoadPilotsAndCabinCrews();
     }
 
     private string updatePilotUser()
@@ -150,15 +174,15 @@ class AirCrewViewModel : ViewModelBase
         this.UserInfo = PilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
 
 
-        GetBookingsBySSN(this.socialSecurityNumber);
-        GetAppointmentsHistoryBySSN(this.socialSecurityNumber);
+        GetBookingsBySSN(this.SelectedPilot.SocialSecurityNumber);
+        GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
 
 
     }
 
     private void GetBookingsBySSN(object obj)
     {
-        AppointmentRepo appointmentRepo = new AppointmentRepo();
+        
 
         Appointments = appointmentRepo.GetBySocialSecurityNumber(this.SelectedPilot.SocialSecurityNumber);
 
@@ -167,8 +191,6 @@ class AirCrewViewModel : ViewModelBase
 
     private void GetAppointmentsHistoryBySSN(object obj)
     {
-        AppointmentRepo appointmentRepo = new AppointmentRepo();
-
         BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
 
     }
@@ -197,6 +219,7 @@ class AirCrewViewModel : ViewModelBase
         {
             DeleteCabinCrewUser();
         }
+        LoadPilotsAndCabinCrews();
     }
 
     private void DeleteCabinCrewUser()
