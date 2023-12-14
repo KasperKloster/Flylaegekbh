@@ -29,9 +29,41 @@ namespace FlyveLægeKBH.Repos
             {
                 case OperationType.Delete:                   
                     command.Parameters.AddWithValue("@SocialSecurityNumber", entity.SocialSecurityNumber);                   
-                    break;                
+                    break;
+
+                case OperationType.Create:
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", entity.SocialSecurityNumber);
+                    command.Parameters.AddWithValue("@FirstNames", entity.FirstName);
+                    command.Parameters.AddWithValue("@SurName", entity.SurName);
+                    command.Parameters.AddWithValue("@Email", entity.Email);
+                    command.Parameters.AddWithValue("@Phone", entity.Phone);
+                    command.Parameters.AddWithValue("@Address", entity.Address);
+                    command.Parameters.AddWithValue("@TitleName", entity.UserTitle);
+                    break;               
             }
         }
+
+        protected override void SetParameters(SqlCommand command, string identifier, OperationType operationType)
+        {
+            switch (operationType) 
+            {
+                case OperationType.Delete:
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", identifier);
+                    break;
+            }
+        }
+        //public string CreateMedicalLicenseForPilot()
+        //{
+        //    try
+        //    {
+        //        using(SqlConnection connection = new SqlConnection(connectionString))
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw;
+        //    }
+        //}
 
         public string CreatePilot(string firstName, string surName, string email, string phone, string address,
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
@@ -134,69 +166,27 @@ namespace FlyveLægeKBH.Repos
 
         
 
-        public static string DeletePilot(string socialSecurityNumber)
-        {
-            string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
-            //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+        
 
-            string deleteQueryMedicalLicense = "DELETE FROM [FL2_MedicalLicense] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
-
-            string deleteQueryPilot = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
-
-            string deleteQueryAllAppointmentsBySSN = "DELETE FROM [FL2_Appointments] WHERE [PilotCabinCrew_SSN] = @socialSecurityNumber";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(deleteQueryAllAppointmentsBySSN, connection))
-                    {
-                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(deleteQueryMedicalLicense, connection))
-                    {
-                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(deleteQueryPilot, connection))
-                    {
-                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    return $"Pilot with ssn: {socialSecurityNumber} has been deleted";
-
-                }
-                catch (Exception ex)
-                {
-
-                    return $"Error: {ex.Message}";
-                }
-            }
-        }
-
-        public string DeletePilotTest( string socialSecurityNumber)
+        public string DeletePilot( string socialSecurityNumber)
         {
             try
             {
-                using(SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    
-                    using(SqlCommand command = new SqlCommand("FL2_DeletePilotAndRelatedEntities", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
+                //using(SqlConnection connection = new SqlConnection(connectionString))
+                //{
+                //    connection.Open();
 
-                        SetParameters(command, new Pilot { SocialSecurityNumber = socialSecurityNumber }, OperationType.Delete);
+                //    using(SqlCommand command = new SqlCommand("FL2_DeletePilotAndRelatedEntities", connection))
+                //    {
+                //        command.CommandType = CommandType.StoredProcedure;
 
-                        command.ExecuteNonQuery();
-                    }
-                }
+                //        SetParameters(command, new Pilot { SocialSecurityNumber = socialSecurityNumber }, OperationType.Delete);
+
+                //        command.ExecuteNonQuery();
+                //    }
+                //}
+                string deleteProcedure = "FL2_DeletePilotAndRelatedEntities";
+                Delete(socialSecurityNumber, deleteProcedure, OperationType.Delete);
 
                 return $"Pilot med ssn: {socialSecurityNumber} og relateret data slettet";
             }

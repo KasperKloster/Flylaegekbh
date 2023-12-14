@@ -29,6 +29,12 @@ namespace FlyveLægeKBH.Repos
                     break;
             }
         }
+
+        protected override void SetParameters(SqlCommand command, string identifier, OperationType operationType)
+        {
+            throw new NotImplementedException();
+        }
+
         // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
         public static string CreateCabinCrew(string firstName, string surName, string email, string phone,string address,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)

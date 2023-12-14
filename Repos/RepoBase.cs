@@ -23,7 +23,7 @@ namespace FlyveLægeKBH.Repos
 
         public enum OperationType
         {
-            Create,
+            Create,            
             Delete,            
             Update,
             Get
@@ -33,13 +33,37 @@ namespace FlyveLægeKBH.Repos
          * for setting parameters in a SQL command specific to the type T (the entity type). 
          * This method is expected to be implemented by derived classes, and it's responsible for mapping
          * the properties of the entity to the parameters of a SQL command.*/
-
-        
+                
         protected abstract void SetParameters(SqlCommand command, T entity, OperationType operationType);
-        
-        
 
-        public virtual void Create() { }
+        protected abstract void SetParameters(SqlCommand command, string identifier, OperationType operationType);
+
+
+
+
+        public virtual void Create(T entity, string storedProcedure)
+        {
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString)) 
+                {
+                    connection.Open();
+
+                    using(SqlCommand command = new SqlCommand(storedProcedure, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SetParameters(command, entity, OperationType.Create);
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+
+            }
+        }
 
         public virtual string Update(IUser airCrew)
         {
@@ -90,7 +114,7 @@ namespace FlyveLægeKBH.Repos
             return message;
         }
 
-        public virtual void Delete(string identifier, string storedProcedure)
+        public virtual void Delete(string identifier, string storedProcedure, OperationType operationType)
         {
             try 
             {
@@ -101,7 +125,8 @@ namespace FlyveLægeKBH.Repos
                     using(SqlCommand command = new SqlCommand(storedProcedure, connection)) 
                     {
                         command.CommandType= CommandType.StoredProcedure;
-                        command.Parameters.Add("@Identifier", SqlDbType.NVarChar).Value = identifier;
+                        //command.Parameters.Add("@Identifier", SqlDbType.NVarChar).Value = identifier;
+                        SetParameters(command, identifier, operationType);
                         command.ExecuteNonQuery();
                     }
                 }

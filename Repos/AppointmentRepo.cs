@@ -23,6 +23,13 @@ namespace FlyveLægeKBH.Repos
             throw new NotImplementedException();
         }
 
+        protected override void SetParameters(SqlCommand command, string identifier, OperationType operationType)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
             string message;
