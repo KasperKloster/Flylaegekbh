@@ -21,7 +21,8 @@ namespace FlyveLægeKBH.Repos
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+                //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+                string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -57,8 +58,10 @@ namespace FlyveLægeKBH.Repos
 
         public static string DeleteCabinCrew(string socialSecurityNumber)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
-            string deleteQueryMedicalReport = "DELETE FROM [FL2_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
+
+            //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+            string deleteQueryMedicalReport = "DELETE FROM [dbo].[FL2_MedicalReport] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
             string deleteQueryCabinCrew = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
             using(SqlConnection connection = new SqlConnection( connectionString)) 

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
+    /// <summary>
+    /// An enumeration representing different authorization levels.
+    /// </summary>
     public enum AuthorizationLevelEnum
     {
         ClassOneInitial = 1,

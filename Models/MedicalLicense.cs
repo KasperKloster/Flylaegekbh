@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
+    /// <summary>
+    /// Represents a medical license with various expiration dates.
+    /// </summary>
     public class MedicalLicense
     {
         //-----------Fields----------------------------------
