@@ -40,7 +40,10 @@
                 <TextBlock Text="OBS! på nuværende tidspunkt kan vi kun vælge piloter, da vi simulere, at det er en pilot der er logget ind" Style="{StaticResource headline2_alt}"/>
 
             </StackPanel>
-            
+
+            <TextBlock Text="1" Style="{StaticResource headline2_alt}" VerticalAlignment="Center" Margin="30,0,0,0"/>
+
+
 
             <ComboBox x:Name="ShowAllPilotsAndCabinCrews_cmb"
               Width="120"
@@ -64,9 +67,9 @@
 
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 25, 0, 40 ">
-            <TextBlock Text="Fornavne" Style="{StaticResource headline2_alt}"/>
+            <TextBlock Text="2. Fornavne" Style="{StaticResource headline2_alt}"/>
             <TextBox Width="300" Text="{Binding SelectedPilot.FirstName}" Margin="10,0"/>
-            <TextBlock Text="Efternavn" Style="{StaticResource headline2_alt}"/>
+            <TextBlock Text="3. Efternavn" Style="{StaticResource headline2_alt}"/>
 
             <TextBox Margin="10, 0"
                      Width="360"
@@ -74,10 +77,10 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,0,0,30" Orientation="Horizontal">
-            <TextBlock Text="Email" Style="{StaticResource headline2_alt}"/>
+            <TextBlock Text="4. Email" Style="{StaticResource headline2_alt}"/>
             <TextBox Text="{Binding SelectedPilot.Email}" Margin="10,0" Width="500"/>
             
-            <TextBlock Text="Telefon" Style="{StaticResource headline2_alt}"/>
+            <TextBlock Text="5. Telefon" Style="{StaticResource headline2_alt}"/>
 
             <TextBox Width="200" Margin="10,0"
                 Text="{Binding SelectedPilot.Phone}"/>
@@ -85,7 +88,7 @@
 
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
-            <TextBlock Text="Address" Style="{StaticResource headline2_alt}"/>
+            <TextBlock Text="6. Address" Style="{StaticResource headline2_alt}"/>
 
             <TextBox Margin="10,0"
                      Width="750"
@@ -98,19 +101,6 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
-            <TextBlock Text="Title" Style="{StaticResource headline2_alt}" Margin="290,15,10,15"/>
-            <TextBox Width="100" Text="{Binding SelectedPilot.UserTitle}" Margin="10"/>            
-            <!--<TextBox  
-                    Width="200"
-                    Text="Postnummer"/>
-
-            <TextBox 
-                    Margin="100, 0, 0, 0"
-                     Width="500"
-                     Text="By"/>-->
-        </StackPanel>
-
-        <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Button 
                     Style="{StaticResource deleteBtn}" 
                     Width="100"
@@ -126,6 +116,22 @@
                 CommandParameter="{Binding}"
                 Margin ="80,0,100,0"
                 />
+                    
+            <!--<TextBox  
+                    Width="200"
+                    Text="Postnummer"/>
+
+            <TextBox 
+                    Margin="100, 0, 0, 0"
+                     Width="500"
+                     Text="By"/>-->
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal">
+            <TextBlock Text="Herefter kan du vælge en af knapperne til enten at slette, opdater info eller hente alt info virksomheden har om dig" Style="{StaticResource headline2_alt}"/>
+
+            <TextBlock Text="Title" Style="{StaticResource headline2_alt}" Margin="290,15,10,15"/>
+            <TextBox Width="100" Text="{Binding SelectedPilot.UserTitle}" Margin="10"/>
         </StackPanel>
 
         <StackPanel Grid.Row="6" Margin="0,5,0,0" Orientation="Horizontal">

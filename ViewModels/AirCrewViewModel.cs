@@ -88,8 +88,7 @@ class AirCrewViewModel : ViewModelBase
         //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
 
         // Load pilots and cabin crew when the view model is created
-        //LoadPilotsAndCabinCrews();
-        ExecuteGetALLPilotsAndCabinCrewCommand();
+        LoadPilotsAndCabinCrews();
     }
 
     //----------------------------- Commands------------------------------------------------//
@@ -103,23 +102,6 @@ class AirCrewViewModel : ViewModelBase
 
 
     //----------------------------- Methods------------------------------------------------//
-
-    private void ExecuteGetALLPilotsAndCabinCrewCommand()
-    {
-        try
-        {
-            AppointmentRepo appointmentRepo = new AppointmentRepo();
-            var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
-
-            //Users = pilots;
-            //Users.AddRange(cabinCrews);
-            Users = pilots.Concat(cabinCrews).ToList();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
-        }
-    }
 
     //********************************************************************************************************//
     /*By adding the LoadPilotsAndCabinCrews method to the constructor, we ensure that when an instance of 
