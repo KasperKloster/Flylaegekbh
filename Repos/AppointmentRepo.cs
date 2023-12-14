@@ -10,7 +10,9 @@ using System.Windows;
 using System.Windows.Navigation;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 using System.Collections.ObjectModel;
+
 
 namespace FlyveLægeKBH.Repos
 {
@@ -60,6 +62,7 @@ namespace FlyveLægeKBH.Repos
                         message = "Error creating appointment: " + ex.Message;
                     }
                 }
+                
             }
 
             // trying to incorporate emailing..
@@ -114,13 +117,65 @@ namespace FlyveLægeKBH.Repos
                                    $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
-                //Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
+
+
+                //string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                //string relativePath = Path.Combine(baseDirectory, "..", "Attachments", "Application form for a medical certificate CL 3.pdf");
+
+                //Attachment attachment1 = new Attachment(relativePath, "PDF");
+
                 //mailMessage.Attachments.Add(attachment1);
 
                 smtpClient.Send(mailMessage);
             }
         }
 
+        public List<Appointment> GetFutureAppointments(string ssn)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("FL2_GetFutureAppointmentsByPilotCabinCrewSSNAndAppointmentDate", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameter
+                    command.Parameters.AddWithValue("@PilotCabinCrew_SSN", ssn);
+
+                    try
+                    {
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                Appointment appointment = new Appointment
+                                {
+                                    AppointmentID = (int)reader["AppointmentID"],
+                                    PilotCabinCrew_SSN = reader["PilotCabinCrew_SSN"].ToString(),
+                                    AME_SSN = reader["AME_SSN"].ToString(),
+                                    ExaminationName = reader["ExaminationName"].ToString(),
+                                    StartTime = (TimeSpan)reader["StartTime"],
+                                    AppointmentDate = (DateTime)reader["AppointmentDate"]
+                                };
+
+                                appointments.Add(appointment);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle the exception, e.g., log it
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+            }
+
+            return appointments;
+        }
 
         public List<Appointment> GetBySocialSecurityNumber(string ssn)
         {
@@ -322,8 +377,8 @@ namespace FlyveLægeKBH.Repos
                     try
                     {
                         connection.Open();
-                        command.ExecuteNonQuery();
-                        message = "Appointment updated successfully.";
+                        var spResult = command.ExecuteScalar(); //This is used to chach the message from the store procedure... it checks if there are any conflicts before updating
+                        message = spResult != null ? spResult.ToString() : "Unexpected result.";
                     }
                     catch (Exception ex)
                     {
@@ -476,7 +531,7 @@ namespace FlyveLægeKBH.Repos
                             }
                         }
 
-                        MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
+                        //MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
 
                         
                     }

@@ -62,7 +62,7 @@
                             Margin="15,25,0,40">
 
                         <fa:IconImage Icon="users"/>
-                        <TextBlock Text="Air Crew Main"
+                        <TextBlock Text=" Din side"
                                     Foreground="{StaticResource titleColor1}"
                                    FontSize="16"
                                    FontFamily="segoe ui"
@@ -78,7 +78,7 @@
                                  Command="{Binding ShowAppointmentViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="CalendarAlt" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Book Tid" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Bookinger" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 

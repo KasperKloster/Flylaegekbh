@@ -26,7 +26,7 @@
                        FontFamily="Montserrat"
                        HorizontalAlignment="Center"/>
 
-            <TextBlock Text="Til Flyvelægerne KBH's interne system. Log venligst ind"
+            <TextBlock Text="Til Flyvelægerne KBH's interne system. Log venligst ind."
                        Foreground="black"
                        FontSize="12"
                        FontWeight="Medium"
@@ -35,6 +35,18 @@
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        Margin="0,5,0,0"/>
+
+            <TextBlock Text="Der er ikke implementeret et log in system endnu. tryk blot på log in knappen."
+                       Foreground="black"
+                       FontSize="12"
+                       FontWeight="Medium"
+                       FontFamily="Montserrat"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Margin="0,5,0,0"/>
+
+
 
             <TextBlock Text="Username"
                                Foreground="DarkGray"
