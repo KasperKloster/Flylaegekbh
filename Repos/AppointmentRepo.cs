@@ -16,8 +16,12 @@ using System.Collections.ObjectModel;
 
 namespace FlyveLægeKBH.Repos
 {
-    public class AppointmentRepo : RepoBase
+    public class AppointmentRepo : RepoBase<Appointment>
     {
+        protected override void SetParameters(SqlCommand command, Appointment entity, OperationType operationType)
+        {
+            throw new NotImplementedException();
+        }
 
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
@@ -581,8 +585,8 @@ namespace FlyveLægeKBH.Repos
             }
             return times;
         }
-        
 
+        
     }
 }
 

@@ -11,12 +11,27 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace FlyveLægeKBH.Repos
 {
-    public class PilotRepo: RepoBase
+    public class PilotRepo: RepoBase<Pilot>
     {
 
 
         //--------------------Methods------------------------------------------------------------------
 
+        
+
+        protected override void SetParameters(SqlCommand command, Pilot entity, OperationType operationType)
+        {
+
+            /*Add parameters specific to Delete operation*/
+                  
+
+            switch (operationType) 
+            {
+                case OperationType.Delete:                   
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", entity.SocialSecurityNumber);                   
+                    break;                
+            }
+        }
 
         public string CreatePilot(string firstName, string surName, string email, string phone, string address,
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
@@ -126,7 +141,9 @@ namespace FlyveLægeKBH.Repos
 
             string deleteQueryMedicalLicense = "DELETE FROM [FL2_MedicalLicense] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
-            string deleteQueryCabinCrew = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+            string deleteQueryPilot = "DELETE FROM [FL2_User] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
+
+            string deleteQueryAllAppointmentsBySSN = "DELETE FROM [FL2_Appointments] WHERE [PilotCabinCrew_SSN] = @socialSecurityNumber";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -134,13 +151,19 @@ namespace FlyveLægeKBH.Repos
                 {
                     connection.Open();
 
+                    using (SqlCommand cmd = new SqlCommand(deleteQueryAllAppointmentsBySSN, connection))
+                    {
+                        cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
+                        cmd.ExecuteNonQuery();
+                    }
+
                     using (SqlCommand cmd = new SqlCommand(deleteQueryMedicalLicense, connection))
                     {
                         cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
                         cmd.ExecuteNonQuery();
                     }
 
-                    using (SqlCommand cmd = new SqlCommand(deleteQueryCabinCrew, connection))
+                    using (SqlCommand cmd = new SqlCommand(deleteQueryPilot, connection))
                     {
                         cmd.Parameters.Add("@socialSecurityNumber", System.Data.SqlDbType.NVarChar).Value = socialSecurityNumber;
                         cmd.ExecuteNonQuery();
@@ -154,6 +177,33 @@ namespace FlyveLægeKBH.Repos
 
                     return $"Error: {ex.Message}";
                 }
+            }
+        }
+
+        public string DeletePilotTest( string socialSecurityNumber)
+        {
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    
+                    using(SqlCommand command = new SqlCommand("FL2_DeletePilotAndRelatedEntities", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        SetParameters(command, new Pilot { SocialSecurityNumber = socialSecurityNumber }, OperationType.Delete);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                return $"Pilot med ssn: {socialSecurityNumber} og relateret data slettet";
+            }
+            catch (Exception ex)
+            {
+
+                return $"Der skete en fejl! Error: {ex.Message}";
             }
         }
  

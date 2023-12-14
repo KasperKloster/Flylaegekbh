@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using FlyveLægeKBH.Models;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,14 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace FlyveLægeKBH.Repos
 {
 
-    public class CabinCrewRepo : RepoBase
+    public class CabinCrewRepo : RepoBase<CabinCrew>
 
     {
         //--------------------Methods------------------------------------------------------------------
+        protected override void SetParameters(SqlCommand command, CabinCrew entity, OperationType operationType)
+        {
 
+            /*Add parameters specific to Delete operation*/
+
+
+            switch (operationType)
+            {
+                case OperationType.Delete:
+                    command.Parameters.AddWithValue("@SocialSecurityNumber", entity.SocialSecurityNumber);
+                    break;
+            }
+        }
         // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
         public static string CreateCabinCrew(string firstName, string surName, string email, string phone,string address,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
