@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyveLægeKBH.Models
 {
+    /// <summary>
+    /// Represents a medical report with relevant dates.
+    /// </summary>
     public class MedicalReport
     {
         public DateTime DateOfIssue { get; private set; }

@@ -22,17 +22,16 @@ namespace FlyveLægeKBH.Repos
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
         DateTime class1ExpiryDate, DateTime class2ExpiryDate, DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
         {
-            //string connectionString = "Data Source=(localdb)\\localtest;Initial Catalog=flyvelægeKBH;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
+            connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
             try
             {
 
-                string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+                //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand("FL2_InsertAirCrewAndMedicalLicense", connection))
+                    using (SqlCommand command = new SqlCommand("FL2_InsertUserAndMedicalLicense", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
@@ -122,7 +121,8 @@ namespace FlyveLægeKBH.Repos
 
         public static string DeletePilot(string socialSecurityNumber)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+            string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
+            //string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
 
             string deleteQueryMedicalLicense = "DELETE FROM [FL2_MedicalLicense] WHERE [SocialSecurityNumber] = @socialSecurityNumber";
 
@@ -146,7 +146,7 @@ namespace FlyveLægeKBH.Repos
                         cmd.ExecuteNonQuery();
                     }
 
-                    return $"Cabin Crew with ssn: {socialSecurityNumber} has been deleted";
+                    return $"Pilot with ssn: {socialSecurityNumber} has been deleted";
 
                 }
                 catch (Exception ex)

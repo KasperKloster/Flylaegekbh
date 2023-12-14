@@ -21,84 +21,28 @@ class AirCrewViewModel : ViewModelBase
     // Fields    
     public PilotRepo pilotRepo = new PilotRepo();
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
-    private string firstNames;
-    private string surName;
-    private string email;
-    private string phone;
-    private string address;
-    
-    // Needs improvement
-    
-    //private string roadNumber;
-    //private int postalCode;
-    //private string city;
+    AppointmentRepo appointmentRepo = new AppointmentRepo();
+
 
     // FOR DEVELOPMENT: Simulates the logged in user  
-    private string title;
-    private string socialSecurityNumber;
+    //private string title;
+    //private string socialSecurityNumber;
 
-    // Properties
-    public string FirstNames
+
+
+    private List<IUser> users;
+
+    public List<IUser> Users
     {
-        get { return firstNames; }
-        set
-        {
-            if (firstNames != value)
-            {
-                firstNames = value;
-                OnPropertyChanged(nameof(FirstNames));
-            }
-        }
+        get { return users; }
+        set { if (users != value) { users = value; OnPropertyChanged(nameof(Users)); } }
     }
-    public string SurName
-    {
-        get { return surName;}
-        set 
-        {
-            if (surName != value)
-            {
-                surName = value; 
-                OnPropertyChanged(nameof(SurName));
-            } 
-        }
-    }
-    public string Email
-    {
-        get { return email; }
-        set
-        {
-            if (email != value)
-            {
-                email = value; 
-                OnPropertyChanged(nameof(Email));
-            }
-        }
-    }
-    public string Phone
-    {
-        get { return phone; }
-        set
-        {
-            if (phone != value) {                
-                phone = value; 
-                OnPropertyChanged(nameof(Phone));
-            }
-        }
-    }
-    public string Address
-    {
-        get { return address; }
-        set
-        {
-            if (address != value)
-            {
-                address = value;
-                OnPropertyChanged(nameof(Address));
-            }
-        }
-    }
+
 
     // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
+   
+  
+    
     private string userInfo;
 
     //this field is used as source to display all info stored of a user/aircrew 
@@ -108,6 +52,9 @@ class AirCrewViewModel : ViewModelBase
         set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
     }
 
+
+
+    //this field is used as source to display all historical bookings and changes of bookings 
     private string bookingHistory;
 
     public string BookingHistory
@@ -129,131 +76,105 @@ class AirCrewViewModel : ViewModelBase
             OnPropertyChanged(nameof(Appointments));
         }
     }
-    //public string RoadNumber
-    //{
-    //    get { return roadNumber; }
-    //    set
-    //    {
-    //        if (roadNumber != value)
-    //        {
-    //            OnPropertyChanged(nameof(RoadNumber));
-    //        }
-    //    }
-    //}
-    //public int PostalCode
-    //{
-    //    get { return postalCode; }
-    //    set
-    //    {
-    //        if (postalCode != value)
-    //        {
-    //            OnPropertyChanged(nameof(PostalCode));
-    //        }
-    //    }
-    //}
-    //public string City
-    //{
-    //    get { return city; }
-    //    set
-    //    {
-    //        if (city != value)
-    //        {
-    //            OnPropertyChanged(nameof(City));
-    //        }
-    //    }
-    //}
 
 
     public AirCrewViewModel()
     {
-        // FOR DEVELOPMENT: Simulates the logged in user                       
-        Dictionary<string, string> firstUser = pilotRepo.GetFirstUser();
-        this.FirstNames = firstUser["firstName"];
-        this.SurName = firstUser["surName"];
-        this.Email = firstUser["email"];
-        this.Phone = firstUser["phone"];
-        this.Address = firstUser["address"];
-        
-        this.title = firstUser["title"];
-        this.socialSecurityNumber = firstUser["socialSecurityNumber"];
-
         // Initialize commands
         DeleteAirCrewUserCommand = new CommandBase(ExecuteDeleteAirCrewUserCommand);
         GetAllInfoCommand = new CommandBase(GetAllInfo);
         UpdateAirCrewUserCommand = new CommandBase(UpdateAirCrew);
         GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
+        //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
+
+        // Load pilots and cabin crew when the view model is created
+        LoadPilotsAndCabinCrews();
     }
 
-
-
-
-    // Commands
+    //----------------------------- Commands------------------------------------------------//
     public ICommand UpdateAirCrewUserCommand { get; }
     public ICommand GetAllInfoCommand { get; set; }
     public ICommand DeleteAirCrewUserCommand { get; }
     public ICommand GetBookingsBySSNCommand { get; set; }
 
 
+
+
+
+    //----------------------------- Methods------------------------------------------------//
+
+    //********************************************************************************************************//
+    /*By adding the LoadPilotsAndCabinCrews method to the constructor, we ensure that when an instance of 
+     * AirCrewViewModel is created, it automatically loads the pilots and cabin crew into the Users property.*/
+    //********************************************************************************************************//
+
+    private void LoadPilotsAndCabinCrews()
+    {
+        try
+        {
+            var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+
+            Users = pilots.Concat(cabinCrews).ToList();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
+        }
+    }
+
+
+
     public void UpdateAirCrew(object obj)
     {
+
         string message = "";
-        if(title == "Pilot")
+        if (SelectedPilot.UserTitle == "Pilot")
         {
             message = updatePilotUser();
         }
-        if (title == "CabinCrew")
+        if (SelectedPilot.UserTitle == "CabinCrew")
         {
             message = updateCabinCrewUser();
         }
         MessageBox.Show(message);
+
+        LoadPilotsAndCabinCrews();
     }
 
     private string updatePilotUser()
     {
-        // Creates an pilot object to pass on
-        Pilot pilot = new Pilot(
-            firstNames : this.firstNames, 
-            surName : this.surName, 
-            email: this.email, 
-            phone: this.phone,
-            address: this.Address,
-            ssn: this.socialSecurityNumber);
-        // Updates in DB. Returns message
-        return pilotRepo.Update(pilot);
+        return pilotRepo.Update(SelectedPilot);
     }
 
     private string updateCabinCrewUser()
     {
-        CabinCrew cabinCrew = new CabinCrew(
-            firstNames: this.firstNames,
-            surName: this.surName,
-            email: this.email,
-            phone: this.phone,
-            address: this.Address,
-            ssn: this.socialSecurityNumber);
-
-        return cabinCrewRepo.Update(cabinCrew);
+        return cabinCrewRepo.Update(SelectedPilot);
     }
 
     private void GetAllInfo(object obj)
     {
-        this.UserInfo = PilotRepo.GetAirCrewInformation(this.socialSecurityNumber);
-        GetBookingsBySSN(this.socialSecurityNumber);
-        GetAppointmentsHistoryBySSN(this.socialSecurityNumber);
+        this.UserInfo = PilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
+
+
+        GetBookingsBySSN(this.SelectedPilot.SocialSecurityNumber);
+        GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
+
+
     }
 
     private void GetBookingsBySSN(object obj)
     {
-        AppointmentRepo appointmentRepo = new AppointmentRepo();
+        
 
-        Appointments = appointmentRepo.GetBySocialSecurityNumber(socialSecurityNumber);
+        Appointments = appointmentRepo.GetBySocialSecurityNumber(this.SelectedPilot.SocialSecurityNumber);
+
+
     }
 
     private void GetAppointmentsHistoryBySSN(object obj)
     {
-        AppointmentRepo appointmentRepo = new AppointmentRepo();
+        BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
 
-        BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(socialSecurityNumber);
     }
 
 
@@ -272,23 +193,24 @@ class AirCrewViewModel : ViewModelBase
     // Methods
     private void ExecuteDeleteAirCrewUserCommand(object obj)
     {
-        if (title == "Pilot")
+        if (SelectedPilot.UserTitle == "Pilot")
         {
             DeletePilotUser();
         }
-        if (title == "CabinCrew")
+        if (SelectedPilot.UserTitle == "CabinCrew")
         {
             DeleteCabinCrewUser();
         }
+        LoadPilotsAndCabinCrews();
     }
 
     private void DeleteCabinCrewUser()
     {
-        System.Windows.MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(this.socialSecurityNumber));        
+        System.Windows.MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));        
     }
 
     private void DeletePilotUser()
     {
-        System.Windows.MessageBox.Show(PilotRepo.DeletePilot(this.socialSecurityNumber));
+        System.Windows.MessageBox.Show(PilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
     }
 }

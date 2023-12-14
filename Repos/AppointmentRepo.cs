@@ -10,60 +10,12 @@ using System.Windows;
 using System.Windows.Navigation;
 using System.Net;
 using System.Net.Mail;
+using System.Collections.ObjectModel;
 
 namespace FlyveLægeKBH.Repos
 {
     public class AppointmentRepo : RepoBase
     {
-
-        //public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
-        //{
-        //    string message;
-        //    string pilotCabinCrewFullName;
-        //    string ameFullName;
-        //    string pilotCabinCrewEmail;
-
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand("FL2_CreateAppointment", connection))
-        //        {
-        //            command.CommandType = CommandType.StoredProcedure;
-
-        //            // Add parameters
-        //            command.Parameters.AddWithValue("@PilotCabinCrew_SSN", pilotCabinCrewSSN);
-        //            command.Parameters.AddWithValue("@AME_SSN", ameSSN);
-        //            command.Parameters.AddWithValue("@ExaminationName", examinationName);
-        //            command.Parameters.AddWithValue("@StartTime", startTime);
-        //            command.Parameters.AddWithValue("@AppointmentDate", appointmentDate);
-
-        //            try
-        //            {
-        //                connection.Open();
-        //                command.ExecuteNonQuery();
-        //                message = "Appointment created successfully.";
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                message = "Error creating appointment: " + ex.Message;
-        //            }
-        //        }
-        //    }
-        //    // trying to incorporate emailing..
-        //    try
-        //    {
-        //        // Send an email notification
-        //        SendEmail(pilotCabinCrewFullName, ameFullName, pilotCabinCrewEmail, examinationName, startTime, appointmentDate);
-
-        //        message = "Appointment created successfully.";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        message = "Error creating appointment: " + ex.Message;
-        //    }
-        //    return message;
-
-
-        //}
 
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
@@ -71,6 +23,7 @@ namespace FlyveLægeKBH.Repos
             string pilotCabinCrewFullName = "";
             string ameFullName = "";
             string pilotCabinCrewEmail = "";
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -161,8 +114,8 @@ namespace FlyveLægeKBH.Repos
                                    $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
-                Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
-                mailMessage.Attachments.Add(attachment1);
+                //Attachment attachment1 = new Attachment("./Application form for a medical certificate CL 3", "PDF");
+                //mailMessage.Attachments.Add(attachment1);
 
                 smtpClient.Send(mailMessage);
             }
@@ -432,10 +385,10 @@ namespace FlyveLægeKBH.Repos
             return authorizedAMEs;
         }
 
-        public (List<Pilot> pilots, List<CabinCrew> cabinCrews) GetAllPilotsAndCabinCrews()
+        public (List<IUser> pilots, List<IUser> cabinCrews) GetAllPilotsAndCabinCrews()
         {
-            List<Pilot> pilots = new List<Pilot>();
-            List<CabinCrew> cabinCrews = new List<CabinCrew>();
+            List<IUser> pilots = new List<IUser>();
+            List<IUser> cabinCrews = new List<IUser>();
 
             using (SqlConnection connection = new SqlConnection(connectionString)) 
             {
@@ -458,6 +411,10 @@ namespace FlyveLægeKBH.Repos
                                     {
                                         pilot.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
                                         pilot.FirstName = reader["FirstNames"].ToString();
+                                        pilot.SurName = reader["surName"].ToString();
+                                        pilot.Email = reader["Email"].ToString();
+                                        pilot.Phone = reader["Phone"].ToString();
+                                        pilot.Address = reader["Address"].ToString();
                                     };
                                     pilots.Add(pilot);
                                 }
@@ -467,17 +424,21 @@ namespace FlyveLægeKBH.Repos
                                     {
                                         cabinCrew.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
                                         cabinCrew.FirstName = reader["FirstNames"].ToString();
+                                        cabinCrew.SurName = reader["surName"].ToString();
+                                        cabinCrew.Email = reader["Email"].ToString();
+                                        cabinCrew.Phone = reader["Phone"].ToString();
+                                        cabinCrew.Address = reader["Address"].ToString();
                                     };
                                     cabinCrews.Add(cabinCrew);
                                 }
                             }
 
-                            MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
+                            //MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
                         }                    
                     }
                     catch(Exception ex) 
                     {
-                        MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
+                        //MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
                     }
                    
                 }
