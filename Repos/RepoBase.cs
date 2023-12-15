@@ -10,16 +10,60 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace FlyveLægeKBH.Repos
 {
-    public abstract class RepoBase
+    public abstract class RepoBase <T>
     {
 
         //public string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
         public string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
-        public virtual void Create() { }
+
+        public enum OperationType
+        {
+            Create,            
+            Delete,            
+            Update,
+            Get
+        }
+
+        /*The purpose of the SetParameters method is to provide a common interface
+         * for setting parameters in a SQL command specific to the type T (the entity type). 
+         * This method is expected to be implemented by derived classes, and it's responsible for mapping
+         * the properties of the entity to the parameters of a SQL command.*/
+                
+        protected abstract void SetParameters(SqlCommand command, T entity, OperationType operationType);
+
+        protected abstract void SetParameters(SqlCommand command, string identifier, OperationType operationType);
+
+
+
+
+        public virtual void Create(T entity, string storedProcedure)
+        {
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString)) 
+                {
+                    connection.Open();
+
+                    using(SqlCommand command = new SqlCommand(storedProcedure, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SetParameters(command, entity, OperationType.Create);
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+
+            }
+        }
 
         public virtual string Update(IUser airCrew)
         {
@@ -70,7 +114,29 @@ namespace FlyveLægeKBH.Repos
             return message;
         }
 
-        public virtual void Delete() { }
+        public virtual void Delete(string identifier, string storedProcedure, OperationType operationType)
+        {
+            try 
+            {
+                using(SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using(SqlCommand command = new SqlCommand(storedProcedure, connection)) 
+                    {
+                        command.CommandType= CommandType.StoredProcedure;
+                        //command.Parameters.Add("@Identifier", SqlDbType.NVarChar).Value = identifier;
+                        SetParameters(command, identifier, operationType);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
         public virtual void Get() { }
 
 

@@ -211,6 +211,6 @@ class AirCrewViewModel : ViewModelBase
 
     private void DeletePilotUser()
     {
-        System.Windows.MessageBox.Show(PilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
+        MessageBox.Show(pilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
     }
 }
