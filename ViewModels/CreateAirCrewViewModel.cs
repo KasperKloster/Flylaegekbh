@@ -12,33 +12,11 @@ using System.Windows.Input;
 
 namespace FlyveLægeKBH.ViewModels
 {
+    
     public class CreateAirCrewViewModel: ViewModelBase
     {
         //------------Fields--------------------------------------------------------
 
-        
-        public string FirstNames { get; set; }
-        public string SurName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string SocialSecurityNumber { get; set; }
-
-        //public Titles Title { get; set; }
-
-        public string Title { get; set; }
-
-        public string ML_CertificateNumber { get; set; }
-        public DateTime ML_DateOfIssue { get; set; }= DateTime.Now;
-        public DateTime ML_Class1SinglePilotExpiryDate { get; set; } = DateTime.Now;
-        public DateTime ML_Class1ExpiryDate { get; set; } = DateTime.Now;
-        public DateTime ML_Class2ExpiryDate { get; set; } = DateTime.Now;
-        public DateTime ML_LAPLExpiryDate { get; set; } = DateTime.Now;
-        public DateTime ML_ElectroCardiogramRecentDate { get; set; } = DateTime.Now;
-        public DateTime ML_AudiogramRecentDate { get; set; } = DateTime.Now;
-
-        public DateTime MR_DateOfIssue { get; set; } = DateTime.Now;
-        public DateTime MR_CabinCrewExpiryDate { get; set; } = DateTime.Now;
 
         public ICommand CreateAirCrewCommand { get; set; }
 
@@ -52,7 +30,7 @@ namespace FlyveLægeKBH.ViewModels
             PilotRepo pilotRepo = new PilotRepo();
             if (Title == "CabinCrew")
             {
-                MessageBox.Show(CabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
+                MessageBox.Show(cabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
             }
             else
             {

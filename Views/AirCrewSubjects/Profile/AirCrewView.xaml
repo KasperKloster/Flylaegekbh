@@ -50,7 +50,7 @@
               Height="25"
               Margin="20"
               HorizontalAlignment="Left"
-              ItemsSource="{Binding Users}"
+              ItemsSource="{Binding AllPilots}"
               SelectedItem="{Binding SelectedPilot}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

@@ -24,6 +24,8 @@ namespace FlyveLægeKBH
     /// </summary>
     public partial class MainWindow : Window
     {
+        CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
+        PilotRepo pilotRepo = new PilotRepo();
         public MainWindow()
         {
             InitializeComponent();
@@ -105,21 +107,21 @@ namespace FlyveLægeKBH
             DateTime dateOfIssue = DateTime.Parse("02/02/2020");
             DateTime cabinCrewDateOfExpiry = DateTime.Parse("02/02/2030");
 
-            MessageBox.Show(CabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, Address, SocialSecurityNumber, title, dateOfIssue, cabinCrewDateOfExpiry));
+            MessageBox.Show(cabinCrewRepo.CreateCabinCrew(firstName, SurName, Email, Phone, Address, SocialSecurityNumber, title, dateOfIssue, cabinCrewDateOfExpiry));
         }
 
 
         private void GetAirCrewInformation_test_btn_Checked(object sender, RoutedEventArgs e)
         {
             string socialSecurityNumber = "444444-4444";
-            MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
+            MessageBox.Show(pilotRepo.GetAirCrewInformation(socialSecurityNumber).ToString());
 
         }
 
         private void delete_Cabin_Crew_btn_Checked(object obj, RoutedEventArgs e) 
         {
             string socialSecurityNumber = "444444-4444";
-            MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(socialSecurityNumber));
+            MessageBox.Show(cabinCrewRepo.DeleteCabinCrew(socialSecurityNumber));
 
         }
     }

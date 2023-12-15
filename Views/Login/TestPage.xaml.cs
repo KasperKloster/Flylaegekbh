@@ -21,6 +21,7 @@ namespace FlyveLægeKBH.Views.Login
     /// </summary>
     public partial class TestPage : UserControl
     {
+        PilotRepo pilotRepo = new PilotRepo();
         public TestPage()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace FlyveLægeKBH.Views.Login
         {
             string socialSecurityNumber = Get_all_info_test_tbx.Text;
 
-            Get_all_info_test_card.Text = PilotRepo.GetAirCrewInformation(socialSecurityNumber);
+            Get_all_info_test_card.Text = pilotRepo.GetAirCrewInformation(socialSecurityNumber);
             //MessageBox.Show(PilotRepo.GetAirCrewInformation(socialSecurityNumber));
         }
 

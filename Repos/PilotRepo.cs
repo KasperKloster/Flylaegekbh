@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,10 +66,14 @@ namespace FlyveLægeKBH.Repos
         //    }
         //}
 
+
+
+
         public string CreatePilot(string firstName, string surName, string email, string phone, string address,
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
         DateTime class1ExpiryDate, DateTime class2ExpiryDate, DateTime laplExpiryDate, DateTime electroCardiogramRecentDate, DateTime audiogramRecentDate)
         {
+            string toReturn = "";
             connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
             try
             {
@@ -103,18 +108,20 @@ namespace FlyveLægeKBH.Repos
                         command.ExecuteNonQuery();
                     }
                 }
-                return "Pilot created successfully";
+                toReturn = "Pilot created successfully";
             }
             catch (Exception ex) 
             {
-                return $"Error: {ex.Message}";
+                HandleException(ex);
             }
 
+            return toReturn;
         }
 
 
-        public static string GetAirCrewInformation(string socialSecurityNumber)
+        public string GetAirCrewInformation(string socialSecurityNumber)
         {
+            string toReturn = "";
             CabinCrew cb = new CabinCrew();
             Pilot p = new Pilot();
             try
@@ -152,7 +159,7 @@ namespace FlyveLægeKBH.Repos
                             }
                             else
                             {
-                                return "AirCrew member not found";
+                                toReturn = "AirCrew member not found";
                             }
                         }
                     }
@@ -160,41 +167,28 @@ namespace FlyveLægeKBH.Repos
             }
             catch (Exception ex)
             {
-                return $"Error: {ex.Message}";
+                HandleException(ex);
             }
+
+            return toReturn;
         }
 
-        
-
-        
 
         public string DeletePilot( string socialSecurityNumber)
         {
+            string toReturn = "";
             try
             {
-                //using(SqlConnection connection = new SqlConnection(connectionString))
-                //{
-                //    connection.Open();
-
-                //    using(SqlCommand command = new SqlCommand("FL2_DeletePilotAndRelatedEntities", connection))
-                //    {
-                //        command.CommandType = CommandType.StoredProcedure;
-
-                //        SetParameters(command, new Pilot { SocialSecurityNumber = socialSecurityNumber }, OperationType.Delete);
-
-                //        command.ExecuteNonQuery();
-                //    }
-                //}
                 string deleteProcedure = "FL2_DeletePilotAndRelatedEntities";
                 Delete(socialSecurityNumber, deleteProcedure, OperationType.Delete);
 
-                return $"Pilot med ssn: {socialSecurityNumber} og relateret data slettet";
+                toReturn = $"Pilot med ssn: {socialSecurityNumber} og relateret data slettet";
             }
             catch (Exception ex)
             {
-
-                return $"Der skete en fejl! Error: {ex.Message}";
+                HandleException(ex);
             }
+            return toReturn;
         }
  
 

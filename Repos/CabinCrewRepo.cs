@@ -36,7 +36,7 @@ namespace FlyveLægeKBH.Repos
         }
 
         // for the time being, this method is static, so that we can acces it and do test without making an instance of the whole class. This might change later on.
-        public static string CreateCabinCrew(string firstName, string surName, string email, string phone,string address,
+        public string CreateCabinCrew(string firstName, string surName, string email, string phone,string address,
         string socialSecurityNumber, string title, DateTime dateOfIssue, DateTime cabinCrewExpiryDate)
         {
             try
@@ -72,11 +72,12 @@ namespace FlyveLægeKBH.Repos
             }
             catch (Exception ex)
             {
+                HandleException(ex);
                 return $"Error: {ex.Message}";
             }
         }
 
-        public static string DeleteCabinCrew(string socialSecurityNumber)
+        public string DeleteCabinCrew(string socialSecurityNumber)
         {
             string connectionString = "Server = 10.56.8.36; Database = DB_F23_TEAM_02; User ID = DB_F23_TEAM_02; Password = TEAMDB_DB_02; TrustServerCertificate = true;";
 
@@ -107,7 +108,7 @@ namespace FlyveLægeKBH.Repos
                 }
                 catch (Exception ex)
                 {
-
+                    HandleException(ex);
                     return $"Error: {ex.Message}";
                 }
             }

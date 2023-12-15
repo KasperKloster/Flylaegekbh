@@ -38,7 +38,34 @@ namespace FlyveLægeKBH.Repos
 
         protected abstract void SetParameters(SqlCommand command, string identifier, OperationType operationType);
 
+        protected virtual void HandleException(Exception ex, string customMessage = null)
+        {
+            // Log the exception instead of displaying in a MessageBox
+            // Optionally, you can log it to a file or a logging framework
+            Debug.WriteLine($"Der er sket en fejl: {customMessage ?? ex.Message}");
+            MessageBox.Show($"Error: {ex.Message}");
+        }
+        //protected virtual void ExecuteNonQuery(string storedProcedure, Action<SqlCommand> setParameters)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
 
+        //            using (SqlCommand command = new SqlCommand(storedProcedure, connection))
+        //            {
+        //                command.CommandType = CommandType.StoredProcedure;
+        //                setParameters(command);
+        //                command.ExecuteNonQuery();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        HandleException(ex);
+        //    }
+        //}
 
 
         public virtual void Create(T entity, string storedProcedure)
@@ -60,7 +87,7 @@ namespace FlyveLægeKBH.Repos
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                HandleException(ex);
 
             }
         }
@@ -107,7 +134,7 @@ namespace FlyveLægeKBH.Repos
                 }
                 catch (Exception ex)
                 {
-                    message = $"Noget gik galt med forbindelsen: {ex}";
+                    HandleException(ex);
                 }
                 return message;
             }
@@ -116,25 +143,25 @@ namespace FlyveLægeKBH.Repos
 
         public virtual void Delete(string identifier, string storedProcedure, OperationType operationType)
         {
-            try 
+            try
             {
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    using(SqlCommand command = new SqlCommand(storedProcedure, connection)) 
+                    using (SqlCommand command = new SqlCommand(storedProcedure, connection))
                     {
-                        command.CommandType= CommandType.StoredProcedure;
+                        command.CommandType = CommandType.StoredProcedure;
                         //command.Parameters.Add("@Identifier", SqlDbType.NVarChar).Value = identifier;
                         SetParameters(command, identifier, operationType);
                         command.ExecuteNonQuery();
                     }
                 }
-                
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                HandleException(ex);
             }
         }
         public virtual void Get() { }

@@ -56,39 +56,7 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used as the source to display all Pilots in the DB.
-        //This allows us to get the Pilots PrimaryKey (SocialSecurityNumber) and all other information
-        //about the pilot based on the name from the menuto this list is bound to.
-        //furthere more this simulate wich user is loged in, and are performing actions in the IT-system. 
-        private List<Pilot> allPilots;
-        public List<Pilot> AllPilots
-        {
-            get
-            {
-                return allPilots;
-            }
-            set
-            {
-                allPilots = value;
-                OnPropertyChanged(nameof(AllPilots));
-            }
-        }
 
-        //this field is used as the source to display all Cabin Crews in the DB.
-        //this serves and allow exatly the same as the Pilot-list, but it is only Cabin Crew objects.        
-        private List<CabinCrew> allCabinCrews;
-        public List<CabinCrew> AllCabinCrews
-        {
-            get
-            {
-                return allCabinCrews;
-            }
-            set
-            {
-                allCabinCrews = value;
-                OnPropertyChanged(nameof(AllCabinCrews));
-            }
-        }
 
         //this field is used as the source to display all Examinations in the DB.
         //this allows us to populate the Examinations menu the user can choose from.
@@ -325,17 +293,6 @@ namespace FlyveLægeKBH.ViewModels
 
 
 
-        /*************************************************************/
-        /*          Explanation of AppointmentRepo                   */
-        /*************************************************************/
-        /*  Creating a property appointmentRepo of type AppointmentRepo
-         reduses duplicated code, and makes it easyer to refer to the
-         AppointmentRepo class further down in the code              */
-        /*************************************************************/
-        private AppointmentRepo appointmentRepo = new AppointmentRepo();
-
-
-
 
         // Commands
         public ICommand GetBookingsBySSNCommand { get; set; }
@@ -433,7 +390,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             // Initialize default values
             AppointmentDate = DateTime.Now;
-            LoadAllePilotsAndCabinCrews();
+            LoadAllPilotsAndCabinCrews();
             LoadAllExaminations();
 
             //Initialize commands                      
@@ -481,22 +438,7 @@ namespace FlyveLægeKBH.ViewModels
         //    AllExaminations = appointmentRepo.GetAllExaminations();
         //}
 
-        private void LoadAllePilotsAndCabinCrews()
-        {
-            try
-            {
 
-                var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
-
-                AllPilots = pilots.OfType<Pilot>().ToList();
-                AllCabinCrews = cabinCrews.OfType<CabinCrew>().ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
-            }
-
-        }
 
         //private void ExecuteGetALLPilotsAndCabinCrewCommand(object obj)
         //{

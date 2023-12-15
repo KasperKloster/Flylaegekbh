@@ -30,13 +30,13 @@ class AirCrewViewModel : ViewModelBase
 
 
 
-    private List<IUser> users;
+    //private List<IUser> users;
 
-    public List<IUser> Users
-    {
-        get { return users; }
-        set { if (users != value) { users = value; OnPropertyChanged(nameof(Users)); } }
-    }
+    //public List<IUser> Users
+    //{
+    //    get { return users; }
+    //    set { if (users != value) { users = value; OnPropertyChanged(nameof(Users)); } }
+    //}
 
 
     // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
@@ -88,7 +88,7 @@ class AirCrewViewModel : ViewModelBase
         //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
 
         // Load pilots and cabin crew when the view model is created
-        LoadPilotsAndCabinCrews();
+        LoadAllPilotsAndCabinCrews();
     }
 
     //----------------------------- Commands------------------------------------------------//
@@ -108,20 +108,6 @@ class AirCrewViewModel : ViewModelBase
      * AirCrewViewModel is created, it automatically loads the pilots and cabin crew into the Users property.*/
     //********************************************************************************************************//
 
-    private void LoadPilotsAndCabinCrews()
-    {
-        try
-        {
-            var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
-
-            Users = pilots.Concat(cabinCrews).ToList();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
-        }
-    }
-
 
 
     public void UpdateAirCrew(object obj)
@@ -138,7 +124,7 @@ class AirCrewViewModel : ViewModelBase
         }
         MessageBox.Show(message);
 
-        LoadPilotsAndCabinCrews();
+        LoadAllPilotsAndCabinCrews();
     }
 
     private string updatePilotUser()
@@ -153,7 +139,7 @@ class AirCrewViewModel : ViewModelBase
 
     private void GetAllInfo(object obj)
     {
-        this.UserInfo = PilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
+        this.UserInfo = pilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
 
 
         GetBookingsBySSN(this.SelectedPilot.SocialSecurityNumber);
@@ -201,12 +187,12 @@ class AirCrewViewModel : ViewModelBase
         {
             DeleteCabinCrewUser();
         }
-        LoadPilotsAndCabinCrews();
+        LoadAllPilotsAndCabinCrews();
     }
 
     private void DeleteCabinCrewUser()
     {
-        System.Windows.MessageBox.Show(CabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));        
+        MessageBox.Show(cabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));        
     }
 
     private void DeletePilotUser()
