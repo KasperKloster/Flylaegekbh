@@ -37,7 +37,7 @@
                        Style="{StaticResource headline2_alt}" 
                        VerticalAlignment="Center"/>
                 <TextBlock Text="Vælge en bruger/kunde for at simulere den valgte er logget ind" Style="{StaticResource headline2_alt}"/>
-                <TextBlock Text="OBS! på nuværende tidspunkt kan vi kun vælge piloter, da vi simulere, at det er en pilot der er logget ind" Style="{StaticResource headline2_alt}"/>
+                <TextBlock Text="OBS! på nuværende tidspunkt kan vi kun vælge piloter, da vi simulere, at det er en pilot der logger ind" Style="{StaticResource headline2_alt}"/>
 
             </StackPanel>
 

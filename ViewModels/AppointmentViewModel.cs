@@ -109,43 +109,8 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        //this field is used to bind the selectedAME objects SocialSecurityNumber to the AME_SSN property.
-        //This ensures that we cand parss the selectedAME SocialSecurityNumber to other Actions throug the property AME_SSN.
-        private AME selectedAME;
 
-        public AME SelectedAME
-        {
-            get
-            {
-                return selectedAME;
-            }
-            set
-            {
-                selectedAME = value;
-                OnPropertyChanged(nameof(SelectedAME));
 
-                AME_SSN = selectedAME?.SocialSecurityNumber;
-            }
-        }
-
-        //this field is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
-        //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
-        //private Pilot selectedPilot;
-
-        //public Pilot SelectedPilot
-        //{
-        //    get
-        //    {
-        //        return selectedPilot;
-        //    }
-        //    set
-        //    {
-        //        selectedPilot = value;
-        //        OnPropertyChanged(nameof(SelectedPilot));
-
-        //        PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
-        //    }
-        //}
 
         //this field is used for the selectedStartTime in the manue/combobox with the name chooseTime.
         //and is the value the create new appointment is using.
@@ -226,20 +191,7 @@ namespace FlyveLægeKBH.ViewModels
 
         }
 
-        private string ame_SNN;
-        public string AME_SSN
-        {
-            get
-            {
-                return ame_SNN;
-            }
-            set
-            {
-                ame_SNN = value;
-                OnPropertyChanged(nameof(AME_SSN));
-            }
 
-        }
 
         //The field SocialSecurityNumber are not used in this iteration
         //for more explanation see comments under the GetBookingsBySSN commandmethod for more explanation

@@ -62,20 +62,7 @@ class AirCrewViewModel : ViewModelBase
         get { return bookingHistory; }
         set { bookingHistory = value; OnPropertyChanged(nameof(BookingHistory)); }
     }
-    //this field is used as the source to display all appointments belongin to specifik aircrew 
-    private List<Appointment> appointments;
-    public List<Appointment> Appointments
-    {
-        get
-        {
-            return appointments;
-        }
-        set
-        {
-            appointments = value;
-            OnPropertyChanged(nameof(Appointments));
-        }
-    }
+
 
 
     public AirCrewViewModel()
