@@ -252,7 +252,7 @@ class AirCrewViewModel : ViewModelBase
 
 
 
-
+    ///------------------------------------------------------------------------------------------------------
     /// <summary>
     /// Executes the command to delete the selected aircrew user based on their user title.
     /// </summary>
@@ -261,6 +261,7 @@ class AirCrewViewModel : ViewModelBase
     /// the corresponding delete method. After the deletion, it reloads all pilots and cabin crews for
     /// an updated view. If an exception occurs during the deletion process, an error message is displayed.
     /// </remarks>
+    /// -----------------------------------------------------------------------------------------------------
     private void ExecuteDeleteAirCrewUserCommand()
     {
         try
