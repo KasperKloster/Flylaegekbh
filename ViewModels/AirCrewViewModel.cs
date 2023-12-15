@@ -18,30 +18,12 @@ namespace FlyveLægeKBH.ViewModels;
 
 class AirCrewViewModel : ViewModelBase
 {
-    // Fields    
+    //------------------------------Fields------------------------------------------------------------------------------------//    
     public PilotRepo pilotRepo = new PilotRepo();
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
     AppointmentRepo appointmentRepo = new AppointmentRepo();
 
-
-    // FOR DEVELOPMENT: Simulates the logged in user  
-    //private string title;
-    //private string socialSecurityNumber;
-
-
-
-    //private List<IUser> users;
-
-    //public List<IUser> Users
-    //{
-    //    get { return users; }
-    //    set { if (users != value) { users = value; OnPropertyChanged(nameof(Users)); } }
-    //}
-
-
     // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
-   
-  
     
     private string userInfo;
 
@@ -64,7 +46,7 @@ class AirCrewViewModel : ViewModelBase
     }
 
 
-
+    //---------------------------------------------------Constructors----------------------------------------------//
     public AirCrewViewModel()
     {
         // Initialize commands
@@ -74,81 +56,191 @@ class AirCrewViewModel : ViewModelBase
         GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
         //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
 
+
+
         // Load pilots and cabin crew when the view model is created
         LoadAllPilotsAndCabinCrews();
+        //********************************************************************************************************//
+        /*By adding the LoadPilotsAndCabinCrews method to the constructor, we ensure that when an instance of 
+         * AirCrewViewModel is created, it automatically loads the pilots and cabin crew into the Users property.*/
+        //********************************************************************************************************//
     }
 
-    //----------------------------- Commands------------------------------------------------//
+    //----------------------------- Commands----------------------------------------------------------------------------------------//
     public ICommand UpdateAirCrewUserCommand { get; }
     public ICommand GetAllInfoCommand { get; set; }
     public ICommand DeleteAirCrewUserCommand { get; }
     public ICommand GetBookingsBySSNCommand { get; set; }
+    //----------------------------- Methods-----------------------------------------------------------------------------------------//
 
-
-
-
-
-    //----------------------------- Methods------------------------------------------------//
-
-    //********************************************************************************************************//
-    /*By adding the LoadPilotsAndCabinCrews method to the constructor, we ensure that when an instance of 
-     * AirCrewViewModel is created, it automatically loads the pilots and cabin crew into the Users property.*/
-    //********************************************************************************************************//
-
-
-
-    public void UpdateAirCrew(object obj)
+    ///------------------------------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Updates the selected aircrew user based on the user's title (Pilot or CabinCrew).
+    /// </summary>
+    /// <remarks>
+    /// This method checks the title of the selected aircrew to determine if it's a Pilot or CabinCrew.
+    /// It then calls the corresponding private method to perform the user update.
+    /// After the update operation, a MessageBox displays the result message, and all pilots and cabin crew members are reloaded.
+    /// In case of an exception during the update process, the exception is caught, logged, and an error message is displayed.
+    /// </remarks>
+    /// ----------------------------------------------------------------------------------------------------------------------------
+    public void UpdateAirCrew()
     {
-
         string message = "";
-        if (SelectedPilot.UserTitle == "Pilot")
+
+        try
         {
-            message = updatePilotUser();
+            // Check the title of the selected aircrew to determine if it's a Pilot or CabinCrew
+            if (SelectedPilot.UserTitle == "Pilot")
+            {
+                // Update the selected Pilot user
+                message = UpdatePilotUser();
+            }
+            else if (SelectedPilot.UserTitle == "CabinCrew")
+            {
+                // Update the selected CabinCrew user
+                message = UpdateCabinCrewUser();
+            }
+
+            // Display the update result message in a MessageBox
+            MessageBox.Show(message);
+
+            // Reload all pilots and cabin crew members
+            LoadAllPilotsAndCabinCrews();
         }
-        if (SelectedPilot.UserTitle == "CabinCrew")
+        catch (Exception ex)
         {
-            message = updateCabinCrewUser();
+            // Handle exceptions and display an error message
+            HandleException(ex, "Det lykkedes ikke at opdatere brugeren");
         }
-        MessageBox.Show(message);
-
-        LoadAllPilotsAndCabinCrews();
     }
 
-    private string updatePilotUser()
+    ///-------------------------------------------------------------------------------------
+    /// <summary>
+    /// Updates the information of a Pilot user.
+    /// </summary>
+    /// <returns>A string message indicating the result of the update operation.</returns>
+    /// ------------------------------------------------------------------------------------
+    private string UpdatePilotUser()
     {
-        return pilotRepo.Update(SelectedPilot);
+        string message = "";
+        try
+        {
+            // Perform the update for the selected Pilot
+            message = pilotRepo.Update(SelectedPilot);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions specific to updating a Pilot
+            HandleException(ex, "Det lykkedes ikke at opdatere Piloten.");
+        }
+        return message;
     }
 
-    private string updateCabinCrewUser()
+    /// ------------------------------------------------------------------------------------
+    /// <summary>
+    /// Updates the information of a CabinCrew user.
+    /// </summary>
+    /// <returns>A string message indicating the result of the update operation.</returns>
+    /// ------------------------------------------------------------------------------------
+    private string UpdateCabinCrewUser()
     {
-        return cabinCrewRepo.Update(SelectedPilot);
+        string message = "";
+        try
+        {
+            // Perform the update for the selected CabinCrew
+            message = cabinCrewRepo.Update(SelectedPilot);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions specific to updating a CabinCrew
+            HandleException(ex, "Det lykkedes ikke at opdatere Cabine personalet.");
+        }
+        return message;
     }
 
-    private void GetAllInfo(object obj)
+
+    /// ------------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Retrieves all information related to the selected pilot and updates various properties.
+    /// </summary>
+    /// <remarks>
+    /// This method retrieves information about the selected pilot, including general information,
+    /// upcoming appointments, and appointments history. The information is then assigned to respective properties
+    /// for further use in the application. In case of an exception during the retrieval process,
+    /// the exception is caught, logged, and an error message is displayed.
+    /// </remarks>
+    /// ------------------------------------------------------------------------------------------------------------
+    private void GetAllInfo()
     {
-        this.UserInfo = pilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
+        try
+        {
+            // Retrieve general information about the selected pilot
+            this.UserInfo = pilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
 
+            // Retrieve and update upcoming appointments for the selected pilot
+            GetBookingsBySSN();
 
-        GetBookingsBySSN(this.SelectedPilot.SocialSecurityNumber);
-        GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
-
-
+            // Retrieve and update appointments history for the selected pilot
+            GetAppointmentsHistoryBySSN();
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while retrieving aircrew information.");
+        }
     }
 
-    private void GetBookingsBySSN(object obj)
+    ///-------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Retrieves upcoming appointments for the selected pilot based on their Social Security Number.
+    /// </summary>
+    /// <remarks>
+    /// This method queries the database to retrieve upcoming appointments for the selected pilot.
+    /// The appointments are then assigned to the Appointments property for display in the application.
+    /// In case of an exception during the retrieval process, the exception is caught, logged,
+    /// and an error message is displayed.
+    /// </remarks>
+    /// --------------------------------------------------------------------------------------------------------
+    private void GetBookingsBySSN()
     {
-        
-
-        Appointments = appointmentRepo.GetBySocialSecurityNumber(this.SelectedPilot.SocialSecurityNumber);
-
-
+        try
+        {
+            // Retrieve and update upcoming appointments for the selected pilot
+            Appointments = appointmentRepo.GetBySocialSecurityNumber(this.SelectedPilot.SocialSecurityNumber);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while retrieving upcoming appointments.");
+        }
     }
 
-    private void GetAppointmentsHistoryBySSN(object obj)
+    ///-----------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Retrieves appointments history for the selected pilot based on their Social Security Number.
+    /// </summary>
+    /// <remarks>
+    /// This method queries the database to retrieve appointments history for the selected pilot.
+    /// The history information is then assigned to the BookingHistory property for display in the application.
+    /// In case of an exception during the retrieval process, the exception is caught, logged,
+    /// and an error message is displayed.
+    /// </remarks>
+    /// ----------------------------------------------------------------------------------------------------------
+    private void GetAppointmentsHistoryBySSN()
     {
-        BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
-
+        try
+        {
+            // Retrieve and update appointments history for the selected pilot
+            BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while retrieving appointments history.");
+        }
     }
+
 
 
     /*************************************************************/
@@ -159,31 +251,82 @@ class AirCrewViewModel : ViewModelBase
 
 
 
-    // Kristians udgave af brugen af commands med CommandBase Class
 
-    //Initialize commands in the ctor scroll up to see it.
 
-    // Methods
-    private void ExecuteDeleteAirCrewUserCommand(object obj)
+    /// <summary>
+    /// Executes the command to delete the selected aircrew user based on their user title.
+    /// </summary>
+    /// <remarks>
+    /// This method determines the user title of the selected aircrew (Pilot or CabinCrew) and calls
+    /// the corresponding delete method. After the deletion, it reloads all pilots and cabin crews for
+    /// an updated view. If an exception occurs during the deletion process, an error message is displayed.
+    /// </remarks>
+    private void ExecuteDeleteAirCrewUserCommand()
     {
-        if (SelectedPilot.UserTitle == "Pilot")
+        try
         {
-            DeletePilotUser();
+            // Determine the user title of the selected aircrew and call the corresponding delete method
+            if (SelectedPilot.UserTitle == "Pilot")
+            {
+                DeletePilotUser();
+            }
+            else if (SelectedPilot.UserTitle == "CabinCrew")
+            {
+                DeleteCabinCrewUser();
+            }
+
+            // Reload all pilots and cabin crews for an updated view
+            LoadAllPilotsAndCabinCrews();
         }
-        if (SelectedPilot.UserTitle == "CabinCrew")
+        catch (Exception ex)
         {
-            DeleteCabinCrewUser();
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while deleting the aircrew user.");
         }
-        LoadAllPilotsAndCabinCrews();
     }
 
+    /// <summary>
+    /// Deletes the selected Cabin Crew user.
+    /// </summary>
+    /// <remarks>
+    /// This method calls the repository to delete the Cabin Crew user based on the Social Security Number.
+    /// After the deletion, a message is displayed using MessageBox.Show. If an exception occurs during the deletion process,
+    /// an error message is displayed.
+    /// </remarks>
     private void DeleteCabinCrewUser()
     {
-        MessageBox.Show(cabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));        
+        try
+        {
+            // Delete the selected Cabin Crew user
+            MessageBox.Show(cabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while deleting the Cabin Crew user.");
+        }
     }
 
+    /// <summary>
+    /// Deletes the selected Pilot user.
+    /// </summary>
+    /// <remarks>
+    /// This method calls the repository to delete the Pilot user based on the Social Security Number.
+    /// After the deletion, a message is displayed using MessageBox.Show. If an exception occurs during the deletion process,
+    /// an error message is displayed.
+    /// </remarks>
     private void DeletePilotUser()
     {
-        MessageBox.Show(pilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
+        try
+        {
+            // Delete the selected Pilot user
+            MessageBox.Show(pilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions and display an error message
+            HandleException(ex, "An error occurred while deleting the Pilot user.");
+        }
     }
+
 }

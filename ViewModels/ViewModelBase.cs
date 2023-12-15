@@ -72,7 +72,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
      AppointmentRepo class further down in the code              */
     /*************************************************************/
     public AppointmentRepo appointmentRepo = new AppointmentRepo();
-
+    public PilotRepo pilotRepo = new PilotRepo();
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
     public string FirstNames { get; set; }
     public string SurName { get; set; }
@@ -215,7 +215,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         Debug.WriteLine($"Error: {customMessage ?? ex.Message}");
 
         // Display a user-friendly error message
-        MessageBox.Show($"Der er sket en fejl: {ex.Message}");
+        MessageBox.Show($"Der er sket en fejl: {customMessage ?? ex.Message}");
     }
 
     /// <summary>
