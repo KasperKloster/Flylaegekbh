@@ -162,22 +162,22 @@ namespace FlyveLægeKBH.ViewModels
 
         //this field is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
         //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
-        private Pilot selectedPilot;
+        //private Pilot selectedPilot;
 
-        public Pilot SelectedPilot
-        {
-            get
-            {
-                return selectedPilot;
-            }
-            set
-            {
-                selectedPilot = value;
-                OnPropertyChanged(nameof(SelectedPilot));
+        //public Pilot SelectedPilot
+        //{
+        //    get
+        //    {
+        //        return selectedPilot;
+        //    }
+        //    set
+        //    {
+        //        selectedPilot = value;
+        //        OnPropertyChanged(nameof(SelectedPilot));
 
-                PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
-            }
-        }
+        //        PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
+        //    }
+        //}
 
         //this field is used for the selectedStartTime in the manue/combobox with the name chooseTime.
         //and is the value the create new appointment is using.
