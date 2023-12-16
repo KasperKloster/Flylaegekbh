@@ -203,13 +203,14 @@ public abstract class ViewModelBase : INotifyPropertyChanged
             OnPropertyChanged(nameof(Appointments));
         }
     }
-    /// ***********************************<summary>**********************************************************//
+    /// -----------------------------------------------------------------------------------------------------------------------/
+    /// <summary>
     /// Handles exceptions by logging the error message to the debug output and showing a user-friendly message.
     /// Optionally, logs the exception to a file or a logging framework.
     /// </summary>
     /// <param name="ex">The exception to be handled.</param>
     /// <param name="customMessage">An optional custom error message. If provided, it will be used instead of the exception message.</param>
-    /// ***********************************<summary>**********************************************************
+    /// -----------------------------------------------------------------------------------------------------------------------/
     protected virtual void HandleException(Exception ex, string customMessage = null)
     {
         Debug.WriteLine($"Error: {customMessage ?? ex.Message}");
@@ -218,6 +219,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
         MessageBox.Show($"Der er sket en fejl: {customMessage ?? ex.Message}");
     }
 
+    /// -----------------------------------------------------------------------------------------------------------------------/
     /// <summary>
     /// Loads all pilots and cabin crews from the data source and updates the respective collections.
     /// </summary>
@@ -225,6 +227,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     /// This method retrieves the list of pilots and cabin crews from the appointment repository.
     /// It then updates the <see cref="AllPilots"/> and <see cref="AllCabinCrews"/> collections with the results.
     /// </remarks>
+    /// -----------------------------------------------------------------------------------------------------------------------/
     public void LoadAllPilotsAndCabinCrews()
     {
         try

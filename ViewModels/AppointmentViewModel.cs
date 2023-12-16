@@ -246,7 +246,7 @@ namespace FlyveLægeKBH.ViewModels
 
 
 
-        // Commands
+        // --------------------Commands-------------------------------------------------/
         public ICommand GetBookingsBySSNCommand { get; set; }
         public ICommand GetFutureAppointmentsCommand { get; }
         public ICommand DeleteAppointmentByIDCommand { get; }
@@ -337,7 +337,7 @@ namespace FlyveLægeKBH.ViewModels
 
         public ICommand CreateNewAppointmentCommand { get; }
 
-        // Constructor 
+        // ----------------------------Constructor----------------------------------------------------------------------// 
         public AppointmentViewModel()
         {
             // Initialize default values
@@ -359,30 +359,95 @@ namespace FlyveLægeKBH.ViewModels
             //GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
         }
 
-        private void ExecuteGetFutureAppointmentsCommand(object obj)
+        //------------------------Methods-------------------------------------------------------------------------------------------------------------//
+
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to retrieve future appointments for the current pilot or cabin crew.
+        /// </summary>
+        /// <remarks>
+        /// This method calls the <c>GetFutureAppointments</c> method from the <c>AppointmentRepo</c> to
+        /// retrieve and update the list of future appointments for the current pilot or cabin crew.
+        /// If an exception occurs during the retrieval process, an error message is displayed.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        private void ExecuteGetFutureAppointmentsCommand()
         {
-            Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+            try
+            {
+                Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while retrieving future appointments.");
+            }
         }
 
-        private void ExecuteCreateNewAppointmentCommand(object obj)
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to create a new appointment.
+        /// </summary>
+        /// <remarks>
+        /// This method calls the <c>Create</c> method from the <c>AppointmentRepo</c> to create a new appointment
+        /// with the provided information. If the appointment creation is successful, a success message is displayed;
+        /// otherwise, an error message is shown.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        private void ExecuteCreateNewAppointmentCommand()
         {
-            MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));
+            try
+            {
+                MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while creating a new appointment.");
+            }
         }
 
-        private void ExecuteGetAvailableStartTimesCommand(object obj)
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to retrieve available start times for the selected AME and date.
+        /// </summary>
+        /// <remarks>
+        /// This method calls the <c>GetAvailableTimesForAME</c> method from the <c>AppointmentRepo</c> to
+        /// retrieve and update the list of available start times for the selected AME and date.
+        /// If an exception occurs during the retrieval process, an error message is displayed.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        private void ExecuteGetAvailableStartTimesCommand()
         {
-
-            StartTime = appointmentRepo.GetAvailableTimesForAME(AME_SSN, DateOnly.FromDateTime(AppointmentDate));
-            
-
+            try
+            {
+                StartTime = appointmentRepo.GetAvailableTimesForAME(AME_SSN, DateOnly.FromDateTime(AppointmentDate));
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while retrieving available start times.");
+            }
         }
 
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Loads all available examinations.
+        /// </summary>
+        /// <remarks>
+        /// This method calls the <c>GetAllExaminations</c> method from the <c>AppointmentRepo</c> to
+        /// retrieve and update the list of all available examinations.
+        /// If an exception occurs during the retrieval process, an error message is displayed.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
         private void LoadAllExaminations()
         {
-
-            AllExaminations = appointmentRepo.GetAllExaminations();
+            try
+            {
+                AllExaminations = appointmentRepo.GetAllExaminations();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while loading all examinations.");
+            }
         }
-
 
         //private void ExecuteGetALLExaminationsCommand(object obj)
         //{
@@ -406,42 +471,90 @@ namespace FlyveLægeKBH.ViewModels
         //    {
         //        MessageBox.Show($"Der skete en fejl under indlæsning af alle piloter og Cabin Crews. Error: {ex.Message}");
         //    }
-            
+
         //}
 
-        private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
-        {                      
-                AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);                    
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to retrieve authorized AMEs for the selected examination.
+        /// </summary>
+        /// <remarks>
+        /// This method calls the <c>GetAuthorizedAMEsByExamination</c> method from the <c>AppointmentRepo</c> to
+        /// retrieve and update the list of authorized AMEs for the selected examination.
+        /// If an exception occurs during the retrieval process, an error message is displayed.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        private void ExecuteGetAuthoriazedAMEByExaminationCommand()
+        {
+            try
+            {
+                AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while retrieving authorized AMEs.");
+            }
         }
 
-
-        // Methods
-
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to update the selected appointment.
+        /// </summary>
+        /// <param name="obj">Object parameter representing the selected appointment.</param>
+        /// <remarks>
+        /// This method checks if the provided object is an <c>Appointment</c> and calls the <c>UpdateAppointment</c>
+        /// method from the <c>AppointmentRepo</c> to update the selected appointment. After the update, it displays
+        /// the result message. If an exception occurs during the update process, an error message is shown.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteUpdateAppointmentCommand(object obj)
         {
-            // check if the command parameter is an Appointment object
-            if (obj is Appointment selectedAppointment)
+            try
             {
-                
-                MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
+                // Check if the command parameter is an Appointment object
+                if (obj is Appointment selectedAppointment)
+                {
+                    MessageBox.Show(appointmentRepo.UpdateAppointment(selectedAppointment));
 
-                Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
-
-            }            
-
-            
+                    // Refresh the list after the selected item was updated
+                    Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while updating the appointment.");
+            }
         }
+
+        /// -------------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Executes the command to delete the appointment by its ID.
+        /// </summary>
+        /// <param name="obj">Object parameter representing the appointment ID.</param>
+        /// <remarks>
+        /// This method checks if the provided object is an integer (appointment ID) and calls the
+        /// <c>DeleteAppointment</c> method from the <c>AppointmentRepo</c> to delete the appointment by ID.
+        /// After the deletion, it displays the result message. If an exception occurs during the deletion process,
+        /// an error message is shown.
+        /// </remarks>
+        /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteDeleteAppointmentByIDCommand(object obj)
         {
-            // check if the command parameter is an integer (AppointmentID)
-            if(obj is int appointmentID)
+            try
             {
-                MessageBox.Show(appointmentRepo.DeleteAppointment(appointmentID));
+                // Check if the command parameter is an integer (AppointmentID)
+                if (obj is int appointmentID)
+                {
+                    MessageBox.Show(appointmentRepo.DeleteAppointment(appointmentID));
 
-                // To refrehs the list after the selectede item was deleted
-                Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+                    // Refresh the list after the selected item was deleted
+                    Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
+                }
             }
-           
+            catch (Exception ex)
+            {
+                HandleException(ex, "An error occurred while deleting the appointment.");
+            }
         }
 
 

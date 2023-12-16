@@ -54,9 +54,6 @@ class AirCrewViewModel : ViewModelBase
         GetAllInfoCommand = new CommandBase(GetAllInfo);
         UpdateAirCrewUserCommand = new CommandBase(UpdateAirCrew);
         GetBookingsBySSNCommand = new CommandBase(GetBookingsBySSN);
-        //GetALLPilotsAndCabinCrewCommand = new CommandBase(ExecuteGetALLPilotsAndCabinCrewCommand);
-
-
 
         // Load pilots and cabin crew when the view model is created
         LoadAllPilotsAndCabinCrews();
@@ -286,6 +283,7 @@ class AirCrewViewModel : ViewModelBase
         }
     }
 
+    /// ----------------------------------------------------------------------------------------------------------------------/
     /// <summary>
     /// Deletes the selected Cabin Crew user.
     /// </summary>
@@ -294,6 +292,7 @@ class AirCrewViewModel : ViewModelBase
     /// After the deletion, a message is displayed using MessageBox.Show. If an exception occurs during the deletion process,
     /// an error message is displayed.
     /// </remarks>
+    /// -----------------------------------------------------------------------------------------------------------------------/
     private void DeleteCabinCrewUser()
     {
         try
@@ -308,6 +307,7 @@ class AirCrewViewModel : ViewModelBase
         }
     }
 
+    /// -----------------------------------------------------------------------------------------------------------------------/
     /// <summary>
     /// Deletes the selected Pilot user.
     /// </summary>
@@ -316,6 +316,7 @@ class AirCrewViewModel : ViewModelBase
     /// After the deletion, a message is displayed using MessageBox.Show. If an exception occurs during the deletion process,
     /// an error message is displayed.
     /// </remarks>
+    /// -----------------------------------------------------------------------------------------------------------------------/
     private void DeletePilotUser()
     {
         try

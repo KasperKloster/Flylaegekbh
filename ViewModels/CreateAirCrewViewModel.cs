@@ -24,10 +24,10 @@ namespace FlyveLægeKBH.ViewModels
         {
             CreateAirCrewCommand = new CommandBase(CreateAirCrew);
         }
-        
-        //------------------------------------------Menthos------------------------------------------------//
 
+        //------------------------------------------Menthods------------------------------------------------------//
 
+        /// ------------------------------------------------------------------------------------------------------/
         /// <summary>
         /// Creates an aircrew entity based on the provided information and adds it to the database.
         /// </summary>
@@ -35,6 +35,8 @@ namespace FlyveLægeKBH.ViewModels
         /// This method determines whether the aircrew is a pilot or cabin crew based on the specified title.
         /// It then calls the appropriate repository method to add the aircrew to the database.
         /// </remarks>
+        /// ------------------------------------------------------------------------------------------------------/
+
         private void CreateAirCrew(object obj)
         {
             try
