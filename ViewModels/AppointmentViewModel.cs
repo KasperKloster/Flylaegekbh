@@ -247,7 +247,6 @@ namespace FlyveLægeKBH.ViewModels
 
 
         // --------------------Commands-------------------------------------------------/
-        public ICommand GetBookingsBySSNCommand { get; set; }
         public ICommand GetFutureAppointmentsCommand { get; }
         public ICommand DeleteAppointmentByIDCommand { get; }
 
@@ -329,10 +328,6 @@ namespace FlyveLægeKBH.ViewModels
         and calls the UpdateAppointment method.                      */
         /*************************************************************/
 
-        public ICommand GetAuthoriazedAMEByExaminationCommand { get; }
-        public ICommand GetALLPilotsAndCabinCrewCommand { get; }
-        public ICommand GetALLExaminationsCommand { get; }
-
         public ICommand GetAvailableStartTimesCommand { get; }
 
         public ICommand CreateNewAppointmentCommand { get; }
@@ -371,7 +366,7 @@ namespace FlyveLægeKBH.ViewModels
         /// If an exception occurs during the retrieval process, an error message is displayed.
         /// </remarks>
         /// -------------------------------------------------------------------------------------------------------------------------/
-        private void ExecuteGetFutureAppointmentsCommand()
+        private void ExecuteGetFutureAppointmentsCommand(object obj)
         {
             try
             {
@@ -393,7 +388,7 @@ namespace FlyveLægeKBH.ViewModels
         /// otherwise, an error message is shown.
         /// </remarks>
         /// -------------------------------------------------------------------------------------------------------------------------/
-        private void ExecuteCreateNewAppointmentCommand()
+        private void ExecuteCreateNewAppointmentCommand(object obj)
         {
             try
             {
@@ -415,7 +410,7 @@ namespace FlyveLægeKBH.ViewModels
         /// If an exception occurs during the retrieval process, an error message is displayed.
         /// </remarks>
         /// -------------------------------------------------------------------------------------------------------------------------/
-        private void ExecuteGetAvailableStartTimesCommand()
+        private void ExecuteGetAvailableStartTimesCommand(object obj)
         {
             try
             {
@@ -484,7 +479,7 @@ namespace FlyveLægeKBH.ViewModels
         /// If an exception occurs during the retrieval process, an error message is displayed.
         /// </remarks>
         /// -------------------------------------------------------------------------------------------------------------------------/
-        private void ExecuteGetAuthoriazedAMEByExaminationCommand()
+        private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
         {
             try
             {

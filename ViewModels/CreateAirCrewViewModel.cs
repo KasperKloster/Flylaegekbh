@@ -12,20 +12,26 @@ using System.Windows.Input;
 
 namespace FlyveLægeKBH.ViewModels
 {
-    
-    public class CreateAirCrewViewModel: ViewModelBase
+    //*****************************************************************************//
+    /// <summary>
+    /// ViewModel for creating aircrew entities, including pilots and cabin crew.
+    /// </summary>
+    //****************************************************************************//
+    public class CreateAirCrewViewModel : ViewModelBase
     {
         //------------Fields--------------------------------------------------------
 
-
         public ICommand CreateAirCrewCommand { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateAirCrewViewModel"/> class.
+        /// </summary>
         public CreateAirCrewViewModel()
         {
             CreateAirCrewCommand = new CommandBase(CreateAirCrew);
         }
 
-        //------------------------------------------Menthods------------------------------------------------------//
+        //------------------------------------------Methods------------------------------------------------------//
 
         /// ------------------------------------------------------------------------------------------------------/
         /// <summary>
@@ -35,6 +41,7 @@ namespace FlyveLægeKBH.ViewModels
         /// This method determines whether the aircrew is a pilot or cabin crew based on the specified title.
         /// It then calls the appropriate repository method to add the aircrew to the database.
         /// </remarks>
+        /// <param name="obj">An optional parameter.</param>
         /// ------------------------------------------------------------------------------------------------------/
 
         private void CreateAirCrew(object obj)
@@ -45,14 +52,14 @@ namespace FlyveLægeKBH.ViewModels
                 if (Title == "CabinCrew")
                 {
                     // Create and add a CabinCrew entity to the database
-                    MessageBox.Show(cabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address, 
+                    MessageBox.Show(cabinCrewRepo.CreateCabinCrew(FirstNames, SurName, Email, Phone, Address,
                         SocialSecurityNumber, Title, MR_DateOfIssue, MR_CabinCrewExpiryDate));
                 }
                 else
                 {
                     // Create and add a Pilot entity to the database
-                    MessageBox.Show(pilotRepo.CreatePilot(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber, 
-                        Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate,ML_Class1ExpiryDate, 
+                    MessageBox.Show(pilotRepo.CreatePilot(FirstNames, SurName, Email, Phone, Address, SocialSecurityNumber,
+                        Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate, ML_Class1ExpiryDate,
                         ML_Class2ExpiryDate, ML_LAPLExpiryDate, ML_ElectroCardiogramRecentDate, ML_AudiogramRecentDate));
                 }
                 //MessageBox.Show(ML_DateOfIssue.ToString());

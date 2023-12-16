@@ -29,18 +29,33 @@ namespace FlyveLægeKBH.Repos
             Get
         }
 
-        /*The purpose of the SetParameters method is to provide a common interface
-         * for setting parameters in a SQL command specific to the type T (the entity type). 
-         * This method is expected to be implemented by derived classes, and it's responsible for mapping
-         * the properties of the entity to the parameters of a SQL command.*/
-                
+        /// <summary>
+        /// Sets parameters for a SQL command based on the provided entity and operation type.
+        ///  * The purpose of the SetParameters method is to provide a common interface
+        ///  * for setting parameters in a SQL command specific to the type T(the entity type). 
+        ///  * This method is expected to be implemented by derived classes, and it's responsible for mapping
+        ///  * the properties of the entity to the parameters of a SQL command.*/
+        /// </summary>
+        /// <param name="command">The SQL command to set parameters for.</param>
+        /// <param name="entity">The entity for which parameters are set.</param>
+        /// <param name="operationType">The type of database operation being performed.</param>       
         protected abstract void SetParameters(SqlCommand command, T entity, OperationType operationType);
 
+        /// <summary>
+        /// Overloading. Sets parameters for a SQL command based on the provided identifier and operation type.
+        /// </summary>
+        /// <param name="command">The SQL command to set parameters for.</param>
+        /// <param name="identifier">The identifier for the database operation.</param>
+        /// <param name="operationType">The type of database operation being performed.</param>
         protected abstract void SetParameters(SqlCommand command, string identifier, OperationType operationType);
 
+        /// <summary>
+        /// Handles exceptions that may occur during database operations.
+        /// </summary>
+        /// <param name="ex">The exception that occurred.</param>
+        /// <param name="customMessage">Custom message to display along with the exception details.</param>
         protected virtual void HandleException(Exception ex, string customMessage = null)
         {
-            // Log the exception instead of displaying in a MessageBox
             // Optionally, you can log it to a file or a logging framework
             Debug.WriteLine($"Der er sket en fejl: {customMessage ?? ex.Message}");
             MessageBox.Show($"Error: {ex.Message}");
@@ -68,6 +83,11 @@ namespace FlyveLægeKBH.Repos
         //}
 
 
+        /// <summary>
+        /// Creates a new entity in the database.
+        /// </summary>
+        /// <param name="entity">The entity to be created.</param>
+        /// <param name="storedProcedure">The stored procedure to execute for the create operation.</param>
         public virtual void Create(T entity, string storedProcedure)
         {
             try
@@ -92,6 +112,11 @@ namespace FlyveLægeKBH.Repos
             }
         }
 
+        /// <summary>
+        /// Updates an existing user entity in the database.
+        /// </summary>
+        /// <param name="airCrew">The aircrew entity to be updated.</param>
+        /// <returns>A string message indicating the result of the update operation.</returns>
         public virtual string Update(IUser airCrew)
         {
             string message = "";
@@ -134,13 +159,19 @@ namespace FlyveLægeKBH.Repos
                 }
                 catch (Exception ex)
                 {
-                    HandleException(ex);
+                    HandleException(ex,message);
                 }
                 return message;
             }
             return message;
         }
 
+        /// <summary>
+        /// Deletes an entity from the database based on its identifier.
+        /// </summary>
+        /// <param name="identifier">The identifier of the entity to be deleted.</param>
+        /// <param name="storedProcedure">The stored procedure to execute for the delete operation.</param>
+        /// <param name="operationType">The type of database operation being performed.</param>
         public virtual void Delete(string identifier, string storedProcedure, OperationType operationType)
         {
             try
@@ -152,16 +183,14 @@ namespace FlyveLægeKBH.Repos
                     using (SqlCommand command = new SqlCommand(storedProcedure, connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        //command.Parameters.Add("@Identifier", SqlDbType.NVarChar).Value = identifier;
                         SetParameters(command, identifier, operationType);
                         command.ExecuteNonQuery();
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                HandleException(ex);
+                HandleException(ex, "Brugeren kunne ikek slettes.");
             }
         }
         public virtual void Get() { }

@@ -15,7 +15,11 @@ using FlyveLægeKBH.Repos;
 
 
 namespace FlyveLægeKBH.ViewModels;
-
+//**************************************************************************//
+/// <summary>
+/// ViewModel for managing aircrew, including both pilots and cabin crew.
+/// </summary>
+//**************************************************************************//
 class AirCrewViewModel : ViewModelBase
 {
     //------------------------------Fields------------------------------------------------------------------------------------//    
@@ -65,9 +69,7 @@ class AirCrewViewModel : ViewModelBase
 
     //----------------------------- Commands----------------------------------------------------------------------------------------//
     public ICommand UpdateAirCrewUserCommand { get; }
-    public ICommand GetAllInfoCommand { get; set; }
     public ICommand DeleteAirCrewUserCommand { get; }
-    public ICommand GetBookingsBySSNCommand { get; set; }
     //----------------------------- Methods-----------------------------------------------------------------------------------------//
 
     ///------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +83,7 @@ class AirCrewViewModel : ViewModelBase
     /// In case of an exception during the update process, the exception is caught, logged, and an error message is displayed.
     /// </remarks>
     /// ----------------------------------------------------------------------------------------------------------------------------
-    public void UpdateAirCrew()
+    public void UpdateAirCrew(object obj)
     {
         string message = "";
 
@@ -168,7 +170,7 @@ class AirCrewViewModel : ViewModelBase
     /// the exception is caught, logged, and an error message is displayed.
     /// </remarks>
     /// ------------------------------------------------------------------------------------------------------------
-    private void GetAllInfo()
+    private void GetAllInfo(object obj)
     {
         try
         {
@@ -176,7 +178,7 @@ class AirCrewViewModel : ViewModelBase
             this.UserInfo = pilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
 
             // Retrieve and update upcoming appointments for the selected pilot
-            GetBookingsBySSN();
+            GetBookingsBySSN(obj);
 
             // Retrieve and update appointments history for the selected pilot
             GetAppointmentsHistoryBySSN();
@@ -199,7 +201,7 @@ class AirCrewViewModel : ViewModelBase
     /// and an error message is displayed.
     /// </remarks>
     /// --------------------------------------------------------------------------------------------------------
-    private void GetBookingsBySSN()
+    private void GetBookingsBySSN(object obj)
     {
         try
         {
@@ -259,7 +261,7 @@ class AirCrewViewModel : ViewModelBase
     /// an updated view. If an exception occurs during the deletion process, an error message is displayed.
     /// </remarks>
     /// -----------------------------------------------------------------------------------------------------
-    private void ExecuteDeleteAirCrewUserCommand()
+    private void ExecuteDeleteAirCrewUserCommand(object obj)
     {
         try
         {

@@ -54,6 +54,8 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     //########## her prøver jeg at se om jeg kan undgå noget dublicated code##############
     /* så jeg har tilføjet felter og commands som jeg tror kan bruges i flere ViewModels */
 
+    //----------------------------Fields-----------------------------------------------------------------//
+
     /*************************************************************/
     /*          Explanation of the following fields              */
     /*************************************************************/
@@ -74,18 +76,18 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     public AppointmentRepo appointmentRepo = new AppointmentRepo();
     public PilotRepo pilotRepo = new PilotRepo();
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
-    public string FirstNames { get; set; }
-    public string SurName { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
-    public string Address { get; set; }
-    public string SocialSecurityNumber { get; set; }
+    public string? FirstNames { get; set; }
+    public string? SurName { get; set; }
+    public string? Email { get; set; }
+    public string? Phone { get; set; }
+    public string? Address { get; set; }
+    public string? SocialSecurityNumber { get; set; }
 
     //public Titles Title { get; set; }
 
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
-    public string ML_CertificateNumber { get; set; }
+    public string? ML_CertificateNumber { get; set; }
     public DateTime ML_DateOfIssue { get; set; } = DateTime.Now;
     public DateTime ML_Class1SinglePilotExpiryDate { get; set; } = DateTime.Now;
     public DateTime ML_Class1ExpiryDate { get; set; } = DateTime.Now;
@@ -96,7 +98,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
     public DateTime MR_DateOfIssue { get; set; } = DateTime.Now;
     public DateTime MR_CabinCrewExpiryDate { get; set; } = DateTime.Now;
-    private string ame_SNN;
+    private string? ame_SNN;
     public string AME_SSN
     {
         get
@@ -114,7 +116,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     //this field, SelectedPilot, is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
     //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
     //private Pilot selectedPilot;
-    private Pilot selectedPilot;
+    private Pilot? selectedPilot;
 
     public Pilot SelectedPilot
     {
@@ -135,7 +137,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
     //This allows us to get the Pilots PrimaryKey (SocialSecurityNumber) and all other information
     //about the pilot based on the name from the menuto this list is bound to.
     //furthere more this simulate wich user is loged in, and are performing actions in the IT-system. 
-    private List<Pilot> allPilots;
+    private List<Pilot>? allPilots;
     public List<Pilot> AllPilots
     {
         get
@@ -151,7 +153,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
     //this field is used to bind the selectedAME objects SocialSecurityNumber to the AME_SSN property.
     //This ensures that we cand parss the selectedAME SocialSecurityNumber to other Actions throug the property AME_SSN.
-    private AME selectedAME;
+    private AME? selectedAME;
 
     public AME SelectedAME
     {
@@ -171,7 +173,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
     //this field, AllCabinCrews, is used as the source to display all Cabin Crews in the DB.
     //this serves and allow exatly the same as the Pilot-list, but it is only Cabin Crew objects.        
-    private List<CabinCrew> allCabinCrews;
+    private List<CabinCrew>? allCabinCrews;
     public List<CabinCrew> AllCabinCrews
     {
         get
@@ -190,7 +192,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 
 
     //this field, Appointments, is used as the source to display all appointments belongin to specific aircrew 
-    private List<Appointment> appointments;
+    private List<Appointment>? appointments;
     public List<Appointment> Appointments
     {
         get
@@ -203,6 +205,17 @@ public abstract class ViewModelBase : INotifyPropertyChanged
             OnPropertyChanged(nameof(Appointments));
         }
     }
+
+    //----------------------------------Commands---------------------------------------------------------------------------------------------//
+    public ICommand? GetAuthoriazedAMEByExaminationCommand { get; set;}
+    public ICommand? GetALLPilotsAndCabinCrewCommand { get; set;}
+    public ICommand? GetALLExaminationsCommand { get; set;}
+    public ICommand? GetAllInfoCommand { get; set; }
+    public ICommand? GetBookingsBySSNCommand { get; set; }
+
+
+    //------------------------------------Methods---------------------------------------------------------------------------------------------//
+
     /// -----------------------------------------------------------------------------------------------------------------------/
     /// <summary>
     /// Handles exceptions by logging the error message to the debug output and showing a user-friendly message.
