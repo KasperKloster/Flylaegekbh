@@ -370,6 +370,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             try
             {
+                PilotCabinCrew_SSN = SelectedPilot.SocialSecurityNumber; 
                 Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
             }
             catch (Exception ex)
@@ -392,6 +393,7 @@ namespace FlyveLægeKBH.ViewModels
         {
             try
             {
+                PilotCabinCrew_SSN = SelectedPilot.SocialSecurityNumber;
                 MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));
             }
             catch (Exception ex)
