@@ -142,7 +142,6 @@ class AirCrewViewModel : ViewModelBase
     public ICommand? GetBookingsBySSNCommand { get; }
     public ICommand? GetALLPilotsAndCabinCrewCommand { get; }
 
-
     //----------------------------- Methods-----------------------------------------------------------------------------------------//
 
     ///------------------------------------------------------------------------------------------------------------------------------
@@ -160,8 +159,6 @@ class AirCrewViewModel : ViewModelBase
     {
         string message = "";
 
-        try
-        {
             // Check the title of the selected aircrew to determine if it's a Pilot or CabinCrew
             if (SelectedPilot.UserTitle == "Pilot")
             {
@@ -178,13 +175,7 @@ class AirCrewViewModel : ViewModelBase
             MessageBox.Show(message);
 
             // Reload all pilots and cabin crew members
-            LoadAllPilotsAndCabinCrews();
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "Det lykkedes ikke at opdatere brugeren");
-        }
+            LoadAllPilotsAndCabinCrews();       
     }
 
     /// -----------------------------------------------------------------------------------------------------------------------/
@@ -198,66 +189,39 @@ class AirCrewViewModel : ViewModelBase
     /// -----------------------------------------------------------------------------------------------------------------------/
     public void LoadAllPilotsAndCabinCrews()
     {
-        try
-        {
             // Retrieve pilots and cabin crews from the data source
             var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
 
             // Update the AllPilots and AllCabinCrews collections with the results
             AllPilots = pilots.OfType<Pilot>().ToList();
-            AllCabinCrews = cabinCrews.OfType<CabinCrew>().ToList();
-        }
-        catch (Exception ex)
-        {
-            // Handle any exceptions that may occur during the data retrieval
-            HandleException(ex, "An error occurred while loading pilots and cabin crews.");
-        }
+            AllCabinCrews = cabinCrews.OfType<CabinCrew>().ToList();        
     }
 
     ///-------------------------------------------------------------------------------------
     /// <summary>
     /// Updates the information of a Pilot user.
     /// </summary>
-    /// <returns>A string message indicating the result of the update operation.</returns>
+    /// <returns>A string, indicating the result of the update operation.</returns>
     /// ------------------------------------------------------------------------------------
     private string UpdatePilotUser()
     {
-        string message = "";
-        try
-        {
+
             // Perform the update for the selected Pilot
-            message = pilotRepo.Update(SelectedPilot);
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions specific to updating a Pilot
-            HandleException(ex, "Det lykkedes ikke at opdatere Piloten.");
-        }
-        return message;
+            return pilotRepo.Update(SelectedPilot);
+
     }
 
     /// ------------------------------------------------------------------------------------
     /// <summary>
     /// Updates the information of a CabinCrew user.
     /// </summary>
-    /// <returns>A string message indicating the result of the update operation.</returns>
+    /// <returns>A string, indicating the result of the update operation.</returns>
     /// ------------------------------------------------------------------------------------
     private string UpdateCabinCrewUser()
     {
-        string message = "";
-        try
-        {
             // Perform the update for the selected CabinCrew
-            message = cabinCrewRepo.Update(SelectedPilot);
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions specific to updating a CabinCrew
-            HandleException(ex, "Det lykkedes ikke at opdatere Cabine personalet.");
-        }
-        return message;
+            return cabinCrewRepo.Update(SelectedPilot);
     }
-
 
     /// ------------------------------------------------------------------------------------------------------------
     /// <summary>
@@ -272,8 +236,6 @@ class AirCrewViewModel : ViewModelBase
     /// ------------------------------------------------------------------------------------------------------------
     private void GetAllInfo(object obj)
     {
-        try
-        {
             // Retrieve general information about the selected pilot
             this.UserInfo = pilotRepo.GetAirCrewInformation(this.SelectedPilot.SocialSecurityNumber);
 
@@ -282,12 +244,6 @@ class AirCrewViewModel : ViewModelBase
 
             // Retrieve and update appointments history for the selected pilot
             GetAppointmentsHistoryBySSN();
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while retrieving aircrew information.");
-        }
     }
 
     ///-------------------------------------------------------------------------------------------------------
@@ -303,16 +259,8 @@ class AirCrewViewModel : ViewModelBase
     /// --------------------------------------------------------------------------------------------------------
     private void GetBookingsBySSN(object obj)
     {
-        try
-        {
             // Retrieve and update upcoming appointments for the selected pilot
             Appointments = appointmentRepo.GetBySocialSecurityNumber(this.SelectedPilot.SocialSecurityNumber);
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while retrieving upcoming appointments.");
-        }
     }
 
     ///-----------------------------------------------------------------------------------------------------------
@@ -328,16 +276,8 @@ class AirCrewViewModel : ViewModelBase
     /// ----------------------------------------------------------------------------------------------------------
     private void GetAppointmentsHistoryBySSN()
     {
-        try
-        {
             // Retrieve and update appointments history for the selected pilot
             BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while retrieving appointments history.");
-        }
     }
 
 
@@ -363,8 +303,6 @@ class AirCrewViewModel : ViewModelBase
     /// -----------------------------------------------------------------------------------------------------
     private void ExecuteDeleteAirCrewUserCommand(object obj)
     {
-        try
-        {
             // Determine the user title of the selected aircrew and call the corresponding delete method
             if (SelectedPilot.UserTitle == "Pilot")
             {
@@ -377,12 +315,6 @@ class AirCrewViewModel : ViewModelBase
 
             // Reload all pilots and cabin crews for an updated view
             LoadAllPilotsAndCabinCrews();
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while deleting the aircrew user.");
-        }
     }
 
     /// ----------------------------------------------------------------------------------------------------------------------/
@@ -397,16 +329,8 @@ class AirCrewViewModel : ViewModelBase
     /// -----------------------------------------------------------------------------------------------------------------------/
     private void DeleteCabinCrewUser()
     {
-        try
-        {
             // Delete the selected Cabin Crew user
             MessageBox.Show(cabinCrewRepo.DeleteCabinCrew(SelectedPilot.SocialSecurityNumber));
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while deleting the Cabin Crew user.");
-        }
     }
 
     /// -----------------------------------------------------------------------------------------------------------------------/
@@ -421,16 +345,8 @@ class AirCrewViewModel : ViewModelBase
     /// -----------------------------------------------------------------------------------------------------------------------/
     private void DeletePilotUser()
     {
-        try
-        {
             // Delete the selected Pilot user
             MessageBox.Show(pilotRepo.DeletePilot(SelectedPilot.SocialSecurityNumber));
-        }
-        catch (Exception ex)
-        {
-            // Handle exceptions and display an error message
-            HandleException(ex, "An error occurred while deleting the Pilot user.");
-        }
     }
 
 }
