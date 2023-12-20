@@ -15,13 +15,33 @@ namespace FlyveLægeKBH.Repos
     public class CabinCrewRepo : RepoBase<CabinCrew>
 
     {
-        //--------------------Methods------------------------------------------------------------------
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'CabinCrewRepo' Class:
+        /// 
+        /// - This class represents the repository for handling operations related to the 'CabinCrew' entity.
+        /// 
+        /// - It inherits from 'RepoBase<CabinCrew>' to leverage the generic repository base class.
+        /// 
+        /// - The primary purpose is to encapsulate data access logic for the 'CabinCrew' entity, including CRUD operations
+        ///   and specific methods related to cabin crew members.
+        /// </summary>
+        //**************************************************************************//
+
+        //--------------------Methods------------------------------------------------------------------//
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'SetParameters' Method:
+        /// 
+        /// - This method is an overridden implementation of the abstract method in the base class.
+        /// 
+        /// - It sets the parameters of a SQL command based on the provided 'CabinCrew' entity and operation type.
+        /// 
+        /// - The switch statement determines the operation type, and parameters are added accordingly.
+        /// </summary>
+        //**************************************************************************//
         protected override void SetParameters(SqlCommand command, CabinCrew entity, OperationType operationType)
         {
-
-            /*Add parameters specific to Delete operation*/
-
-
             switch (operationType)
             {
                 case OperationType.Delete:

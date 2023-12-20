@@ -18,6 +18,32 @@ namespace FlyveLægeKBH.Repos
 {
     public class AppointmentRepo : RepoBase<Appointment>
     {
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'AppointmentRepo' Class:
+        /// 
+        /// - This class serves as the repository for handling operations related to the 'Appointment' entity.
+        /// 
+        /// - It inherits from 'RepoBase<Appointment>' to utilize the generic repository base class.
+        /// 
+        /// - The primary functions include creating, retrieving, updating, and deleting appointments.
+        /// 
+        /// - Additional features include sending email notifications, fetching future appointments, 
+        ///   retrieving appointment history, and getting available times for an Aviation Medical Examiner (AME).
+        /// </summary>
+        //**************************************************************************//
+
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'SetParameters' Method:
+        /// 
+        /// - This method is an overridden implementation of the abstract method in the base class.
+        /// 
+        /// - It sets the parameters of a SQL command based on the provided 'Appointment' entity and operation type.
+        /// 
+        /// - The method is not fully implemented and currently throws a 'NotImplementedException'.
+        /// </summary>
+        //**************************************************************************//
         protected override void SetParameters(SqlCommand command, Appointment entity, OperationType operationType)
         {
             throw new NotImplementedException();
@@ -28,15 +54,12 @@ namespace FlyveLægeKBH.Repos
             throw new NotImplementedException();
         }
 
-
-
         public string Create(string pilotCabinCrewSSN, string ameSSN, string examinationName, TimeSpan startTime, DateTime appointmentDate)
         {
             string message;
             string pilotCabinCrewFullName = "";
             string ameFullName = "";
             string pilotCabinCrewEmail = "";
-
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -76,7 +99,6 @@ namespace FlyveLægeKBH.Repos
                 
             }
 
-            // trying to incorporate emailing..
             try
             {
                 // Send an email notification
@@ -130,7 +152,6 @@ namespace FlyveLægeKBH.Repos
                                    $"\r\n  * Bruger du briller eller kontaktlinser, så medbring dem (både kontaktlinser og briller) både ved førstegangs udstedelse og " +
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
-
 
                 //string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 //string relativePath = Path.Combine(baseDirectory, "Attachments", "Application form for a medical certificate CL 3.pdf");
@@ -279,29 +300,17 @@ namespace FlyveLægeKBH.Repos
             return toReturn;
         }
 
-        /*************************************************************/
-        /*          Explanation of Delete Appointment                */
-        /*************************************************************/
-        /*  The method is designed to delete an appointment from the DB
-        on the provided "AppointmentID".
-        
-        The method executes a stored procedure named 
-        "FL2_DeleAppointmentByID" in the databse. This stored procedure
-        is handling the actual deletion logic.
-        
-        The "try-catch" block captures any exception that may occur 
-        during the execution of the stored procedure. If an error 
-        occurs, an error message is generated and returnd.
-
-            Result message - Depending on the succes or failure
-        of the deletion operation, the method reutrns a secriptive message
-        indicating the outcome. If successful, the message confirms the 
-        successful deletion. otherwise, it provides details of the 
-        encountered error.            
-                                                                     */
-        /*************************************************************/
-
-
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'DeleteAppointment' Method:
+        /// 
+        /// - This method deletes an appointment from the database based on the provided 'AppointmentID'.
+        /// 
+        /// - It executes the 'FL2_DeleteAppointmentByID' stored procedure.
+        /// 
+        /// - Returns a string message indicating the success or failure of the operation.
+        /// </summary>
+        //**************************************************************************//
         public string DeleteAppointment(int appointmentID) 
         {
             string message;
@@ -331,46 +340,17 @@ namespace FlyveLægeKBH.Repos
         
         }
 
-        /*************************************************************/
-        /*          Explanation of Update Appointment                */
-        /*************************************************************/
-        /*  The purpose of this method is to update an existing 
-            appointment in the database based on the provided 
-            "Appointment" object.
-
-            The method initiates a stored procedure named 
-            "FL2_UpdateAppointment" in the database, which contains the 
-            logic for handling the update operation.
-
-            Parameters:
-            @AppointmentID: The unique identifier of the appointment 
-              to be updated.
-            @PilotCabinCrew_SSN: The Social Security Number of the 
-              pilot or cabin crew associated with the appointment.
-            @AME_SSN: The Social Security Number of the Aviation 
-              Medical Examiner (AME) responsible for the appointment.
-            @ExaminationName: The name of the examination associated 
-              with the appointment.
-            @StartTime: The start time of the appointment.
-            @AppointmentDate: The date of the appointment.
-
-            Try-Catch Block:
-            The method is wrapped in a try-catch block to handle any 
-              exceptions that may occur during the execution of the 
-              stored procedure.
-            If the update operation is successful, the method sets 
-              the message to "Appointment updated successfully."
-            If an error occurs, the catch block captures the 
-              exception, and the message is set to "Error updating 
-              appointment: " followed by the details of the exception.
-            
-            The method returns a string message indicating the outcome 
-              of the update operation. If successful, it confirms the 
-              update; otherwise, it provides details of the encountered 
-              error.
-
-        /*************************************************************/
-
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'UpdateAppointment' Method:
+        /// 
+        /// - This method updates an existing appointment in the database.
+        /// 
+        /// - It executes the 'FL2_UpdateAppointment' stored procedure.
+        /// 
+        /// - Returns a string message indicating the success or failure of the update operation.
+        /// </summary>
+        //**************************************************************************//
         public string UpdateAppointment(Appointment appointment)
         {
             string message;
@@ -500,18 +480,14 @@ namespace FlyveLægeKBH.Repos
                                     };
                                     cabinCrews.Add(cabinCrew);
                                 }
-                            }
-
-                            //MessageBox.Show("Pilots og Cabin Crews  blev indlæst, du kan nu vælge fra en af de to dropdown menuer.");
+                            }                            
                         }                    
                     }
                     catch(Exception ex) 
                     {
-                        //MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
-                    }
-                   
-                }
-            
+                        MessageBox.Show($"Der skete en fejl under indhentningen af GetAllPilotsAndCabinCrews. Error: {ex.Message}");
+                    }                   
+                }            
             }
             return (pilots, cabinCrews);
         }
@@ -543,15 +519,10 @@ namespace FlyveLægeKBH.Repos
                                 examinations.Add(examination);
 
                             }
-                        }
-
-                        //MessageBox.Show($"Undersøgelser blev indlæst. Du kan nu vælge en undersøgelse i undersøgelses menuen og derefter finde en AME");
-
-                        
+                        }                        
                     }
                     catch (Exception ex)
                     {
-
                         MessageBox.Show($"Doprdown menu med ExaminationNames kunne ikke indlæses. Error: {ex.Message}");
                     }
                 }
@@ -594,9 +565,7 @@ namespace FlyveLægeKBH.Repos
                 }
             }
             return times;
-        }
-
-        
+        }        
     }
 }
 

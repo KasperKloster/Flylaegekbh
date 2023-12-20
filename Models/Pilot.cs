@@ -45,12 +45,5 @@ namespace FlyveLægeKBH.Models
             Address = address;
             SocialSecurityNumber = ssn;
         }
-
-        //--------------------Methods------------------------------------------------------------------
-        //public override string ToString() 
-        //{
-        //    return $"{FirstName} {SurName} {UserTitle} {Email} {Phone} {SocialSecurityNumber} Medical Date of Issue: {MedicalLicense.DateOfIssue}";
-        //}
-
     }
 }

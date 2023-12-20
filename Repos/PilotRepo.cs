@@ -14,17 +14,34 @@ namespace FlyveLægeKBH.Repos
 {
     public class PilotRepo: RepoBase<Pilot>
     {
-
-
-        //--------------------Methods------------------------------------------------------------------
-
-        
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'PilotRepo' Class:
+        /// 
+        /// - This class represents the repository for handling operations related to the 'Pilot' entity.
+        /// 
+        /// - It inherits from 'RepoBase<Pilot>' to leverage the generic repository base class.
+        /// 
+        /// - The primary purpose is to encapsulate data access logic for the 'Pilot' entity, including CRUD operations
+        ///   and specific methods related to pilots.
+        /// </summary>
+        //**************************************************************************//
+             
+        //--------------------Methods------------------------------------------------------------------//
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of 'SetParameters' Method:
+        /// 
+        /// - This method is an overridden implementation of the abstract method in the base class.
+        /// 
+        /// - It sets the parameters of a SQL command based on the provided 'Pilot' entity and operation type.
+        /// 
+        /// - The switch statement determines the operation type, and parameters are added accordingly.
+        /// </summary>
+        //**************************************************************************//
 
         protected override void SetParameters(SqlCommand command, Pilot entity, OperationType operationType)
-        {
-
-            /*Add parameters specific to Delete operation*/
-                  
+        {                 
 
             switch (operationType) 
             {
@@ -53,21 +70,6 @@ namespace FlyveLægeKBH.Repos
                     break;
             }
         }
-        //public string CreateMedicalLicenseForPilot()
-        //{
-        //    try
-        //    {
-        //        using(SqlConnection connection = new SqlConnection(connectionString))
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw;
-        //    }
-        //}
-
-
-
 
         public string CreatePilot(string firstName, string surName, string email, string phone, string address,
         string socialSecurityNumber, string title, string certificateNumber, DateTime dateOfIssue, DateTime class1SinglePilotExpiryDate,
@@ -117,7 +119,6 @@ namespace FlyveLægeKBH.Repos
 
             return toReturn;
         }
-
 
         public string GetAirCrewInformation(string socialSecurityNumber)
         {
@@ -172,7 +173,6 @@ namespace FlyveLægeKBH.Repos
 
             return toReturn;
         }
-
 
         public string DeletePilot( string socialSecurityNumber)
         {

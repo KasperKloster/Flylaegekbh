@@ -28,28 +28,17 @@ class AirCrewViewModel : ViewModelBase
     public CabinCrewRepo cabinCrewRepo = new CabinCrewRepo();
     AppointmentRepo appointmentRepo = new AppointmentRepo();
 
-    // There are some fully implemented property that uses OnPropertyChanged, as this property changes after an execution of a method.
+
+    //**************************************************************************//
+    /// <summary>
+    /// List Fields Explanation:
+    /// 
+    /// - Serve the purpose of displaying DB-collected data in a menu.
+    /// 
+    /// - Allow users to select items from the displayed lists.
+    /// </summary>
+    //**************************************************************************//
     
-    private string userInfo;
-
-    //this field is used as source to display all info stored of a user/aircrew 
-    public string UserInfo
-    {
-        get { return userInfo; }
-        set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
-    }
-
-
-    //this field is used as source to display all historical bookings and changes of bookings 
-    private string bookingHistory;
-
-    public string BookingHistory
-    {
-        get { return bookingHistory; }
-        set { bookingHistory = value; OnPropertyChanged(nameof(BookingHistory)); }
-    }
-
-    //this field, Appointments, is used as the source to display all appointments belongin to specific aircrew 
     private List<Appointment>? appointments;
     public List<Appointment> Appointments
     {
@@ -63,9 +52,7 @@ class AirCrewViewModel : ViewModelBase
             OnPropertyChanged(nameof(Appointments));
         }
     }
-
-    //this field, AllCabinCrews, is used as the source to display all Cabin Crews in the DB.
-    //this serves and allow exatly the same as the Pilot-list, but it is only Cabin Crew objects.        
+       
     private List<CabinCrew>? allCabinCrews;
     public List<CabinCrew> AllCabinCrews
     {
@@ -79,11 +66,7 @@ class AirCrewViewModel : ViewModelBase
             OnPropertyChanged(nameof(AllCabinCrews));
         }
     }
-
-    //this field, AllPilots, is used as the source to display all Pilots in the DB.
-    //This allows us to get the Pilots PrimaryKey (SocialSecurityNumber) and all other information
-    //about the pilot based on the name from the menuto this list is bound to.
-    //furthere more this simulate wich user is loged in, and are performing actions in the IT-system. 
+ 
     private List<Pilot>? allPilots;
     public List<Pilot> AllPilots
     {
@@ -98,9 +81,19 @@ class AirCrewViewModel : ViewModelBase
         }
     }
 
-    //this field, SelectedPilot, is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
-    //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
-    //private Pilot selectedPilot;
+    //**************************************************************************//
+    /// <summary>
+    /// Explanation of 'Selected' Fields:
+    /// 
+    /// - Fields named 'Selected' are used to change/set the correct value 
+    ///   for the desired property based on the selected item/object from 
+    ///   populated menus.
+    /// 
+    /// - Facilitates parsing the correct values to ViewModel Commands 
+    ///   according to the user's selection in menus/dropdowns.
+    /// </summary>
+    //**************************************************************************//
+
     private Pilot? selectedPilot;
 
     public Pilot SelectedPilot
@@ -113,9 +106,39 @@ class AirCrewViewModel : ViewModelBase
         {
             selectedPilot = value;
             OnPropertyChanged(nameof(SelectedPilot));
-
-            //PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
         }
+    }
+
+    //**************************************************************************//
+    /// <summary>
+    /// Explanation of 'UserInfo' and 'BookingHistory' Fields:
+    /// 
+    /// - These fields serve as sources for displaying information in the user interface.
+    /// 
+    /// - 'UserInfo' is used to display all stored information of a user/aircrew.
+    ///   It is updated after the execution of specific methods, and the OnPropertyChanged
+    ///   event ensures that the UI reflects the latest changes.
+    /// 
+    /// - 'BookingHistory' is used to display historical bookings and changes of bookings.
+    ///   Similar to 'UserInfo', it is updated based on certain actions and utilizes the
+    ///   OnPropertyChanged event for UI synchronization.
+    /// </summary>
+    //**************************************************************************//
+    
+    private string userInfo;
+
+    public string UserInfo
+    {
+        get { return userInfo; }
+        set { userInfo = value; OnPropertyChanged(nameof(UserInfo)); }
+    }
+
+    private string bookingHistory;
+
+    public string BookingHistory
+    {
+        get { return bookingHistory; }
+        set { bookingHistory = value; OnPropertyChanged(nameof(BookingHistory)); }
     }
 
     //---------------------------------------------------Constructors----------------------------------------------//
@@ -205,10 +228,8 @@ class AirCrewViewModel : ViewModelBase
     /// ------------------------------------------------------------------------------------
     private string UpdatePilotUser()
     {
-
             // Perform the update for the selected Pilot
             return pilotRepo.Update(SelectedPilot);
-
     }
 
     /// ------------------------------------------------------------------------------------
@@ -279,17 +300,6 @@ class AirCrewViewModel : ViewModelBase
             // Retrieve and update appointments history for the selected pilot
             BookingHistory = appointmentRepo.GetAppointmentsHistoryBySSN(this.SelectedPilot.SocialSecurityNumber);
     }
-
-
-
-    /*************************************************************/
-    /*        Explanation of DeleteAirCrewUserCommand            */
-    /*************************************************************/
-    /*                                                           */
-    /*************************************************************/
-
-
-
 
     ///------------------------------------------------------------------------------------------------------
     /// <summary>

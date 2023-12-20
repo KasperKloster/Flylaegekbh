@@ -13,7 +13,7 @@ namespace FlyveLægeKBH.Models
     {
         //---------------------Fields--------------------------------------------------------------
         //Rest of the fields are inherited from from AirCrew Base class
-        //public Title Title { get; private set; }
+        
         public string UserTitle { get; set; } = Title.Titles[2];
         public MedicalReport Medical_Report { get; set; } = new MedicalReport();
 
