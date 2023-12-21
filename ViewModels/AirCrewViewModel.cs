@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FlyveLægeKBH.Commands;
-using FlyveLægeKBH.Commands.AirCrew;
 using FlyveLægeKBH.Models;
 using FlyveLægeKBH.Repos;
 
