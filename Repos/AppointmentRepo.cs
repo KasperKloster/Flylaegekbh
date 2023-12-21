@@ -108,8 +108,9 @@ namespace FlyveLægeKBH.Repos
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.From = new MailAddress("team2ucl2023@gmail.com");
                 mailMessage.To.Add("bsch54167@edu.ucl.dk");
-                mailMessage.CC.Add("kfma54102@edu.ucl.dk");
-                mailMessage.CC.Add("knkl54060@edu.ucl.dk");
+                //mailMessage.CC.Add("kfma54102@edu.ucl.dk");
+                mailMessage.CC.Add("mad@maerskaircargo.com");
+                //mailMessage.CC.Add("knkl54060@edu.ucl.dk");
                 mailMessage.Subject = "New Appointment Created";
                 mailMessage.Body = $"Hello {pilotCabinCrewFillName}\n"+
                                    $"Vi skriver til dig for at bekræfte din aftale til flyvemedicinsk undersøgelse der er fortaget {DateTime.Now}.\n\n" +
