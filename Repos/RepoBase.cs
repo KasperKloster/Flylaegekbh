@@ -49,38 +49,22 @@ namespace FlyveLægeKBH.Repos
         /// <param name="operationType">The type of database operation being performed.</param>
         protected abstract void SetParameters(SqlCommand command, string identifier, OperationType operationType);
 
+
+        /// -----------------------------------------------------------------------------------------------------------------------/
         /// <summary>
-        /// Handles exceptions that may occur during database operations.
+        /// Handles exceptions by logging the error message to the debug output and showing a user-friendly message.
+        /// Optionally, logs the exception to a file or a logging framework.
         /// </summary>
-        /// <param name="ex">The exception that occurred.</param>
-        /// <param name="customMessage">Custom message to display along with the exception details.</param>
+        /// <param name="ex">The exception to be handled.</param>
+        /// <param name="customMessage">An optional custom error message. If provided, it will be used instead of the exception message.</param>
+        /// -----------------------------------------------------------------------------------------------------------------------/
         protected virtual void HandleException(Exception ex, string customMessage = null)
         {
-            // Optionally, you can log it to a file or a logging framework
-            Debug.WriteLine($"Der er sket en fejl: {customMessage ?? ex.Message}");
-            MessageBox.Show($"Error: {ex.Message}");
-        }
-        //protected virtual void ExecuteNonQuery(string storedProcedure, Action<SqlCommand> setParameters)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
+            Debug.WriteLine($"Error: {customMessage ?? ex.Message}");
 
-        //            using (SqlCommand command = new SqlCommand(storedProcedure, connection))
-        //            {
-        //                command.CommandType = CommandType.StoredProcedure;
-        //                setParameters(command);
-        //                command.ExecuteNonQuery();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        HandleException(ex);
-        //    }
-        //}
+            // Display a user-friendly error message
+            MessageBox.Show($"Der er sket en fejl: {customMessage ?? ex.Message}");
+        }
 
 
         /// <summary>

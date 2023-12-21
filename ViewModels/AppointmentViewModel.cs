@@ -19,6 +19,16 @@ namespace FlyveLægeKBH.ViewModels
         // Fields
 
         /*************************************************************/
+        /*          Explanation of the following fields              */
+        /*************************************************************/
+        /*  These fields are the "Main" fields, corosponding to the 
+         Appointment model class.
+
+         The above listede fields/propery (List and selected) we can
+        define as helper properys for these Main fields              */
+        /*************************************************************/
+
+        /*************************************************************/
         /*               Explanation of List fields                  */
         /*************************************************************/
         /*  all these list fields serve the purpse of displaying 
@@ -105,7 +115,7 @@ namespace FlyveLægeKBH.ViewModels
                 selectedExamination = value;
                 OnPropertyChanged(nameof(SelectedExamination));
 
-                ExaminationName = selectedExamination?.ExaminationName;
+                ExaminationName = selectedExamination?.ExaminationName; 
             }
         }
 
@@ -126,8 +136,6 @@ namespace FlyveLægeKBH.ViewModels
             {
                 selectedStartTime = value;
                 OnPropertyChanged(nameof(SelectedStartTime));
-
-
             }
         }
 
@@ -156,7 +164,6 @@ namespace FlyveLægeKBH.ViewModels
                 appointmentDate = value;
                 OnPropertyChanged(nameof(AppointmentDate));
             }
-
         }
 
         //this field is used to display the list of availabelStartTimes based on the selected date from the datepicker.
@@ -173,7 +180,6 @@ namespace FlyveLægeKBH.ViewModels
                 startTime = value;
                 OnPropertyChanged(nameof(StartTime));
             }
-
         }
 
         private string examinationName;
@@ -188,7 +194,6 @@ namespace FlyveLægeKBH.ViewModels
                 examinationName = value;
                 OnPropertyChanged(nameof(ExaminationName));
             }
-
         }
 
 
@@ -225,7 +230,20 @@ namespace FlyveLægeKBH.ViewModels
                 pilotCabinCrew_SNN = value;
                 OnPropertyChanged(nameof(PilotCabinCrew_SSN));
             }
+        }
 
+        private string? ame_SNN;
+        public string AME_SSN
+        {
+            get
+            {
+                return ame_SNN;
+            }
+            set
+            {
+                ame_SNN = value;
+                OnPropertyChanged(nameof(AME_SSN));
+            }
         }
 
         private string appointmentID;
@@ -240,7 +258,78 @@ namespace FlyveLægeKBH.ViewModels
                 appointmentID = value;
                 OnPropertyChanged(nameof(AppointmentID));
             }
+        }
 
+        //this field, AllCabinCrews, is used as the source to display all Cabin Crews in the DB.
+        //this serves and allow exatly the same as the Pilot-list, but it is only Cabin Crew objects.        
+        private List<CabinCrew>? allCabinCrews;
+        public List<CabinCrew> AllCabinCrews
+        {
+            get
+            {
+                return allCabinCrews;
+            }
+            set
+            {
+                allCabinCrews = value;
+                OnPropertyChanged(nameof(AllCabinCrews));
+            }
+        }
+
+        //this field is used to bind the selectedAME objects SocialSecurityNumber to the AME_SSN property.
+        //This ensures that we cand parss the selectedAME SocialSecurityNumber to other Actions throug the property AME_SSN.
+        private AME? selectedAME;
+        public AME SelectedAME
+        {
+            get
+            {
+                return selectedAME;
+            }
+            set
+            {
+                selectedAME = value;
+                OnPropertyChanged(nameof(SelectedAME));
+
+                AME_SSN = selectedAME?.SocialSecurityNumber;
+            }
+        }
+
+        //this field, AllPilots, is used as the source to display all Pilots in the DB.
+        //This allows us to get the Pilots PrimaryKey (SocialSecurityNumber) and all other information
+        //about the pilot based on the name from the menuto this list is bound to.
+        //furthere more this simulate wich user is loged in, and are performing actions in the IT-system. 
+        private List<Pilot>? allPilots;
+        public List<Pilot> AllPilots
+        {
+            get
+            {
+                return allPilots;
+            }
+            set
+            {
+                allPilots = value;
+                OnPropertyChanged(nameof(AllPilots));
+            }
+        }
+
+        //this field, SelectedPilot, is used to bind the selectedPilot objects SocialSecurityNumber to the PilotCabinCrew_SSN property.
+        //This ensures that we cand parss the selectedPilot SocialSecurityNumber to other Actions throug the property PilotCabinCrew_SSN.
+        //private Pilot selectedPilot;
+        private Pilot? selectedPilot;
+
+        public Pilot SelectedPilot
+        {
+            get
+            {
+                return selectedPilot;
+            }
+            set
+            {
+                selectedPilot = value;
+                OnPropertyChanged(nameof(SelectedPilot));
+
+                //PilotCabinCrew_SSN = selectedPilot?.SocialSecurityNumber;
+            }
         }
 
 
@@ -249,7 +338,9 @@ namespace FlyveLægeKBH.ViewModels
         // --------------------Commands-------------------------------------------------/
         public ICommand GetFutureAppointmentsCommand { get; }
         public ICommand DeleteAppointmentByIDCommand { get; }
-
+        public ICommand? GetAuthoriazedAMEByExaminationCommand { get; }
+        public ICommand? GetALLPilotsAndCabinCrewCommand { get; }
+        public ICommand? GetALLExaminationsCommand { get; }
         /*************************************************************/
         /*      Explanation of DeleteAppointmentByIDCommand          */
         /*************************************************************/
@@ -329,7 +420,6 @@ namespace FlyveLægeKBH.ViewModels
         /*************************************************************/
 
         public ICommand GetAvailableStartTimesCommand { get; }
-
         public ICommand CreateNewAppointmentCommand { get; }
 
         // ----------------------------Constructor----------------------------------------------------------------------// 
@@ -355,6 +445,24 @@ namespace FlyveLægeKBH.ViewModels
         }
 
         //------------------------Methods-------------------------------------------------------------------------------------------------------------//
+        /// -----------------------------------------------------------------------------------------------------------------------/
+        /// <summary>
+        /// Loads all pilots and cabin crews from the data source and updates the respective collections.
+        /// </summary>
+        /// <remarks>
+        /// This method retrieves the list of pilots and cabin crews from the appointment repository.
+        /// It then updates the <see cref="AllPilots"/> and <see cref="AllCabinCrews"/> collections with the results.
+        /// </remarks>
+        /// -----------------------------------------------------------------------------------------------------------------------/
+        public void LoadAllPilotsAndCabinCrews()
+        {
+                // Retrieve pilots and cabin crews from the data source
+                var (pilots, cabinCrews) = appointmentRepo.GetAllPilotsAndCabinCrews();
+
+                // Update the AllPilots and AllCabinCrews collections with the results
+                AllPilots = pilots.OfType<Pilot>().ToList();
+                AllCabinCrews = cabinCrews.OfType<CabinCrew>().ToList();
+        }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
         /// <summary>
@@ -368,14 +476,8 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteGetFutureAppointmentsCommand(object obj)
         {
-            try
-            {
+                PilotCabinCrew_SSN = SelectedPilot.SocialSecurityNumber; 
                 Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while retrieving future appointments.");
-            }
         }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
@@ -390,14 +492,8 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteCreateNewAppointmentCommand(object obj)
         {
-            try
-            {
-                MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while creating a new appointment.");
-            }
+                PilotCabinCrew_SSN = SelectedPilot.SocialSecurityNumber;
+                MessageBox.Show(appointmentRepo.Create(PilotCabinCrew_SSN, AME_SSN, ExaminationName, TimeSpan.Parse(SelectedStartTime), AppointmentDate));    
         }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
@@ -412,14 +508,7 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteGetAvailableStartTimesCommand(object obj)
         {
-            try
-            {
                 StartTime = appointmentRepo.GetAvailableTimesForAME(AME_SSN, DateOnly.FromDateTime(AppointmentDate));
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while retrieving available start times.");
-            }
         }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
@@ -434,14 +523,7 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void LoadAllExaminations()
         {
-            try
-            {
                 AllExaminations = appointmentRepo.GetAllExaminations();
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while loading all examinations.");
-            }
         }
 
         //private void ExecuteGetALLExaminationsCommand(object obj)
@@ -481,14 +563,7 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteGetAuthoriazedAMEByExaminationCommand(object obj)
         {
-            try
-            {
                 AuthorizedAMEs = appointmentRepo.GetAuthorizedAMEsByExamination(ExaminationName);
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while retrieving authorized AMEs.");
-            }
         }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
@@ -504,8 +579,6 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteUpdateAppointmentCommand(object obj)
         {
-            try
-            {
                 // Check if the command parameter is an Appointment object
                 if (obj is Appointment selectedAppointment)
                 {
@@ -513,12 +586,7 @@ namespace FlyveLægeKBH.ViewModels
 
                     // Refresh the list after the selected item was updated
                     Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
-                }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while updating the appointment.");
-            }
+                }            
         }
 
         /// -------------------------------------------------------------------------------------------------------------------------/
@@ -535,8 +603,6 @@ namespace FlyveLægeKBH.ViewModels
         /// -------------------------------------------------------------------------------------------------------------------------/
         private void ExecuteDeleteAppointmentByIDCommand(object obj)
         {
-            try
-            {
                 // Check if the command parameter is an integer (AppointmentID)
                 if (obj is int appointmentID)
                 {
@@ -545,11 +611,6 @@ namespace FlyveLægeKBH.ViewModels
                     // Refresh the list after the selected item was deleted
                     Appointments = appointmentRepo.GetFutureAppointments(PilotCabinCrew_SSN);
                 }
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex, "An error occurred while deleting the appointment.");
-            }
         }
 
 

@@ -19,7 +19,28 @@ namespace FlyveLægeKBH.ViewModels
     //****************************************************************************//
     public class CreateAirCrewViewModel : ViewModelBase
     {
-        //------------Fields--------------------------------------------------------
+        //------------Fields--------------------------------------------------------//
+        public string? FirstNames { get; set; }
+        public string? SurName { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Address { get; set; }
+        public string? SocialSecurityNumber { get; set; }
+
+        //public Titles Title { get; set; }
+
+        public string? Title { get; set; }
+        public string? ML_CertificateNumber { get; set; }
+        public DateTime ML_DateOfIssue { get; set; } = DateTime.Now;
+        public DateTime ML_Class1SinglePilotExpiryDate { get; set; } = DateTime.Now;
+        public DateTime ML_Class1ExpiryDate { get; set; } = DateTime.Now;
+        public DateTime ML_Class2ExpiryDate { get; set; } = DateTime.Now;
+        public DateTime ML_LAPLExpiryDate { get; set; } = DateTime.Now;
+        public DateTime ML_ElectroCardiogramRecentDate { get; set; } = DateTime.Now;
+        public DateTime ML_AudiogramRecentDate { get; set; } = DateTime.Now;
+
+        public DateTime MR_DateOfIssue { get; set; } = DateTime.Now;
+        public DateTime MR_CabinCrewExpiryDate { get; set; } = DateTime.Now;
 
         public ICommand CreateAirCrewCommand { get; set; }
 
@@ -46,8 +67,7 @@ namespace FlyveLægeKBH.ViewModels
 
         private void CreateAirCrew(object obj)
         {
-            try
-            {
+
                 // Check the title to determine if it's a CabinCrew or a Pilot
                 if (Title == "CabinCrew")
                 {
@@ -62,13 +82,9 @@ namespace FlyveLægeKBH.ViewModels
                         Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate, ML_Class1ExpiryDate,
                         ML_Class2ExpiryDate, ML_LAPLExpiryDate, ML_ElectroCardiogramRecentDate, ML_AudiogramRecentDate));
                 }
-                //MessageBox.Show(ML_DateOfIssue.ToString());
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that may occur during the aircrew creation process
-                HandleException(ex, "Der er desværre sket en fejl. Personen blev ikke oprettet.");
-            }
+
+            
+
         }
     }
 }
