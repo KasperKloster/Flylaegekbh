@@ -39,17 +39,8 @@
             <StackPanel Orientation="Vertical"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right"
-                        Grid.Row="0">
-                
-                <!--<Button Style="{StaticResource submitBtn}"
-                    x:Name="Load_AllPilotsAndCabinCrews_btn"
-                    Content="indlæs alle Piloter og Cabin Crew"
-                    Margin="0,10,0,0"
-                    Height="30"
-                    Width="200"
-                    HorizontalAlignment="Right"                   
-                    Command="{Binding GetALLPilotsAndCabinCrewCommand}"/>-->
-                
+                        Grid.Row="0">               
+
                 <StackPanel Orientation="Horizontal"
                             >
                     <Label Content="1. Vælg pilot"
@@ -63,22 +54,7 @@
                     DisplayMemberPath="FirstName"
                     SelectedItem="{Binding SelectedPilot}"/>
 
-                </StackPanel>
-
-                <!--<StackPanel Orientation="Horizontal"
-                            >
-                    <Label Content="Vælg Cabin Crew"
-                           Margin="0,10,10,0"/>
-                    
-                    <ComboBox
-                    x:Name="ShowAllCabinCrews"                    
-                    Width="120"
-                    Height="35"
-                    Margin="0,10,0,0"
-                    ItemsSource="{Binding AllCabinCrews}"
-                    DisplayMemberPath="FirstName"/>
-
-                </StackPanel>-->               
+                </StackPanel>                    
 
             </StackPanel>
             
@@ -88,15 +64,6 @@
                         Grid.Row="1" 
                         Grid.Column="1"
                         Height="100">
-
-                <!--<Button Style="{StaticResource submitBtn}"
-                    x:Name="Load_AllExaminations_btn"
-                    Content="Vælg Undersøgelse"
-                    Margin="10,0,0,0"
-                    Height="30"
-                    HorizontalAlignment="Right"                        
-                    Command="{Binding GetALLExaminationsCommand}"
-                    />-->
 
                 <StackPanel Orientation="Vertical"
                             Width="150">
@@ -120,8 +87,6 @@
                     
                 </StackPanel>
                
-
-
                 <Button Style="{StaticResource submitBtn}"
                     x:Name="Find_Authoriazed_AME_btn"
                     Content="3. Find AME"
@@ -218,9 +183,7 @@
                     />
 
             </StackPanel>
-            
-            
-            
+             
             <!--This is to view future appointments-->
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 
@@ -240,8 +203,8 @@
                     HorizontalAlignment="Right"
                     Command="{Binding GetFutureAppointmentsCommand}"
                     CommandParameter="{Binding PilotCabinCrew_SSN}"/>
-            </StackPanel>            
-            
+            </StackPanel>
+
             <StackPanel Grid.Row="4" HorizontalAlignment="Left">
                 <ListView x:Name="Appointments_listView" 
                       ItemsSource="{Binding Appointments}" 
@@ -262,7 +225,6 @@
                     </ListView.View>
                 </ListView>
             </StackPanel>
-
 
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Style="{StaticResource submitBtn}"
@@ -287,28 +249,11 @@
 
             </StackPanel>
 
-
             <!--The following is for updating/changing your appointment inputs-->
-
             <StackPanel Grid.Row="6"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,20,0,0">
-
-                <!--<Label x:Name="ameSSNLBL"
-                   Content="Læge"
-                   Foreground="Black"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Width="100"
-                   Height="35"
-                   Margin="0,0,10,0"/>
-                <TextBox x:Name="ameSNNTB"
-                     Foreground="Black"
-                     Text="{Binding SelectedItem.AME_SSN, ElementName=Appointments_listView}"
-                     Width="120"
-                     Height="35"
-                     VerticalAlignment="Top"/>-->
 
                 <Label x:Name="examinationNameLBL"
                    Content="Undersøgelse"
@@ -356,81 +301,7 @@
                      VerticalAlignment="Top"/>
 
 
-            </StackPanel>
-
-            <!--<StackPanel Grid.Row="7"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-
-                <Label x:Name="startTimeLBL"
-                   Content="Tidspunkt"
-                   Foreground="Black"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Width="100"
-                   Height="35"
-                   Margin="0,0,10,0"/>
-                <TextBox x:Name="startTimeTB"
-                     Foreground="black"
-                     Text="{Binding SelectedItem.StartTime, ElementName=Appointments_listView}"
-                     Width="120"
-                     Height="35"
-                     VerticalAlignment="Top"/>
-
-                <Label x:Name="appointmentDateLBL"
-                   Content="Dato"
-                   Foreground="Black"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Width="100"
-                   Height="35"
-                   Margin="35,0,10,0"/>
-                <TextBox x:Name="appointmentDateTB"
-                     Foreground="black"
-                     Text="{Binding SelectedItem.AppointmentDate, ElementName=Appointments_listView}"
-                     Width="120"
-                     Height="35"
-                     VerticalAlignment="Top"/>
-
-            </StackPanel>
-
-            <StackPanel Grid.Row="8"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-
-                --><!--just for development an first iteration
-            remove these or do somthing with these when refactor the view--><!--
-
-                <Label x:Name="appointmentIDLBL"
-                   Content="appointmentID"
-                   Foreground="Black"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Width="100"
-                   Height="35"
-                   Margin="0,0,10,0"/>
-                <TextBox x:Name="appointmentIDTB"
-                     Foreground="black"
-                     Text="{Binding SelectedItem.AppointmentID, ElementName=Appointments_listView}"
-                     Width="120"
-                     Height="35"
-                     VerticalAlignment="Top"/>
-
-                <Label x:Name="pilotCabinCrewSNNLBL"
-                   Content="pilotCabinCrew_SNN"
-                   Foreground="Black"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Width="100"
-                   Height="35"
-                   Margin="35,0,10,0"/>
-                <TextBox x:Name="pilotCabinCrewSNNTB"
-                     Foreground="black"
-                     Text="{Binding SelectedItem.PilotCabinCrew_SSN, ElementName=Appointments_listView}"
-                     Width="120"
-                     Height="35"
-                     VerticalAlignment="Top"/>
-            </StackPanel>-->
+            </StackPanel>            
 
         </Grid>
     </ScrollViewer>

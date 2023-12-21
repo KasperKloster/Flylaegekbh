@@ -177,45 +177,6 @@ namespace FlyveLægeKBH.Repos
                 HandleException(ex, "Brugeren kunne ikek slettes.");
             }
         }
-        public virtual void Get() { }
-
-
-        //
-        //// FOR DEVELOPMENT: Simulates the logged in user
-        //public virtual Dictionary<string, string> GetFirstUser() {
-        //    Dictionary<string, string> FirsUser = new Dictionary<string, string>();
-        //    try {
-        //        string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
-
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
-        //            using (SqlCommand command = new SqlCommand("SELECT TOP 1 * FROM FL2_User", connection))
-        //            {
-        //                using (SqlDataReader reader = command.ExecuteReader())
-        //                {
-        //                    if (reader.Read())
-        //                    {
-        //                        // Retrieve data from the reader
-        //                        FirsUser.Add("socialSecurityNumber", reader["SocialSecurityNumber"].ToString());
-        //                        FirsUser.Add("firstName", reader["FirstNames"].ToString());
-        //                        FirsUser.Add("surName", reader["SurName"].ToString());
-        //                        FirsUser.Add("email", reader["Email"].ToString());
-        //                        FirsUser.Add("phone", reader["Phone"].ToString());
-        //                        FirsUser.Add("address", reader["Address"].ToString());
-        //                        FirsUser.Add("title", reader["TitleName"].ToString());
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    } 
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-        //    }
-
-        //    return FirsUser;
-        //}
-
+        public virtual void Get() { }       
     }
 }

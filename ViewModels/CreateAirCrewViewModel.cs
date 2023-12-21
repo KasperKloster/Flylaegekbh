@@ -26,9 +26,6 @@ namespace FlyveLægeKBH.ViewModels
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public string? SocialSecurityNumber { get; set; }
-
-        //public Titles Title { get; set; }
-
         public string? Title { get; set; }
         public string? ML_CertificateNumber { get; set; }
         public DateTime ML_DateOfIssue { get; set; } = DateTime.Now;
@@ -42,11 +39,13 @@ namespace FlyveLægeKBH.ViewModels
         public DateTime MR_DateOfIssue { get; set; } = DateTime.Now;
         public DateTime MR_CabinCrewExpiryDate { get; set; } = DateTime.Now;
 
-        public ICommand CreateAirCrewCommand { get; set; }
 
+        //------------Commands--------------------------------------------------------//
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateAirCrewViewModel"/> class.
         /// </summary>
+        public ICommand CreateAirCrewCommand { get; set; }
+
         public CreateAirCrewViewModel()
         {
             CreateAirCrewCommand = new CommandBase(CreateAirCrew);
@@ -67,7 +66,6 @@ namespace FlyveLægeKBH.ViewModels
 
         private void CreateAirCrew(object obj)
         {
-
                 // Check the title to determine if it's a CabinCrew or a Pilot
                 if (Title == "CabinCrew")
                 {
@@ -82,9 +80,6 @@ namespace FlyveLægeKBH.ViewModels
                         Title, ML_CertificateNumber, ML_DateOfIssue, ML_Class1SinglePilotExpiryDate, ML_Class1ExpiryDate,
                         ML_Class2ExpiryDate, ML_LAPLExpiryDate, ML_ElectroCardiogramRecentDate, ML_AudiogramRecentDate));
                 }
-
-            
-
         }
     }
 }

@@ -21,15 +21,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <!--<Button Style="{StaticResource submitBtn}"
-            x:Name="Load_AllPilotsAndCabinCrews_btn"
-            Content="indlæs alle Piloter og Cabin Crew"
-            Margin="10"
-            Height="30"
-            Width="200"
-            HorizontalAlignment="Right"
-            Command="{Binding GetALLPilotsAndCabinCrewCommand}" />-->
-
+            
             <!--In this ComboBox, a DataTemplate is defined within the ComboBox.ItemTemplate 
             to display both FirstName and SurName in a horizontal StackPanel.-->
             <StackPanel>
@@ -42,8 +34,6 @@
             </StackPanel>
 
             <TextBlock Text="1" Style="{StaticResource headline2_alt}" VerticalAlignment="Center" Margin="30,0,0,0"/>
-
-
 
             <ComboBox x:Name="ShowAllPilotsAndCabinCrews_cmb"
               Width="120"
@@ -62,9 +52,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
         </StackPanel>
-
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0, 25, 0, 40 ">
             <TextBlock Text="2. Fornavne" Style="{StaticResource headline2_alt}"/>
@@ -86,7 +74,6 @@
                 Text="{Binding SelectedPilot.Phone}"/>
         </StackPanel>
 
-
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
             <TextBlock Text="6. Address" Style="{StaticResource headline2_alt}"/>
 
@@ -94,10 +81,6 @@
                      Width="750"
                      Text="{Binding SelectedPilot.Address}"/>
 
-            <!--<TextBox  
-                     Margin="100, 0, 0, 0"
-                     Width="200"
-                     Text="Nummer"/>-->
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0, 0, 0, 40 ">
@@ -117,14 +100,6 @@
                 Margin ="80,0,100,0"
                 />
                     
-            <!--<TextBox  
-                    Width="200"
-                    Text="Postnummer"/>
-
-            <TextBox 
-                    Margin="100, 0, 0, 0"
-                     Width="500"
-                     Text="By"/>-->
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">

@@ -11,27 +11,27 @@ namespace FlyveLægeKBH.ViewModels
 {
     public class AirCrewMainViewModel : ViewModelBase
     {
-        /*************************************************************/
-        /*                Explanation of AirCrewMainViewModel        */
-        /*************************************************************/
-        /*  This is basicly a copi of what MainWindowViewModel, but it 
-         is specified for the AirCrewMainview insted of MainWindow.
-        
-            This allows us to seperate the ChildViews for the MainWindow 
-        And for the AirCrewMainview. This way we keep every thing 
-        related to AirCrew (Customers) ChildViews in this ViewModel 
-        class                  
-        
-            This is probaly not the most correct or smartes way. As
-        mentiont in another comment using a service or a helper class
-        handling all logic for routing and navigation is probaly better
-        pratices then this. But sinces this could be consider out of 
-        scope for oure project we choose to handle routing and navigation
-        like this                                                    */
-        /*************************************************************/
+        //**************************************************************************//
+        /// <summary>
+        /// Explanation of AirCrewMainViewModel:
+        /// 
+        /// - This class is essentially a copy of MainWindowViewModel, specifically
+        ///   designed for the AirCrewMainView instead of MainWindow.
+        /// 
+        /// - The purpose is to organize ChildViews related to the AirCrewMainView.
+        /// 
+        /// - While using a dedicated service or helper class for routing and 
+        ///   navigation is often considered a better practice, it might be 
+        ///   beyond the scope of our project. Therefore, we handle routing 
+        ///   and navigation in this way.
+        /// 
+        /// - Note: Using a dedicated service or helper class for routing and 
+        ///   navigation is an alternative approach that may provide better 
+        ///   maintainability, especially in larger or more complex projects.
+        /// </summary>
+        //**************************************************************************//
 
-
-        // Properties 
+        //------------------------------Properties------------------------------------------------------------------------------------//    
 
         private ViewModelBase _currentChildView;
         private string _caption;
@@ -61,8 +61,7 @@ namespace FlyveLægeKBH.ViewModels
                 _caption = value;
                 OnPropertyChanged(nameof(Caption));
             }
-        }
-                
+        }                
 
         public IconChar Icon
         {
@@ -74,18 +73,18 @@ namespace FlyveLægeKBH.ViewModels
             }
         }
 
-        // Commands
+        //------------------------------Commands------------------------------------------------------------------------------------// 
         public ICommand ShowAirCrewViewCommand { get; }
         public ICommand ShowAppointmentViewCommand { get; }
 
-        // Constructor
+        //------------------------------Constructor------------------------------------------------------------------------------------// 
         public AirCrewMainViewModel()
         {
             ShowAirCrewViewCommand = new CommandBase(ExecuteShowAirCrewViewCommand);
             ShowAppointmentViewCommand = new CommandBase(ExecuteShowAppointmentViewCommand);
         }
 
-        // Methods
+        //------------------------------Methods------------------------------------------------------------------------------------// 
         private void ExecuteShowAirCrewViewCommand(object obj)
         {
             CurrentChildView = new AirCrewViewModel();
@@ -99,7 +98,5 @@ namespace FlyveLægeKBH.ViewModels
             Caption = "Booking Site";
             Icon = IconChar.CalendarCheck;
         }
-
-
     }   
 }

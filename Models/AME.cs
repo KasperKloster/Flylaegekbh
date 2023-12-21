@@ -10,13 +10,6 @@ namespace FlyveLægeKBH.Models
     {
         //---------------------Fields--------------------------------------------------------------        
         public string UserTitle { get; private set; } = Title.Titles[0];
-        //public AuthorizationLevelEnum AuthorizationLevel { get; private set; }
-
-        //---------------------Constructor--------------------------------------------------------------        
-        //public AME(AuthorizationLevelEnum authorizationLevel) {
-        //    AuthorizationLevel = authorizationLevel;
-        //}
-
-        //Grunden til denne er udkommenteret, er fordi vi håndtere AutorizationLevel i DB. Gennem stored Procedures
+        
     }
 }
