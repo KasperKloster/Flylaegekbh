@@ -154,11 +154,11 @@ namespace FlyveLægeKBH.Repos
                                    $"forlængelse. Ved ændring af styrke, så skal  din brille- eller linsestyrke fra optikeren eller øjenlægen medbringes. " +
                                    $"\r\n \r\n\r\nEr du i tvivl om ovenstående er du velkommen til at kontakte os. ";
 
-                //string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                //string relativePath = Path.Combine(baseDirectory, "Attachments", "Application form for a medical certificate CL 3.pdf");
-                string ap = "C:\\Users\\Bright\\source\\repos\\KasperKloster\\Flylaegekbh\\bin\\Debug\\net6.0-windows\\Attachements\\Application form for a medical certificate CL 3.pdf";
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string relativePath = Path.Combine(baseDirectory, "Attachements\\Application form for a medical certificate CL 3.pdf");
+                //string ap = "C:\\Users\\Bright\\source\\repos\\KasperKloster\\Flylaegekbh\\bin\\Debug\\net6.0-windows\\Attachements\\Application form for a medical certificate CL 3.pdf";
 
-                Attachment attachment1 = new Attachment(ap);
+                Attachment attachment1 = new Attachment(relativePath);
 
                 mailMessage.Attachments.Add(attachment1);
 
